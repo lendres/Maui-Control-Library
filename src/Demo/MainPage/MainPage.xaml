@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+	xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+	xmlns:local="clr-namespace:MenuTest"
+	x:Class="MenuTest.MainPage">
+
+	<ContentPage.BindingContext>
+		<local:MainViewModel/>
+	</ContentPage.BindingContext>
+
+	<ContentPage.MenuBarItems>
+		<MenuBarItem Text="Menu Flyout Item">
+			<MenuFlyoutItem Text="Original Item" />
+			<MenuFlyoutSubItem Text="Flyout">
+				<MenuFlyoutItem Text="Original Sub Item" />
+			</MenuFlyoutSubItem>
+		</MenuBarItem>
+	</ContentPage.MenuBarItems>
+
+    <ScrollView>
+		<VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+
+            <Label
+                Text="Menu Test"
+                Style="{StaticResource SubHeadline}" />
+
+			<Button
+				Text="Add Fly Out Item"
+				Command="{Binding AddFlyOutItemCommand}"
+				IsEnabled="{Binding CanAddFlyoutItem}"/>
+
+			<Button
+				Text="Remove Fly Out Item"
+				Command="{Binding RemoveFlyOutItemCommand}"
+				IsEnabled="{Binding CanRemoveFlyoutItem}"/>
+
+			<Button
+				Text="Add Fly Out Sub Item"
+				Command="{Binding AddFlyOutSubItemCommand}"
+				IsEnabled="{Binding CanAddFlyoutSubItem}"/>
+
+			<Button
+				Text="Remove FlyOut Sub Item"
+				Command="{Binding RemoveFlyOutSubItemCommand}"
+				IsEnabled="{Binding CanRemoveFlyoutSubItem}"/>
+
+		</VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
