@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using MauiDynamicMenus;
+using CommunityToolkit.Maui;
 
 namespace DynamicMenuDemo;
 
@@ -10,6 +11,7 @@ public static class MauiProgram
         MauiAppBuilder builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
+			.UseMauiCommunityToolkit()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

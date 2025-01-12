@@ -47,8 +47,8 @@ public class MenuService : IMenuService
 		{
 			itemToAdd.KeyboardAccelerators.Add(new KeyboardAccelerator()
 			{
-				Modifiers = modifiers,
-				Key = shortCutKey
+				Modifiers	= modifiers,
+				Key			= shortCutKey
 			});
 		}
 

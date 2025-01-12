@@ -15,13 +15,7 @@ public partial class MainViewModel : ObservableObject
 	private bool						_canAddFlyoutItem;
 
 	[ObservableProperty]
-	private bool						_canRemoveFlyoutItem;
-
-	[ObservableProperty]
 	private bool						_canAddFlyoutSubItem;
-
-	[ObservableProperty]
-	private bool						_canRemoveFlyoutSubItem;
 
 	#endregion
 
@@ -47,16 +41,6 @@ public partial class MainViewModel : ObservableObject
 	}
 
 	#endregion
-
-	partial void OnCanAddFlyoutItemChanged(bool value)
-	{
-		CanRemoveFlyoutItem = !value;
-	}
-
-	partial void OnCanAddFlyoutSubItemChanged(bool value)
-	{
-		CanRemoveFlyoutSubItem = !value;
-	}
 
 	private void ShowSelectedMessage(string commandName)
 	{
