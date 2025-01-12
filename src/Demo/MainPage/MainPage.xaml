@@ -46,7 +46,7 @@
 			<Button
 				Text="Remove FlyOut Sub Item"
 				Command="{Binding RemoveFlyOutSubItemCommand}"
-				IsEnabled="{Binding CanAddFlyoutItem, Converter={StaticResource InvertedBoolConverter}}"/>
+				IsEnabled="{Binding CanAddFlyoutSubItem, Converter={StaticResource InvertedBoolConverter}}"/>
 
 		</VerticalStackLayout>
     </ScrollView>

@@ -36,8 +36,11 @@ public partial class MainViewModel : ObservableObject
 
 	public Page? MenuHostingPage
 	{
-		get => _menuService.MenuHostingPage;
-		set => _menuService.MenuHostingPage = value;
+		set
+		{
+			_menuService.HostingPage	= value;
+			_dialogService.HostingPage	= value;
+		}
 	}
 
 	#endregion
@@ -80,6 +83,5 @@ public partial class MainViewModel : ObservableObject
 	{
 		_menuService.RemoveMenuFlyoutItemFromSubMenu("Flyout", "Added Sub Item");
 		CanAddFlyoutSubItem = true;
-
 	}
 }
