@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 
-namespace MenuTest;
+namespace DynamicMenuDemo;
 
 public partial class MainPage : ContentPage
 {

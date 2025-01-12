@@ -1,4 +1,4 @@
-﻿namespace MenuTest;
+﻿namespace DynamicMenuDemo;
 
 public partial class AppShell : Shell
 {

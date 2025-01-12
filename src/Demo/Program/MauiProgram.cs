@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using MauiDynamicMenus;
 
-namespace MenuTest;
+namespace DynamicMenuDemo;
 
 public static class MauiProgram
 {
