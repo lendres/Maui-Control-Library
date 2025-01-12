@@ -42,8 +42,8 @@ public partial class MainViewModel : ObservableObject
 
 	public Page? MenuHostingPage
 	{
-		get => _menuService.MenuHostingPage;
-		set => _menuService.MenuHostingPage = value;
+		get => _menuService.HostingPage;
+		set => _menuService.HostingPage = value;
 	}
 
 	#endregion
