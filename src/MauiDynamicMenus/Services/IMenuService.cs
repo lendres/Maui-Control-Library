@@ -1,4 +1,5 @@
 using System.Windows.Input;
+
 namespace MauiDynamicMenus;
 
 public interface IMenuService
