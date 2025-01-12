@@ -4,7 +4,7 @@ namespace MauiDynamicMenus;
 
 public interface IMenuService
 {
-	Page? MenuHostingPage { get;  set; }
+	Page? HostingPage { get;  set; }
 
     bool MenuFlyoutItemExists(string name);
     void AddMenuFlyoutItem(string menu, string name, Action execute, int position = -1, KeyboardAcceleratorModifiers modifiers = KeyboardAcceleratorModifiers.None, string? shortCutKey = null);

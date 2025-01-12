@@ -15,13 +15,7 @@ public partial class MainViewModel : ObservableObject
 	private bool						_canAddFlyoutItem;
 
 	[ObservableProperty]
-	private bool						_canRemoveFlyoutItem;
-
-	[ObservableProperty]
 	private bool						_canAddFlyoutSubItem;
-
-	[ObservableProperty]
-	private bool						_canRemoveFlyoutSubItem;
 
 	#endregion
 
@@ -42,21 +36,14 @@ public partial class MainViewModel : ObservableObject
 
 	public Page? MenuHostingPage
 	{
-		get => _menuService.MenuHostingPage;
-		set => _menuService.MenuHostingPage = value;
+		set
+		{
+			_menuService.HostingPage	= value;
+			_dialogService.HostingPage	= value;
+		}
 	}
 
 	#endregion
-
-	partial void OnCanAddFlyoutItemChanged(bool value)
-	{
-		CanRemoveFlyoutItem = !value;
-	}
-
-	partial void OnCanAddFlyoutSubItemChanged(bool value)
-	{
-		CanRemoveFlyoutSubItem = !value;
-	}
 
 	private void ShowSelectedMessage(string commandName)
 	{
@@ -96,6 +83,5 @@ public partial class MainViewModel : ObservableObject
 	{
 		_menuService.RemoveMenuFlyoutItemFromSubMenu("Flyout", "Added Sub Item");
 		CanAddFlyoutSubItem = true;
-
 	}
 }
