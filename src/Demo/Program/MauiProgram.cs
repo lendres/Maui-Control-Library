@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using MauiDynamicMenus;
+using CommunityToolkit.Maui;
 
 namespace DynamicMenuDemo;
 
@@ -10,6 +11,7 @@ public static class MauiProgram
         MauiAppBuilder builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
+			.UseMauiCommunityToolkit()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -21,6 +23,7 @@ public static class MauiProgram
 		#endif
 
 		CreateService(builder.Services);
+		CreateViewModels(builder.Services);
 
         return builder.Build();
     }
@@ -30,4 +33,9 @@ public static class MauiProgram
 		services.AddSingleton<IDialogService, DialogService>();
 		services.AddSingleton<IMenuService, MenuService>();
 	}
+
+    private static void CreateViewModels(IServiceCollection services)
+    {
+        services.AddSingleton<MainViewModel>();
+    }
 }

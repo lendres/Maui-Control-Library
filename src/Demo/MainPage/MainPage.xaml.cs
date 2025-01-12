@@ -4,10 +4,10 @@ namespace DynamicMenuDemo;
 
 public partial class MainPage : ContentPage
 {
-    public MainPage()
+    public MainPage(MainViewModel viewModel)
     {
         InitializeComponent();
-		MainViewModel viewModel = BindingContext as MainViewModel;
-		viewModel.MenuHostingPage = this;
+		BindingContext				= viewModel;
+		viewModel.MenuHostingPage	= this;
     }
 }

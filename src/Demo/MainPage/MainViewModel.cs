@@ -1,99 +1,76 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MauiDynamicMenus;
 
 namespace DynamicMenuDemo;
 
 public partial class MainViewModel : ObservableObject
 {
-	public Page? MenuHostingPage { get;  set; }
+	#region Fields
+
+	private readonly IDialogService		_dialogService;
+	private readonly IMenuService		_menuService;
 
 	[ObservableProperty]
-	private bool    _canAddFlyoutItem;
+	private bool						_canAddFlyoutItem;
 
 	[ObservableProperty]
-	private bool    _canRemoveFlyoutItem;
+	private bool						_canAddFlyoutSubItem;
 
-	[ObservableProperty]
-	private bool    _canAddFlyoutSubItem;
+	#endregion
 
-	[ObservableProperty]
-	private bool    _canRemoveFlyoutSubItem;
+	#region Construction
 
-	public MainViewModel()
+	public MainViewModel(IDialogService dialogService, IMenuService menuService)
     {
+		_dialogService		= dialogService;
+		_menuService		= menuService;
+
 		CanAddFlyoutItem	= true;
 		CanAddFlyoutSubItem	= true;
 	}
 
-	partial void OnCanAddFlyoutItemChanged(bool value)
+	#endregion
+
+	#region Properties
+
+	public Page? MenuHostingPage
 	{
-		CanRemoveFlyoutItem = !value;
+		set
+		{
+			_menuService.HostingPage	= value;
+			_dialogService.HostingPage	= value;
+		}
 	}
 
-	partial void OnCanAddFlyoutSubItemChanged(bool value)
+	#endregion
+
+	private void ShowSelectedMessage(string commandName)
 	{
-		CanRemoveFlyoutSubItem = !value;
+		_dialogService.ShowMessage("MenuFlyoutItem clicked", $"Executing {commandName} showing this message.", "OK");
 	}
 
 	[RelayCommand]
-	async void AddFlyOutItem()
+	void AddFlyOutItem()
 	{
-		MenuBarItem menuBarItem = GetMenuBarItem();
-
-        MenuFlyoutItem itemToAdd = new()
-		{
-            Text = "Added Item", 
-        };
-		menuBarItem.Add(itemToAdd);
-
+		_menuService.AddMenuFlyoutItem("Menu Flyout Item", "Added Item", ()=> ShowSelectedMessage("Added Item"));
 		CanAddFlyoutItem = false;
 	}
 
 	[RelayCommand]
-	async void RemoveFlyOutItem()
+	void RemoveFlyOutItem()
 	{
-		MenuBarItem menuBarItem = GetMenuBarItem();
-		var itemToRemove = GetMenuFlyoutItem("Added Item");
-		menuBarItem.Remove(itemToRemove);
+		_menuService.RemoveMenuFlyoutItem("Menu Flyout Item", "Added Item");
 		CanAddFlyoutItem = true;
 	}
 
-	private MenuBarItem GetMenuBarItem()
-	{
-		return MenuHostingPage.MenuBarItems.ToList().SingleOrDefault(menuBarItem => menuBarItem.Text == "Menu Flyout Item");
-	}
-
-    public IMenuFlyoutItem? GetMenuFlyoutItem(string name)
-    {
-        IMenuFlyoutItem? result = null;
-
-        MenuHostingPage.MenuBarItems.ToList().ForEach(menuBarItem =>
-        {
-			IMenuElement? foundItem = menuBarItem.SingleOrDefault(menuElement => menuElement is MenuFlyoutItem menuItem && menuItem.Text == name);
-
-            if (foundItem != null)
-			{
-                result = foundItem as MenuFlyoutItem;
-			}
-        });
-            
-        return result;
-    }
-
 	[RelayCommand]
-	async void AddFlyOutSubItem()
+	void AddFlyOutSubItem()
 	{
-		MenuFlyoutSubItem menuFlyoutSubItem = GetSubMenu("Flyout");
-
-		MenuFlyoutItem itemToAdd = new()
-		{
-			Text = "Added Sub Item",
-			IsEnabled = true,
-			Parent = menuFlyoutSubItem
-		};
-		menuFlyoutSubItem.Add(itemToAdd);
+		_menuService.AddMenuFlyoutItemToSubMenu("Flyout", "Added Sub Item", ()=> ShowSelectedMessage("Added Sub Item"));
 		CanAddFlyoutSubItem = false;
 
+		IMenuFlyoutSubItem menuFlyoutSubItem = _menuService.GetSubMenu("Flyout")!;
 		System.Diagnostics.Debug.WriteLine("");
 		foreach (var item in menuFlyoutSubItem)
 		{
@@ -102,36 +79,9 @@ public partial class MainViewModel : ObservableObject
 	}
 
 	[RelayCommand]
-	async void RemoveFlyOutSubItem()
+	void RemoveFlyOutSubItem()
 	{
-		MenuFlyoutSubItem parentSubMenu = GetSubMenu("Flyout");
-		var itemToRemove = GetSubMenuFlyoutItem(parentSubMenu, "Added Sub Item");
-		parentSubMenu.Remove(itemToRemove);
-
+		_menuService.RemoveMenuFlyoutItemFromSubMenu("Flyout", "Added Sub Item");
 		CanAddFlyoutSubItem = true;
-
-		System.Diagnostics.Debug.WriteLine("Removed: "+itemToRemove.Text);
-	}
-
-	public MenuFlyoutSubItem? GetSubMenu(string name)
-	{
-		MenuFlyoutSubItem? result = null;
-
-		MenuHostingPage.MenuBarItems.ToList().ForEach(menuBarItem =>
-		{
-			var foundItem = menuBarItem.SingleOrDefault(menuElement => menuElement is MenuFlyoutSubItem subMenu && subMenu.Text == name);
-
-			if (foundItem != null)
-			{
-				result = foundItem as MenuFlyoutSubItem;
-			}
-		});
-
-		return result;
-	}
-
-	public IMenuFlyoutItem? GetSubMenuFlyoutItem(MenuFlyoutSubItem parentSubMenu, string name)
-	{
-		return parentSubMenu?.SingleOrDefault(element => element.Text == name) as MenuFlyoutItem;
 	}
 }

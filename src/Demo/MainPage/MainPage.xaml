@@ -6,9 +6,9 @@
 	xmlns:local="clr-namespace:DynamicMenuDemo"
 	x:Class="DynamicMenuDemo.MainPage">
 
-	<ContentPage.BindingContext>
-		<local:MainViewModel/>
-	</ContentPage.BindingContext>
+	<ContentPage.Resources>
+		<toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter"/>
+	</ContentPage.Resources>
 
 	<ContentPage.MenuBarItems>
 		<MenuBarItem Text="Menu Flyout Item">
@@ -36,7 +36,7 @@
 			<Button
 				Text="Remove Fly Out Item"
 				Command="{Binding RemoveFlyOutItemCommand}"
-				IsEnabled="{Binding CanRemoveFlyoutItem}"/>
+				IsEnabled="{Binding CanAddFlyoutItem, Converter={StaticResource InvertedBoolConverter}}"/>
 
 			<Button
 				Text="Add Fly Out Sub Item"
@@ -46,7 +46,7 @@
 			<Button
 				Text="Remove FlyOut Sub Item"
 				Command="{Binding RemoveFlyOutSubItemCommand}"
-				IsEnabled="{Binding CanRemoveFlyoutSubItem}"/>
+				IsEnabled="{Binding CanAddFlyoutSubItem, Converter={StaticResource InvertedBoolConverter}}"/>
 
 		</VerticalStackLayout>
     </ScrollView>
