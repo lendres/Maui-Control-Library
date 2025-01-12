@@ -6,10 +6,6 @@
 	xmlns:local="clr-namespace:DynamicMenuDemo"
 	x:Class="DynamicMenuDemo.MainPage">
 
-	<ContentPage.BindingContext>
-		<local:MainViewModel/>
-	</ContentPage.BindingContext>
-
 	<ContentPage.MenuBarItems>
 		<MenuBarItem Text="Menu Flyout Item">
 			<MenuFlyoutItem Text="Original Item" />
