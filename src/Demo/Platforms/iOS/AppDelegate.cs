@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace DynamicMenuDemo;
+namespace MenuDemo;
 
 [Register("AppDelegate")]
 public class AppDelegate : MauiUIApplicationDelegate

@@ -1,4 +1,4 @@
-namespace MauiDynamicMenus;
+namespace DigitalProduction.Maui.DynamicMenus;
 
 public interface IDialogService
 {

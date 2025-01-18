@@ -4,7 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 using UIKit;
 #endif
 
-namespace MauiDynamicMenus;
+namespace DigitalProduction.Maui.DynamicMenus;
 
 public class MenuService : IMenuService
 {
@@ -25,19 +25,15 @@ public class MenuService : IMenuService
 			throw new InvalidOperationException($"{nameof(HostingPage)} must not be null");
 		}
 
-		MenuBarItem? menuBarItem = HostingPage.MenuBarItems.ToList().SingleOrDefault(menuBarItem => menuBarItem.Text == menu);
-
-		if (menuBarItem == null)
-		{
+		MenuBarItem? menuBarItem = HostingPage.MenuBarItems.ToList().SingleOrDefault(menuBarItem => menuBarItem.Text == menu) ??
 			throw new InvalidOperationException($"no MenuBarItem with text {menu} found in current application menu");
-		}
 
 		if (menuBarItem.Any(element => element.Text == name))
 		{
 			throw new InvalidOperationException($"MenuBarItem with text {menu} contains already an item with text '{name}'");
 		}
 
-		MenuFlyoutItem itemToAdd = new MenuFlyoutItem()
+		MenuFlyoutItem itemToAdd = new()
 		{
 			Text	= name,
 			Command	= new RelayCommand(execute)
@@ -93,19 +89,11 @@ public class MenuService : IMenuService
 			throw new InvalidOperationException($"{nameof(HostingPage)} must not be null");
 		}
 
-		MenuBarItem? menuBarItem = HostingPage.MenuBarItems.ToList().SingleOrDefault(menuBarItem => menuBarItem.Text == menu);
-
-		if (menuBarItem == null)
-		{
+		MenuBarItem? menuBarItem = HostingPage.MenuBarItems.ToList().SingleOrDefault(menuBarItem => menuBarItem.Text == menu) ??
 			throw new InvalidOperationException($"no MenuBarItem with text {menu} found in current application menu");
-		}
 
-		IMenuFlyoutItem? itemToRemove = GetMenuFlyoutItem(name);
-
-		if (itemToRemove == null)
-		{
+		IMenuFlyoutItem? itemToRemove = GetMenuFlyoutItem(name) ??
 			throw new InvalidOperationException($"no MenuFlyoutItem with text {name} found in MenuBarItem with text {menu}");
-		}
 
 		menuBarItem.Remove(itemToRemove);
 
@@ -148,19 +136,15 @@ public class MenuService : IMenuService
 
 	public void AddMenuFlyoutItemToSubMenu(string parentSubMenu, string name, Action execute, int position = -1, KeyboardAcceleratorModifiers modifiers = KeyboardAcceleratorModifiers.None, string? shortCutKey = null)
 	{
-		IMenuFlyoutSubItem subMenu = GetSubMenu(parentSubMenu);
-
-		if (subMenu == null)
-		{
+		IMenuFlyoutSubItem? subMenu = GetSubMenu(parentSubMenu) ??
 			throw new InvalidOperationException($"no MenuFlyoutSubItem with text {parentSubMenu} found in current application menu");
-		}
 
 		if (MenuFlyoutItemInSubMenuExists(parentSubMenu, name))
 		{
 			throw new InvalidOperationException($"MenuFlyoutSubItem with text {parentSubMenu} contains already an item with text '{name}'");
 		}
 
-		MenuFlyoutItem itemToAdd = new MenuFlyoutItem()
+		MenuFlyoutItem itemToAdd = new()
 		{
 			Text	= name,
 			Command	= new RelayCommand(execute)
@@ -196,19 +180,11 @@ public class MenuService : IMenuService
 
 	public void RemoveMenuFlyoutItemFromSubMenu(string parentSubMenu, string name)
 	{
-		IMenuFlyoutSubItem? subMenu = GetSubMenu(parentSubMenu);
-
-		if (subMenu == null)
-		{
+		IMenuFlyoutSubItem? subMenu = GetSubMenu(parentSubMenu) ??
 			throw new InvalidOperationException($"no MenuFlyoutSubItem with text {parentSubMenu} found in current application menu");
-		}
 
-		IMenuFlyoutItem? itemToRemove = GetMenuFlyoutItemInSubMenu(parentSubMenu, name);
-
-		if (itemToRemove == null)
-		{
+		IMenuFlyoutItem? itemToRemove = GetMenuFlyoutItemInSubMenu(parentSubMenu, name) ??
 			throw new InvalidOperationException($"no MenuFlyoutItem with text {name} and parent MenuFlyoutSubItem with text {parentSubMenu} found in current application menu");
-		}
 
 		subMenu.Remove(itemToRemove);
 
