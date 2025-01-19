@@ -1,6 +1,6 @@
 using System.Windows.Input;
 
-namespace MauiDynamicMenus;
+namespace DigitalProduction.Maui.DynamicMenus;
 
 public interface IMenuService
 {

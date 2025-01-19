@@ -1,4 +1,4 @@
-﻿namespace DynamicMenuDemo;
+﻿namespace MenuDemo;
 
 public partial class App : Application
 {

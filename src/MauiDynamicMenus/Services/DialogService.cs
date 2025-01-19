@@ -1,4 +1,4 @@
-namespace MauiDynamicMenus;
+namespace DigitalProduction.Maui.DynamicMenus;
 
 public class DialogService : IDialogService
 {
@@ -6,6 +6,6 @@ public class DialogService : IDialogService
 
 	public void ShowMessage(string title, string message, string closeButtonText)
 	{
-		HostingPage.DisplayAlert(title, message, closeButtonText);
+		HostingPage?.DisplayAlert(title, message, closeButtonText);
 	}
 }

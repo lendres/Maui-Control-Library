@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
-using MauiDynamicMenus;
+using DigitalProduction.Maui.DynamicMenus;
 using CommunityToolkit.Maui;
 
-namespace DynamicMenuDemo;
+namespace MenuDemo;
 
 public static class MauiProgram
 {

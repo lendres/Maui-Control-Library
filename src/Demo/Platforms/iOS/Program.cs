@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace DynamicMenuDemo;
+namespace MenuDemo;
 
 public class Program
 {

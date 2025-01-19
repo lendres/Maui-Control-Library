@@ -1,8 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using MauiDynamicMenus;
+using DigitalProduction.Maui.DynamicMenus;
 
-namespace DynamicMenuDemo;
+namespace MenuDemo;
 
 public partial class MainViewModel : ObservableObject
 {
