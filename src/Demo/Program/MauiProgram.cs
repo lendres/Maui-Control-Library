@@ -1,41 +1,59 @@
-﻿using Microsoft.Extensions.Logging;
-using DigitalProduction.Maui.DynamicMenus;
-using CommunityToolkit.Maui;
+﻿using CommunityToolkit.Maui;
+using CommunityToolkit.Maui.ApplicationModel;
+using CommunityToolkit.Maui.Markup;
+using CommunityToolkit.Maui.Media;
+using CommunityToolkit.Maui.Storage;
+using DPMauiDemo.ViewModels;
+using DPMauiDemo.Pages;
+using DPMauiDemo.ViewModels;
+using Microsoft.Extensions.Logging;
 
-namespace MenuDemo;
+namespace DPMauiDemo;
 
 public static class MauiProgram
 {
-    public static MauiApp CreateMauiApp()
-    {
-        MauiAppBuilder builder = MauiApp.CreateBuilder();
-        builder
-            .UseMauiApp<App>()
+	public static MauiApp CreateMauiApp()
+	{
+		var builder = MauiApp.CreateBuilder();
+		builder
+			.UseMauiApp<App>()
 			.UseMauiCommunityToolkit()
-            .ConfigureFonts(fonts =>
-            {
-                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-            });
+			.UseMauiCommunityToolkitMarkup()
+			.ConfigureFonts(fonts =>
+			{
+				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+			});
 
+		RegisterViewsAndViewModels(builder.Services);
+		RegisterEssentials(builder.Services);
 		#if DEBUG
-    		builder.Logging.AddDebug();
+			builder.Logging.AddDebug();
 		#endif
 
-		CreateService(builder.Services);
-		CreateViewModels(builder.Services);
-
-        return builder.Build();
-    }
-
-	private static void CreateService(IServiceCollection services)
-	{
-		services.AddSingleton<IDialogService, DialogService>();
-		services.AddSingleton<IMenuService, MenuService>();
+		return builder.Build();
 	}
 
-    private static void CreateViewModels(IServiceCollection services)
-    {
-        services.AddSingleton<MainViewModel>();
-    }
+	static void RegisterViewsAndViewModels(in IServiceCollection services)
+	{
+		services.AddTransient<ControlsGalleryPage, ControlsGalleryViewModel>();
+		services.AddTransientWithShellRoute<AboutPage, AboutPageViewModel>();
+	}
+
+	static IServiceCollection AddTransientWithShellRoute<TPage, TViewModel>(this IServiceCollection services) where TPage : BasePage<TViewModel>
+																												where TViewModel : BaseViewModel
+	{
+		return services.AddTransientWithShellRoute<TPage, TViewModel>(AppShell.GetPageRoute<TViewModel>());
+	}
+
+	static void RegisterEssentials(in IServiceCollection services)
+	{
+		services.AddSingleton<IDeviceDisplay>(DeviceDisplay.Current);
+		services.AddSingleton<IDeviceInfo>(DeviceInfo.Current);
+		services.AddSingleton<IFileSaver>(FileSaver.Default);
+		services.AddSingleton<IFolderPicker>(FolderPicker.Default);
+		services.AddSingleton<IBadge>(Badge.Default);
+		services.AddSingleton<ISpeechToText>(SpeechToText.Default);
+		services.AddSingleton<ITextToSpeech>(TextToSpeech.Default);
+	}
 }
