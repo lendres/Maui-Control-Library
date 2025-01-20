@@ -5,19 +5,28 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:DPMauiDemo.Pages"
 
-    Title="DPMauiDemo">
+    Title="Examples">
+	<!--
+	FlyoutBehavior="{OnPlatform WinUI=Locked, Default=Flyout}"
+	FlyoutBackgroundColor="{OnPlatform	WinUI=Transparent,
+										Default={AppThemeBinding Light= White, Dark= Black}}"
+			IsVisible="{OnPlatform WinUI=false, Default=true}"
+-->
 
 	<Shell.FlyoutHeader>
-		<Label Margin="{OnPlatform Default='0,0,0,12',
-                                   iOS='0',
-                                   MacCatalyst='0'}"
-               Padding="{OnPlatform Default='4,0',
-                                    iOS='4, 100, 4, 0',
-                                    MacCatalyst='4, 100, 4, 0'}"
-               FontSize="24"
-               HorizontalTextAlignment="Start"
-               Text="Examples"
-               VerticalTextAlignment="Center"/>
+		<Label
+			Margin="{OnPlatform Default='0,0,0,12',
+								iOS='0',
+								MacCatalyst='0'}"
+			Padding="{OnPlatform	Default='4,0',
+									iOS='4, 100, 4, 0',
+									WinUI='20, 0',
+									MacCatalyst='4, 100, 4, 0'}"
+			FontSize="20"
+			HorizontalTextAlignment="Start"
+
+			Text="Examples"
+			VerticalTextAlignment="Center"/>
 
 	</Shell.FlyoutHeader>
 
