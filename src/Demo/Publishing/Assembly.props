@@ -2,7 +2,7 @@
 <Project>
 	<PropertyGroup>
 		<Title>DigitalProduction.Maui</Title>
-		<Product>Maui Library Demonstration</Product>
+		<Product>DigitalProduction.Maui Demonstration</Product>
 		<Copyright>Lance A. Endres</Copyright>
 		<Company>Digital Production</Company>
 		<Description>A collection of classes, utilities, and controls for .Net Maui.</Description>
