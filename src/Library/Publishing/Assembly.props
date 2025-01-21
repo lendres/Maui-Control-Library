@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Project>
 	<PropertyGroup>
-		<Title>DigitralProduction.Maui.Controls</Title>
-		<Product>DigitralProduction.Maui.Controls</Product>
+		<Title>DigitralProduction.Maui</Title>
+		<Product>DigitralProduction.Maui</Product>
 		<Copyright>Lance A. Endres</Copyright>
 		<Company>Digital Production</Company>
-		<Description>A library of controls for .Net Maui.</Description>
+		<Description>A library of controls and sevices for .Net Maui.</Description>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<AssemblyAttribute Include="DigitalProduction.Reflection.AuthorsAttribute">
-			<_Parameter1>Marco Siccardi, Lance A. Endres</_Parameter1>
+			<_Parameter1>Lance A. Endres</_Parameter1>
 		</AssemblyAttribute>
 	</ItemGroup>
 

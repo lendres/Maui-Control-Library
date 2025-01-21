@@ -17,12 +17,13 @@
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<PackageProjectUrl>https://github.com/lendres/Maui-Control-Library</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/lendres/DigitalProduction.Maui</PackageProjectUrl>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/lendres/Maui-Dynamic-Menu-Handling</RepositoryUrl>
 		<PackageTags>.Net, Maui, menu, dynamic, programmatically</PackageTags>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<Authors>Lance A. Endres</Authors>
+		<Title>$(AssemblyName)</Title>
 	</PropertyGroup>
 
 	<!-- Import information from the folder containing the project if the files exists -->
