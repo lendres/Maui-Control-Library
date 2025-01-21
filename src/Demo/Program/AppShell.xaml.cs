@@ -8,7 +8,7 @@ public partial class AppShell : Shell
 {
 	private static readonly IReadOnlyDictionary<Type, (Type GalleryPageType, Type ContentPageType)> viewModelMappings = new Dictionary<Type, (Type, Type)>(
 	[
-		CreateViewModelMapping<AboutPage, AboutPageViewModel, ControlsGalleryPage, ControlsGalleryViewModel>(),
+		CreateViewModelMapping<DynamicMenusPage, DynamicMenusPageViewModel, ControlsGalleryPage, ControlsGalleryViewModel>(),
 	]);
 
 	public AppShell()

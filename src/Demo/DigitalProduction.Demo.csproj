@@ -87,4 +87,10 @@
 	  <ProjectReference Include="..\Library\DigitalProduction.Maui.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Compile Update="Pages\DynamicMenusPage.xaml.cs">
+	    <DependentUpon>DynamicMenusPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
 </Project>

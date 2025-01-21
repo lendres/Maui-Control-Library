@@ -3,9 +3,9 @@ using DPMauiDemo.ViewModels;
 
 namespace DPMauiDemo.Pages;
 
-public partial class AboutPage : BasePage<AboutPageViewModel>
+public partial class DynamicMenusPage : BasePage<DynamicMenusPageViewModel>
 {
-	public AboutPage(AboutPageViewModel viewModel) :
+	public DynamicMenusPage(DynamicMenusPageViewModel viewModel) :
 		base(viewModel)
 	{
 		InitializeComponent();

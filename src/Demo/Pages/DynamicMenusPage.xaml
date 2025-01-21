@@ -4,10 +4,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:pages="clr-namespace:DPMauiDemo.Pages"
-    x:Class="DPMauiDemo.Pages.AboutPage"
+    x:Class="DPMauiDemo.Pages.DynamicMenusPage"
     xmlns:viewmodel="clr-namespace:DPMauiDemo.ViewModels"
-    x:TypeArguments="viewmodel:AboutPageViewModel"
-    x:DataType="viewmodel:AboutPageViewModel">
+    x:TypeArguments="viewmodel:DynamicMenusPageViewModel"
+    x:DataType="viewmodel:DynamicMenusPageViewModel"
+	Title="Dynamic Menus">
 		
     <pages:BasePage.Content>
 		<Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"

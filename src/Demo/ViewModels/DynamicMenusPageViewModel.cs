@@ -2,6 +2,6 @@
 
 namespace DPMauiDemo.ViewModels;
 
-public partial class AboutPageViewModel : BaseViewModel
+public partial class DynamicMenusPageViewModel : BaseViewModel
 {
 }
