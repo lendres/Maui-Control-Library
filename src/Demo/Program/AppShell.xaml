@@ -4,14 +4,10 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:DPMauiDemo.Pages"
-
-    Title="Examples">
-	<!--
 	FlyoutBehavior="{OnPlatform WinUI=Locked, Default=Flyout}"
 	FlyoutBackgroundColor="{OnPlatform	WinUI=Transparent,
 										Default={AppThemeBinding Light= White, Dark= Black}}"
-			IsVisible="{OnPlatform WinUI=false, Default=true}"
--->
+    Title="Examples">
 
 	<Shell.FlyoutHeader>
 		<Label
@@ -24,7 +20,7 @@
 									MacCatalyst='4, 100, 4, 0'}"
 			FontSize="20"
 			HorizontalTextAlignment="Start"
-
+			IsVisible="{OnPlatform WinUI=false, Default=true}"
 			Text="Examples"
 			VerticalTextAlignment="Center"/>
 
