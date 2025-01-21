@@ -1,6 +1,6 @@
-﻿using DPMauiDemo.ViewModels;
+﻿using DigitalProduction.Demo.ViewModels;
 
-namespace DPMauiDemo.Models;
+namespace DigitalProduction.Demo.Models;
 
 public sealed class SectionModel
 {

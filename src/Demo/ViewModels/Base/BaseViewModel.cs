@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace DPMauiDemo.ViewModels;
+namespace DigitalProduction.Demo.ViewModels;
 
 public abstract partial class BaseViewModel : ObservableObject
 {

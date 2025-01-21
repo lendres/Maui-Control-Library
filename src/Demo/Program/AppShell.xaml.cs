@@ -1,8 +1,8 @@
-﻿using DPMauiDemo.ViewModels;
-using DPMauiDemo.Pages;
-using DPMauiDemo.ViewModels;
+﻿using DigitalProduction.Demo.ViewModels;
+using DigitalProduction.Demo.Pages;
+using DigitalProduction.Demo.ViewModels;
 
-namespace DPMauiDemo;
+namespace DigitalProduction.Demo;
 
 public partial class AppShell : Shell
 {

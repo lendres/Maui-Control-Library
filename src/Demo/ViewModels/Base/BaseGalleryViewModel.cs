@@ -1,8 +1,8 @@
-﻿using DPMauiDemo.ViewModels;
-using DPMauiDemo.Models;
+﻿using DigitalProduction.Demo.ViewModels;
+using DigitalProduction.Demo.Models;
 using System.Diagnostics.CodeAnalysis;
 
-namespace DPMauiDemo.ViewModels;
+namespace DigitalProduction.Demo.ViewModels;
 
 public abstract class BaseGalleryViewModel : BaseViewModel
 {

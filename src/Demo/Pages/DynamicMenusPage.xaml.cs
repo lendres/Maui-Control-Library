@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Maui.Views;
-using DPMauiDemo.ViewModels;
+using DigitalProduction.Demo.ViewModels;
 
-namespace DPMauiDemo.Pages;
+namespace DigitalProduction.Demo.Pages;
 
 public partial class DynamicMenusPage : BasePage<DynamicMenusPageViewModel>
 {

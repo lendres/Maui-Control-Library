@@ -1,6 +1,6 @@
-﻿using DPMauiDemo.ViewModels;
+﻿using DigitalProduction.Demo.ViewModels;
 
-namespace DPMauiDemo.ViewModels;
+namespace DigitalProduction.Demo.ViewModels;
 
 public partial class DynamicMenusPageViewModel : BaseViewModel
 {
