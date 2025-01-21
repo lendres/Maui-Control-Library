@@ -5,19 +5,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:DPMauiDemo.Pages"
 	FlyoutBehavior="{OnPlatform WinUI=Locked, Default=Flyout}"
-	FlyoutBackgroundColor="{OnPlatform	WinUI=Transparent,
-										Default={AppThemeBinding Light= White, Dark= Black}}"
+	FlyoutBackgroundColor="{OnPlatform WinUI=Transparent, Default={AppThemeBinding Light= White, Dark= Black}}"
     Title="Examples">
 
 	<Shell.FlyoutHeader>
 		<Label
-			Margin="{OnPlatform Default='0,0,0,12',
-								iOS='0',
-								MacCatalyst='0'}"
-			Padding="{OnPlatform	Default='4,0',
-									iOS='4, 100, 4, 0',
-									WinUI='20, 0',
-									MacCatalyst='4, 100, 4, 0'}"
+			Margin="{OnPlatform Default='0,0,0,12', iOS='0', MacCatalyst='0'}" 
+			Padding="{OnPlatform Default='4,0', iOS='4, 100, 4, 0', WinUI='20, 0', MacCatalyst='4, 100, 4, 0'}"
 			FontSize="20"
 			HorizontalTextAlignment="Start"
 			IsVisible="{OnPlatform WinUI=false, Default=true}"
@@ -26,15 +20,17 @@
 
 	</Shell.FlyoutHeader>
 
-	<FlyoutItem Title="Welcome"
-                Route="WelcomePage"
-                Icon="{OnPlatform Default='dotnet_bot.png', MacCatalyst={x:Null}}">
+	<FlyoutItem 
+		Title="Welcome"
+		Route="WelcomePage"
+		Icon="{OnPlatform Default='dotnet_bot.png', MacCatalyst={x:Null}}">
 		<ShellContent ContentTemplate="{DataTemplate local:MainPage}"/>
 	</FlyoutItem>
 
-	<FlyoutItem Title="Controls"
-                Route="ControlsGalleryPage"
-                Icon="{OnPlatform Default='dotnet_bot.png', MacCatalyst={x:Null}}">
+	<FlyoutItem
+		Title="Controls"
+		Route="ControlsGalleryPage"
+		Icon="{OnPlatform Default='dotnet_bot.png', MacCatalyst={x:Null}}">
 		<ShellContent ContentTemplate="{DataTemplate local:ControlsGalleryPage}"/>
 	</FlyoutItem>
 
