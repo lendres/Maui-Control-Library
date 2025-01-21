@@ -3,7 +3,6 @@ using CommunityToolkit.Maui.ApplicationModel;
 using CommunityToolkit.Maui.Markup;
 using CommunityToolkit.Maui.Media;
 using CommunityToolkit.Maui.Storage;
-using DigitalProduction.Demo.ViewModels;
 using DigitalProduction.Demo.Pages;
 using DigitalProduction.Demo.ViewModels;
 using Microsoft.Extensions.Logging;
@@ -40,8 +39,9 @@ public static class MauiProgram
 		services.AddTransientWithShellRoute<DynamicMenusPage, DynamicMenusPageViewModel>();
 	}
 
-	static IServiceCollection AddTransientWithShellRoute<TPage, TViewModel>(this IServiceCollection services) where TPage : BasePage<TViewModel>
-																												where TViewModel : BaseViewModel
+	static IServiceCollection AddTransientWithShellRoute<TPage, TViewModel>(this IServiceCollection services)
+		where TPage : BasePage<TViewModel>
+		where TViewModel : BaseViewModel
 	{
 		return services.AddTransientWithShellRoute<TPage, TViewModel>(AppShell.GetPageRoute<TViewModel>());
 	}
