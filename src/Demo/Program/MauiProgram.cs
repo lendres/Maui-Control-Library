@@ -5,6 +5,7 @@ using CommunityToolkit.Maui.Media;
 using CommunityToolkit.Maui.Storage;
 using DigitalProduction.Demo.Pages;
 using DigitalProduction.Demo.ViewModels;
+using DigitalProduction.Maui.Services;
 using Microsoft.Extensions.Logging;
 
 namespace DigitalProduction.Demo;
@@ -26,6 +27,7 @@ public static class MauiProgram
 
 		RegisterViewsAndViewModels(builder.Services);
 		RegisterEssentials(builder.Services);
+		CreateServices(builder.Services);
 		#if DEBUG
 			builder.Logging.AddDebug();
 		#endif
@@ -33,20 +35,26 @@ public static class MauiProgram
 		return builder.Build();
 	}
 
-	static void RegisterViewsAndViewModels(in IServiceCollection services)
+	private static void RegisterViewsAndViewModels(in IServiceCollection services)
 	{
 		services.AddTransient<ControlsGalleryPage, ControlsGalleryViewModel>();
 		services.AddTransientWithShellRoute<DynamicMenusPage, DynamicMenusPageViewModel>();
 	}
 
-	static IServiceCollection AddTransientWithShellRoute<TPage, TViewModel>(this IServiceCollection services)
+	private static IServiceCollection AddTransientWithShellRoute<TPage, TViewModel>(this IServiceCollection services)
 		where TPage : BasePage<TViewModel>
 		where TViewModel : BaseViewModel
 	{
 		return services.AddTransientWithShellRoute<TPage, TViewModel>(AppShell.GetPageRoute<TViewModel>());
 	}
 
-	static void RegisterEssentials(in IServiceCollection services)
+	private static void CreateServices(IServiceCollection services)
+	{
+		services.AddSingleton<IDialogService, DialogService>();
+		services.AddSingleton<IMenuService, MenuService>();
+	}
+
+	private static void RegisterEssentials(in IServiceCollection services)
 	{
 		services.AddSingleton<IDeviceDisplay>(DeviceDisplay.Current);
 		services.AddSingleton<IDeviceInfo>(DeviceInfo.Current);

@@ -9,37 +9,50 @@
     x:TypeArguments="viewmodel:DynamicMenusPageViewModel"
     x:DataType="viewmodel:DynamicMenusPageViewModel"
 	Title="Dynamic Menus">
+
+	<ContentPage.Resources>
+		<toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter"/>
+	</ContentPage.Resources>
+
+	<ContentPage.MenuBarItems>
+		<MenuBarItem Text="Menu Flyout Item">
+			<MenuFlyoutItem Text="Original Item" />
+			<MenuFlyoutSubItem Text="Flyout">
+				<MenuFlyoutItem Text="Original Sub Item" />
+			</MenuFlyoutSubItem>
+		</MenuBarItem>
+	</ContentPage.MenuBarItems>
 		
-    <pages:BasePage.Content>
+    <!--<pages:BasePage.Content>-->
+	<ScrollView>
+		<VerticalStackLayout Padding="30,0" Spacing="25">
 
-		<Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
-              RowSpacing="5"
-              ColumnSpacing="5"
-              ColumnDefinitions="*">
-            
-            <Label Text="The AboutView1 is a popup that shows basic information about the application."
-                   Grid.Row="0"
-                   VerticalOptions="Start" 
-                   HorizontalOptions="FillAndExpand"/>
+			<Label
+                Text="Menu Test"
+                Style="{StaticResource SubHeadline}" />
 
-			<Label Grid.Row="1" Text="Add files to Publishing/Assembly.props and ./Publishing/Version.props. Add import lines to project file:"/>
-			<Label Grid.Row="2" Text="&lt;Import Project=&quot;$(MSBuildProjectDirectory)/Publishing/Assembly.props&quot; Condition=&quot;Exists('$(MSBuildProjectDirectory)/Publishing/Assembly.props')&quot; /&gt;"/>
-			<Label Grid.Row="3" Text="&lt;Import Project=&quot;$(MSBuildProjectDirectory)/Publishing/Version.props&quot; Condition=&quot;Exists('$(MSBuildProjectDirectory)/Publishing/Version.props')&quot; /&gt;"/>
-			<Label Grid.Row="4" Text="Remove from the project file:"/>
-			<Label Grid.Row="5" Text="Version/&gt;...&lt;/Version/&gt; &lt;Title>...&lt;/Title/&gt; &lt;Product>...&lt;/Product/&gt; &lt;ApplicationDisplayVersion&gt;...&lt;/ApplicationDisplayVersion&gt; &lt;ApplicationVersion&gt;...&lt;/ApplicationVersion&gt;"/>
-			<Label Grid.Row="6" Text="then save the project file and rebuild the solution."/>
+			<Button
+				Text="Add Fly Out Item"
+				Command="{Binding AddFlyOutItemCommand}"
+				IsEnabled="{Binding CanAddFlyoutItem}"/>
 
-			<Button Grid.Row="7"
-                    CornerRadius="23"
-                    HorizontalOptions="FillAndExpand"
-                    Clicked="OnButtonAbout1Clicked"
-                    Text="Show About Without Documentation"/>
+			<Button
+				Text="Remove Fly Out Item"
+				Command="{Binding RemoveFlyOutItemCommand}"
+				IsEnabled="{Binding CanAddFlyoutItem, Converter={StaticResource InvertedBoolConverter}}"/>
 
-			<Button Grid.Row="8"
-                    CornerRadius="23"
-                    HorizontalOptions="FillAndExpand"
-                    Clicked="OnButtonAbout2Clicked"
-                    Text="Show About With Documentation"/>
-        </Grid>
-    </pages:BasePage.Content>
+			<Button
+				Text="Add Fly Out Sub Item"
+				Command="{Binding AddFlyOutSubItemCommand}"
+				IsEnabled="{Binding CanAddFlyoutSubItem}"/>
+
+			<Button
+				Text="Remove FlyOut Sub Item"
+				Command="{Binding RemoveFlyOutSubItemCommand}"
+				IsEnabled="{Binding CanAddFlyoutSubItem, Converter={StaticResource InvertedBoolConverter}}"/>
+
+		</VerticalStackLayout>
+	</ScrollView>
+
+	<!--</pages:BasePage.Content>-->
 </pages:BasePage>

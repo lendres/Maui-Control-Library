@@ -9,6 +9,7 @@ public partial class DynamicMenusPage : BasePage<DynamicMenusPageViewModel>
 		base(viewModel)
 	{
 		InitializeComponent();
+		viewModel.MenuHostingPage	= this;
 	}
 
 	async void OnButtonAbout1Clicked(object? sender, EventArgs args)
