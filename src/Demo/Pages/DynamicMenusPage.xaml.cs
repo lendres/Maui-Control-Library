@@ -11,12 +11,4 @@ public partial class DynamicMenusPage : BasePage<DynamicMenusPageViewModel>
 		InitializeComponent();
 		viewModel.MenuHostingPage	= this;
 	}
-
-	async void OnButtonAbout1Clicked(object? sender, EventArgs args)
-	{
-	}
-
-	async void OnButtonAbout2Clicked(object? sender, EventArgs args)
-	{
-	}
 }
