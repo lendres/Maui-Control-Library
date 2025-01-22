@@ -1,10 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using DigitalProduction.Maui.DynamicMenus;
+using DigitalProduction.Maui.Services;
 
-namespace MenuDemo;
+namespace DigitalProduction.Demo.ViewModels;
 
-public partial class MainViewModel : ObservableObject
+public partial class DynamicMenusPageViewModel : BaseViewModel
 {
 	#region Fields
 
@@ -15,13 +15,19 @@ public partial class MainViewModel : ObservableObject
 	private bool						_canAddFlyoutItem;
 
 	[ObservableProperty]
+	private bool						_canRemoveFlyoutItem;
+
+	[ObservableProperty]
 	private bool						_canAddFlyoutSubItem;
+
+	[ObservableProperty]
+	private bool						_canRemoveFlyoutSubItem;
 
 	#endregion
 
-	#region Construction
+	#region Contruction
 
-	public MainViewModel(IDialogService dialogService, IMenuService menuService)
+	public DynamicMenusPageViewModel(IDialogService dialogService, IMenuService menuService)
     {
 		_dialogService		= dialogService;
 		_menuService		= menuService;
@@ -36,14 +42,27 @@ public partial class MainViewModel : ObservableObject
 
 	public Page? MenuHostingPage
 	{
+		get => _menuService.HostingPage;
 		set
 		{
-			_menuService.HostingPage	= value;
-			_dialogService.HostingPage	= value;
+			_menuService.HostingPage = value;
+			_dialogService.HostingPage = value;
 		}
 	}
 
 	#endregion
+
+	#region Methods
+
+	partial void OnCanAddFlyoutItemChanged(bool value)
+	{
+		CanRemoveFlyoutItem = !value;
+	}
+
+	partial void OnCanAddFlyoutSubItemChanged(bool value)
+	{
+		CanRemoveFlyoutSubItem = !value;
+	}
 
 	private void ShowSelectedMessage(string commandName)
 	{
@@ -72,7 +91,7 @@ public partial class MainViewModel : ObservableObject
 
 		IMenuFlyoutSubItem menuFlyoutSubItem = _menuService.GetSubMenu("Flyout")!;
 		System.Diagnostics.Debug.WriteLine("");
-		foreach (var item in menuFlyoutSubItem)
+		foreach (IMenuElement item in menuFlyoutSubItem)
 		{
 			System.Diagnostics.Debug.WriteLine(item.Text);
 		}
@@ -84,4 +103,6 @@ public partial class MainViewModel : ObservableObject
 		_menuService.RemoveMenuFlyoutItemFromSubMenu("Flyout", "Added Sub Item");
 		CanAddFlyoutSubItem = true;
 	}
+
+	#endregion
 }

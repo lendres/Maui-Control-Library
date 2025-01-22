@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Project>
 	<PropertyGroup>
-		<Title>Maui Dynamic Menus</Title>
-		<Product>Maui Dynamic Menus</Product>
-		<Copyright>Marco Siccardi, Lance A. Endres</Copyright>
+		<Title>DigitralProduction.Maui</Title>
+		<Product>DigitralProduction.Maui</Product>
+		<Copyright>Lance A. Endres</Copyright>
 		<Company>Digital Production</Company>
-		<Description>A library for programmatically working with menus in .Net Maui.</Description>
+		<Description>A library of controls and sevices for .Net Maui.</Description>
 	</PropertyGroup>
 
-	<!--<ItemGroup>
+	<ItemGroup>
 		<AssemblyAttribute Include="DigitalProduction.Reflection.AuthorsAttribute">
-			<_Parameter1>Marco Siccardi, Lance A. Endres</_Parameter1>
+			<_Parameter1>Lance A. Endres</_Parameter1>
 		</AssemblyAttribute>
 	</ItemGroup>
 
@@ -30,5 +30,5 @@
 		<AssemblyAttribute Include="DigitalProduction.Reflection.DocumentationAddressAttribute">
 			<_Parameter1>https://github.com/lendres/Maui-Dynamic-Menu-Handling/wiki</_Parameter1>
 		</AssemblyAttribute>
-	</ItemGroup>-->
+	</ItemGroup>
 </Project>
