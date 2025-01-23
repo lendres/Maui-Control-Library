@@ -1,6 +1,5 @@
 ﻿using DigitalProduction.Demo.ViewModels;
 using DigitalProduction.Demo.Pages;
-using DigitalProduction.Demo.ViewModels;
 
 namespace DigitalProduction.Demo;
 
