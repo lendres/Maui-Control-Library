@@ -4,7 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 using UIKit;
 #endif
 
-namespace DigitalProduction.Maui.DynamicMenus;
+namespace DigitalProduction.Maui.Services;
 
 public class MenuService : IMenuService
 {
