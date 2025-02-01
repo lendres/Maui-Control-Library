@@ -4,41 +4,22 @@ using DigitalProduction.Maui.Services;
 
 namespace DigitalProduction.Demo.ViewModels;
 
-public partial class DynamicMenusPageViewModel : BaseViewModel
+public partial class DynamicMenusPageViewModel(IDialogService dialogService, IMenuService menuService) : BaseViewModel
 {
 	#region Fields
 
-	private readonly IDialogService		_dialogService;
-	private readonly IMenuService		_menuService;
-
-	[ObservableProperty]
-	private bool						_canAddFlyoutItem;
-
-	[ObservableProperty]
-	private bool						_canRemoveFlyoutItem;
-
-	[ObservableProperty]
-	private bool						_canAddFlyoutSubItem;
-
-	[ObservableProperty]
-	private bool						_canRemoveFlyoutSubItem;
-
-	#endregion
-
-	#region Contruction
-
-	public DynamicMenusPageViewModel(IDialogService dialogService, IMenuService menuService)
-    {
-		_dialogService		= dialogService;
-		_menuService		= menuService;
-
-		CanAddFlyoutItem	= true;
-		CanAddFlyoutSubItem	= true;
-	}
+	private readonly IDialogService     _dialogService      = dialogService;
+	private readonly IMenuService       _menuService        = menuService;
 
 	#endregion
 
 	#region Properties
+
+	[ObservableProperty]
+	public partial bool					CanAddFlyoutItem { get; set; }		= true;
+
+	[ObservableProperty]
+	public partial bool					CanAddFlyoutSubItem { get; set; }	= true;
 
 	public Page? MenuHostingPage
 	{
@@ -53,16 +34,6 @@ public partial class DynamicMenusPageViewModel : BaseViewModel
 	#endregion
 
 	#region Methods
-
-	partial void OnCanAddFlyoutItemChanged(bool value)
-	{
-		CanRemoveFlyoutItem = !value;
-	}
-
-	partial void OnCanAddFlyoutSubItemChanged(bool value)
-	{
-		CanRemoveFlyoutSubItem = !value;
-	}
 
 	private void ShowSelectedMessage(string commandName)
 	{

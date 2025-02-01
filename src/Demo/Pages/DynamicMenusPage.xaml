@@ -23,7 +23,6 @@
 		</MenuBarItem>
 	</ContentPage.MenuBarItems>
 		
-    <!--<pages:BasePage.Content>-->
 	<ScrollView>
 		<VerticalStackLayout Padding="30,0" Spacing="25">
 
@@ -54,5 +53,4 @@
 		</VerticalStackLayout>
 	</ScrollView>
 
-	<!--</pages:BasePage.Content>-->
 </pages:BasePage>
