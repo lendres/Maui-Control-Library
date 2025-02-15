@@ -39,6 +39,7 @@ public static class MauiProgram
 	{
 		services.AddTransient<ControlsGalleryPage, ControlsGalleryViewModel>();
 		services.AddTransientWithShellRoute<DynamicMenusPage, DynamicMenusPageViewModel>();
+		services.AddTransientWithShellRoute<RecentlyUsedMenuPage, RecentlyUsedMenuPageViewModel>();
 	}
 
 	private static IServiceCollection AddTransientWithShellRoute<TPage, TViewModel>(this IServiceCollection services)

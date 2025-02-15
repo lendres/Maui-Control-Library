@@ -93,9 +93,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Pages\RecentlyUsedMenuPage.xaml.cs">
+	    <SubType>Code</SubType>
+	    <DependentUpon>RecentlyUsedMenuPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Pages\DynamicMenusPage.xaml.cs">
 	    <DependentUpon>DynamicMenusPage.xaml</DependentUpon>
 	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Pages\RecentlyUsedMenuPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

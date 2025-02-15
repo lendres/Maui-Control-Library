@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:pages="clr-namespace:DigitalProduction.Demo.Pages"
+    x:Class="DigitalProduction.Demo.Pages.RecentlyUsedMenuPage"
+    xmlns:viewmodel="clr-namespace:DigitalProduction.Demo.ViewModels"
+    x:TypeArguments="viewmodel:RecentlyUsedMenuPageViewModel"
+    x:DataType="viewmodel:RecentlyUsedMenuPageViewModel"
+	Title="Dynamic Menus">
+
+	<ContentPage.Resources>
+		<toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter"/>
+	</ContentPage.Resources>
+
+	<ContentPage.MenuBarItems>
+		<MenuBarItem Text="Menu Flyout Item">
+			<MenuFlyoutItem Text="Original Item" />
+			<MenuFlyoutSubItem Text="Flyout">
+				<MenuFlyoutItem Text="Original Sub Item" />
+			</MenuFlyoutSubItem>
+		</MenuBarItem>
+	</ContentPage.MenuBarItems>
+		
+	<ScrollView>
+		<VerticalStackLayout Padding="30,0" Spacing="25">
+
+			<Label
+                Text="Menu Test"
+                Style="{StaticResource SubHeadline}" />
+
+			<Button
+				Text="Add Fly Out Item"
+				Command="{Binding AddFlyOutItemCommand}"
+				IsEnabled="{Binding CanAddFlyoutItem}"/>
+
+			<Button
+				Text="Remove Fly Out Item"
+				Command="{Binding RemoveFlyOutItemCommand}"
+				IsEnabled="{Binding CanAddFlyoutItem, Converter={StaticResource InvertedBoolConverter}}"/>
+
+			<Button
+				Text="Add Fly Out Sub Item"
+				Command="{Binding AddFlyOutSubItemCommand}"
+				IsEnabled="{Binding CanAddFlyoutSubItem}"/>
+
+			<Button
+				Text="Remove FlyOut Sub Item"
+				Command="{Binding RemoveFlyOutSubItemCommand}"
+				IsEnabled="{Binding CanAddFlyoutSubItem, Converter={StaticResource InvertedBoolConverter}}"/>
+
+		</VerticalStackLayout>
+	</ScrollView>
+
+</pages:BasePage>

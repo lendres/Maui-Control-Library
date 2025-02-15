@@ -4,12 +4,12 @@ using DigitalProduction.Maui.Services;
 
 namespace DigitalProduction.Demo.ViewModels;
 
-public partial class DynamicMenusPageViewModel(IDialogService dialogService, IMenuService menuService) : BaseViewModel
+public partial class RecentlyUsedMenuPageViewModel(IDialogService dialogService, IMenuService menuService) : BaseViewModel
 {
 	#region Fields
 
-	private readonly IDialogService		_dialogService		= dialogService;
-	private readonly IMenuService		_menuService		= menuService;
+	private readonly IDialogService     _dialogService      = dialogService;
+	private readonly IMenuService       _menuService        = menuService;
 
 	#endregion
 
