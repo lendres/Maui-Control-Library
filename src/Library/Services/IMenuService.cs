@@ -6,16 +6,34 @@ public interface IMenuService
 {
 	Page? HostingPage { get;  set; }
 
-    bool MenuFlyoutItemExists(string name);
-    void AddMenuFlyoutItem(string menu, string name, Action execute, int position = -1, KeyboardAcceleratorModifiers modifiers = KeyboardAcceleratorModifiers.None, string? shortCutKey = null);
-    IMenuFlyoutItem? GetMenuFlyoutItem(string name);
-    void RemoveMenuFlyoutItem(string menu, string name);
+	// Menu bar items.
+	public MenuBarItem GetMenuBarItem(string menuBarItemName);
 
-    bool SubMenuExists(string name);
-    IMenuFlyoutSubItem? GetSubMenu(string name);
+	// Items (MenuFlyoutItem) on menu bar items (top level menu items).
+    bool MenuFlyoutItemExists(string flyoutItemName);
 
-    bool MenuFlyoutItemInSubMenuExists(string parentSubMenu, string name);
-    void AddMenuFlyoutItemToSubMenu(string parentSubMenu, string name, Action execute, int position = -1, KeyboardAcceleratorModifiers modifiers = KeyboardAcceleratorModifiers.None, string? shortCutKey = null);
-    IMenuFlyoutItem? GetMenuFlyoutItemInSubMenu(string parentSubMenu, string name);
-    void RemoveMenuFlyoutItemFromSubMenu(string parentSubMenu, string name);
+    void AddMenuFlyoutItem(string menuBarItemName, string flyoutItemName, Action execute, int position = -1, KeyboardAcceleratorModifiers modifiers = KeyboardAcceleratorModifiers.None, string? shortCutKey = null);
+	void AddMenuFlyoutItem(MenuBarItem menuBarItem, string flyoutItemName, Action execute, int position = -1, KeyboardAcceleratorModifiers modifiers = KeyboardAcceleratorModifiers.None, string? shortCutKey = null);
+
+    IMenuFlyoutItem? GetMenuFlyoutItem(string flyoutItemName);
+
+	void RemoveMenuFlyoutItem(string menuBarItemName, string menuFlyoutItemName);
+	void RemoveMenuFlyoutItem(MenuBarItem menuBarItem, string menuFlyoutItemName);
+
+	// Submenus (MenuFlyoutSubItem) on menu bar items (top level menu items).
+    bool SubMenuExists(string subMenuName);
+    IMenuFlyoutSubItem? GetSubMenu(string subMenuName);
+
+	// Flyout on submenu.
+    bool MenuFlyoutItemInSubMenuExists(string parentSubMenuName, string flyoutItemName);
+	bool MenuFlyoutItemInSubMenuExists(IMenuFlyoutSubItem parentSubMenu, string flyoutItemName);
+
+    void AddMenuFlyoutItemToSubMenu(string parentSubMenuName, string flyoutItemName, Action execute, int position = -1, KeyboardAcceleratorModifiers modifiers = KeyboardAcceleratorModifiers.None, string? shortCutKey = null);
+	void AddMenuFlyoutItemToSubMenu(IMenuFlyoutSubItem parentSubMenu, string flyoutItemName, Action execute, int position = -1, KeyboardAcceleratorModifiers modifiers = KeyboardAcceleratorModifiers.None, string? shortCutKey = null);
+
+    IMenuFlyoutItem? GetMenuFlyoutItemInSubMenu(string parentSubMenuName, string flyoutItemName);
+	IMenuFlyoutItem? GetMenuFlyoutItemInSubMenu(IMenuFlyoutSubItem parentSubMenu, string flyoutItemName);
+
+    void RemoveMenuFlyoutItemFromSubMenu(string parentSubMenuName, string flyoutItemName);
+	void RemoveMenuFlyoutItemFromSubMenu(IMenuFlyoutSubItem parentSubMenu, string flyoutItemName);
 }
