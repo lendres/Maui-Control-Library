@@ -5,7 +5,7 @@ namespace DigitalProduction.Maui.Controls;
 /// <summary>
 /// A class for creating a recently used files list on a menu.
 /// </summary>
-public partial class RecentlyUsedPaths
+public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 {
 	#region Delegates
 
@@ -31,17 +31,11 @@ public partial class RecentlyUsedPaths
 	#region Fields
 
 	// Services.
-	private readonly IMenuService           _menuService;
-	private readonly IPathStorageService	_registryAccess; //_storageService
-
-	// Maximum allowed size of list.
-	const uint								_maxSize										= 10;
-
-	// Current number of items shown.
-	uint									_size											= _maxSize;
+	private IMenuService			_menuService;
+	private IPathStorageService		_pathStorageService;
 
 	// Files.
-	private string[]						_paths											= new string[_maxSize];
+	private string[]						_paths											= new string[20];
 
 	// Menu item the list is attached to.
 	private readonly IMenuFlyoutSubItem		_recentlyUsedSubMenu;
@@ -56,40 +50,14 @@ public partial class RecentlyUsedPaths
 	/// Basic constructor.
 	/// </summary>
 	/// <param name="menuItem">Menu item the list is attached to.</param>
-	public RecentlyUsedPaths(IMenuFlyoutSubItem menuItem)
+	public RecentlyUsedMenuFlyout()
 	{
-		_recentlyUsedSubMenu			= menuItem;
-		Initialize();
-	}
-
-	/// <summary>
-	/// Basic constructor.
-	/// </summary>
-	/// <param name="menuItem">Menu item the list is attached to.</param>
-	/// <param name="fileClickDelegate">The call back function (delegate) to receive the path displayed on the control.</param>
-	public RecentlyUsedPaths(IMenuFlyoutSubItem menuItem, RecentFileClickedDelegate fileClickDelegate)
-	{
-		_recentlyUsedSubMenu	= menuItem;
-		_fileClickedDelegate	= fileClickDelegate;
-		Initialize();
-	}
-
-	/// <summary>
-	/// Basic constructor.
-	/// </summary>
-	/// <param name="menuItem">Menu item the list is attached to.</param>
-	/// <param name="fileClickDelegate">The call back function (delegate) to receive the path displayed on the control.</param>
-	/// <param name="fileNotFoundDelegate">The call back function (delegate) to receive the path displayed on the control when the corresponding file does not exist.</param>
-	public RecentlyUsedPaths(IMenuFlyoutSubItem menuItem, RecentFileClickedDelegate fileClickDelegate, RecentFileNotFoundDelegate fileNotFoundDelegate)
-	{
-		_recentlyUsedSubMenu	= menuItem;
-		_fileClickedDelegate	= fileClickDelegate;
-		_fileNotFoundDelegate	= fileNotFoundDelegate;
 	}
 
 	#endregion
 
 	#region Properties
+
 
 	/// <summary>
 	/// The call back function for when a recent file menu items is clicked.
@@ -134,54 +102,35 @@ public partial class RecentlyUsedPaths
 	//	set
 	//	{
 	//		_registryAccess	= value;
-	//		_paths			= _registryAccess.GetRecentlyUsedFiles(_maxSize);
+	//		_paths			= _registryAccess.GetRecentlyUsedFiles(_paths.Length);
 	//		SetFileNames();
 	//	}
 	//}
+
+    public static readonly BindableProperty MaxNumberOfItemsShownProperty =
+        BindableProperty.Create(nameof(NumberOfItemsShown), typeof(uint), typeof(HyperlinkSpan), null);
 
 	/// <summary>
 	/// Get the number of controls that are shown.  Attempts to retrieve the value from the registry, if it
 	/// fails, the maximum number of allowed files is returned.
 	/// </summary>
-	public uint MaxNumberOfItemsShown
+	public uint NumberOfItemsShown
 	{
-		get
-		{
-			// If we have a place to store the value we will attempt to retrieve it from there.
-			if (_registryAccess != null)
-			{
-				uint storedsize = _registryAccess.Size;
-
-				// Compare the two.
-				if (storedsize <= _size)
-				{
-					_size = storedsize;
-
-				}
-			}
-
-			System.Diagnostics.Debug.Assert(_size != 0, "The size of the Recently Used Files menu cannot be zero.");
-			return _size;
-		}
+		get => (uint)GetValue(MaxNumberOfItemsShownProperty);
 
 		set
 		{
-			uint validsize = value;
-
-			if (value > _maxSize)
-			{
-				validsize = _maxSize;
-			}
+			// Prevent exceeding the maximum allowed value.
+			uint size = Math.Min(value, (uint)_paths.Length);
 
 			// If we have a place to store the value we will attempt to retrieve it from there.
-			if (_registryAccess != null)
+			if (_pathStorageService != null)
 			{
-				_registryAccess.Size = validsize;
+				_pathStorageService.Size = size;
 			}
 
-			_size = validsize;
-
 			SetFileNames();
+			SetValue(MaxNumberOfItemsShownProperty, size);
 		}
 	}
 
@@ -226,7 +175,7 @@ public partial class RecentlyUsedPaths
 	/// <param name="number">Zero based index of menu to open.</param>
 	//public void OpenFile(int number)
 	//{
-	//	if (number < _maxSize)
+	//	if (number < _paths.Length)
 	//	{
 	//		OpenFile(mnuRecentFiles[number]);
 	//	}
@@ -242,24 +191,22 @@ public partial class RecentlyUsedPaths
 	private void Initialize()
 	{
 		// Initialize the paths.  Either from the registry, or create blank ones.
-		if (_registryAccess != null)
+		if (_pathStorageService != null)
 		{
 			// Get values from the registry.
-			_paths = _registryAccess.GetRecentlyUsedPaths();
+			_paths = _pathStorageService.GetRecentlyUsedPaths();
 		}
 		else
 		{
 			// Initialize new string.
-			for (int i = 0; i < _maxSize; i++)
+			for (int i = 0; i < _paths.Length; i++)
 			{
 				_paths[i] = "";
 			}
 		}
 
-		uint numberofitemsshown = MaxNumberOfItemsShown;
-
 		// Generate all the menu item instances.
-		for (int i = 0; i < _maxSize; i++)
+		for (int i = 0; i < _paths.Length; i++)
 		{
 			string filenumber = (i+1).ToString();
 
@@ -340,9 +287,9 @@ public partial class RecentlyUsedPaths
 	/// <param name="path">Path to search for.</param>
 	private uint FindIndexOf(string path)
 	{
-		uint position = _maxSize-1;
+		uint position = (uint)_paths.Length;
 
-		for (uint i = 0; i < _maxSize; i++)
+		for (uint i = 0; i < _paths.Length; i++)
 		{
 			if (path == _paths[i])
 			{
@@ -360,9 +307,9 @@ public partial class RecentlyUsedPaths
 	/// <param name="menuitem">ToolStripMenuItem to search for.</param>
 	private uint FindIndexOf(IMenuFlyoutSubItem menuitem)
 	{
-		uint position = _maxSize;
+		uint position = (uint)_paths.Length;
 
-		for (uint i = 0; i < _maxSize; i++)
+		for (uint i = 0; i < _paths.Length; i++)
 		{
 			//if (this.mnuRecentFiles[i] == menuitem)
 			//{
@@ -381,7 +328,7 @@ public partial class RecentlyUsedPaths
 		uint position = FindIndexOf(menuitem);
 
 		// Move the paths up one position.
-		for (uint i = position; i < _maxSize-1; i++)
+		for (uint i = position; i < _paths.Length-1; i++)
 		{
 			_paths[i] = _paths[i+1];
 		}
@@ -410,13 +357,13 @@ public partial class RecentlyUsedPaths
 	private void SetFileNames()
 	{
 		// Update the registry, if it exists.
-		_registryAccess?.SetRecentlyUsedPaths(_paths);
+		_pathStorageService?.SetRecentlyUsedPaths(_paths);
 
 		int pathsfound = 0;
 
 		// Update the names of the menu items in our array of menu items, then add a reference
 		// of that menu item to the new array.
-		for (int i = 0; i < _maxSize; i++)
+		for (int i = 0; i < _paths.Length; i++)
 		{
 			// Assume the control is not visiable.  It must pass all the tests before making it visable.
 			//this.mnuRecentFiles[i].Visible = false;
@@ -425,7 +372,7 @@ public partial class RecentlyUsedPaths
 			{
 				pathsfound++;
 
-				if (pathsfound <= MaxNumberOfItemsShown)
+				if (pathsfound <= NumberOfItemsShown)
 				{
 					//AddPathToMenuItem(mnuRecentFiles[i], pathsfound, _paths[i]);
 
@@ -475,12 +422,12 @@ public partial class RecentlyUsedPaths
 	/// <param name="eventArgs">Event arguments.</param>
 	void ParentMenu_DropDownOpening(object sender, EventArgs eventArgs)
 	{
-		if (_registryAccess != null)
+		if (_pathStorageService != null)
 		{
-			uint newNumberOfItems = _registryAccess.Size;
-			if (newNumberOfItems != _size)
+			uint newNumberOfItems = _pathStorageService.Size;
+			if (newNumberOfItems != NumberOfItemsShown)
 			{
-				MaxNumberOfItemsShown = newNumberOfItems;
+				NumberOfItemsShown = newNumberOfItems;
 			}
 		}
 	}

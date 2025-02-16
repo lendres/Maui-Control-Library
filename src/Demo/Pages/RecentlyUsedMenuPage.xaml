@@ -6,6 +6,7 @@
     xmlns:pages="clr-namespace:DigitalProduction.Demo.Pages"
     x:Class="DigitalProduction.Demo.Pages.RecentlyUsedMenuPage"
     xmlns:viewmodel="clr-namespace:DigitalProduction.Demo.ViewModels"
+	xmlns:dpcontrols="clr-namespace:DigitalProduction.Maui.Controls;assembly=DigitalProduction.Maui"
     x:TypeArguments="viewmodel:RecentlyUsedMenuPageViewModel"
     x:DataType="viewmodel:RecentlyUsedMenuPageViewModel"
 	Title="Dynamic Menus">
@@ -15,11 +16,14 @@
 	</ContentPage.Resources>
 
 	<ContentPage.MenuBarItems>
-		<MenuBarItem Text="Menu Flyout Item">
-			<MenuFlyoutItem Text="Original Item" />
-			<MenuFlyoutSubItem Text="Flyout">
+		<MenuBarItem Text="Menu Bar Item">
+			<MenuFlyoutItem Text="Menu Flyout Item" />
+			<MenuFlyoutSubItem Text="Menu Flyout Sub Item">
 				<MenuFlyoutItem Text="Original Sub Item" />
 			</MenuFlyoutSubItem>
+			<dpcontrols:RecentlyUsedMenuFlyout
+				Text="Recently Used"
+			/>
 		</MenuBarItem>
 	</ContentPage.MenuBarItems>
 		
