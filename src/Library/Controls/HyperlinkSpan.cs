@@ -7,14 +7,12 @@ public partial class HyperlinkSpan : Span
 
     public string Url
     {
-        get { return (string)GetValue(UrlProperty); }
-        set { SetValue(UrlProperty, value); }
+        get => (string)GetValue(UrlProperty);
+        set => SetValue(UrlProperty, value);
     }
 
     public HyperlinkSpan()
     {
-        //TextDecorations	= TextDecorations.Underline;
-        TextColor = Microsoft.Maui.Graphics.Colors.Blue;
         GestureRecognizers.Add(new TapGestureRecognizer
         {
             // Launcher.OpenAsync is provided by Essentials.

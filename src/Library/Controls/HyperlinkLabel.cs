@@ -7,8 +7,8 @@ public partial class HyperlinkLabel : Label
 
     public string Url
     {
-        get { return (string)GetValue(UrlProperty); }
-        set { SetValue(UrlProperty, value); }
+        get => (string)GetValue(UrlProperty);
+        set => SetValue(UrlProperty, value);
     }
 
     public HyperlinkLabel()
