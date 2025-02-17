@@ -38,12 +38,12 @@ public interface IPathStorageService
 	/// <returns>
 	/// The path at the provided position.  Blank strings are returned for any entries that do not exist.
 	/// </returns>
-	public string GetRecentlyUsedPath(uint pathNumber);
+	public string GetRecentPath(uint pathNumber);
 
 	/// <summary>
 	/// Sets (saves) the recently used path specified.
 	/// </summary>
-	public void SetRecentlyUsedPath(uint pathNumber, string path);
+	public void SetRecentPath(uint pathNumber, string path);
 
 	/// <summary>
 	/// Gets all the recently used files.
@@ -51,12 +51,12 @@ public interface IPathStorageService
 	/// <returns>
 	/// An array of strings.  Blank strings are returned for any entries that do not exist.
 	/// </returns>
-	public string[] GetRecentlyUsedPaths();
+	public string[] GetRecentPaths();
 
 	/// <summary>
 	/// Sets (saves) all the recently used files.
 	/// </summary>
-	public void SetRecentlyUsedPaths(IEnumerable<string> paths);
+	public void SetRecentPaths(IEnumerable<string> paths);
 
 	#endregion	
 }

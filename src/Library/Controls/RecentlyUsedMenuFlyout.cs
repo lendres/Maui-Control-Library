@@ -157,7 +157,9 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 
     private void HandleItemsSourceCollectionChanged(object? sender, NotifyCollectionChangedEventArgs eventArgs)
     {
-        if (sender is IEnumerable items)
+		UpdateFlyoutItems();
+        
+		if (sender is IEnumerable items)
         {
             InternalPaths = items.Cast<string>().ToList();
         }
@@ -296,7 +298,7 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 		if (_pathStorageService != null)
 		{
 			// Get values from the registry.
-			_paths = new List<string>(_pathStorageService.GetRecentlyUsedPaths());
+			_paths = new List<string>(_pathStorageService.GetRecentPaths());
 		}
 		else
 		{

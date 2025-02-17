@@ -1,19 +1,10 @@
-﻿using DigitalProduction.Delegates;
-using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DigitalProduction.Maui.Services;
+﻿namespace DigitalProduction.Maui.Services;
 
 /// <summary>
 /// Registry access and setting storage.
 /// </summary>
 
 public class PathStorageService : IPathStorageService
-
 {
 	#region Fields
 	#endregion
@@ -68,7 +59,7 @@ public class PathStorageService : IPathStorageService
 	/// <returns>
 	/// The path at the provided position.  Blank strings are returned for any entries that do not exist.
 	/// </returns>
-	public string GetRecentlyUsedPath(uint pathNumber)
+	public string GetRecentPath(uint pathNumber)
 	{
 		System.Diagnostics.Debug.Assert(pathNumber < MaxSize);
 		return Preferences.Default.Get(StorageName("Path "+pathNumber.ToString()), "");
@@ -77,7 +68,7 @@ public class PathStorageService : IPathStorageService
 	/// <summary>
 	/// Sets (saves) the recently used path specified.
 	/// </summary>
-	public void SetRecentlyUsedPath(uint pathNumber, string path)
+	public void SetRecentPath(uint pathNumber, string path)
 	{
 		System.Diagnostics.Debug.Assert(pathNumber < MaxSize);
 		Preferences.Default.Set(StorageName("Path "+pathNumber.ToString()), path);
@@ -89,13 +80,13 @@ public class PathStorageService : IPathStorageService
 	/// <returns>
 	/// An array of strings.  Blank strings are returned for any entries that do not exist.
 	/// </returns>
-	public string[] GetRecentlyUsedPaths()
+	public string[] GetRecentPaths()
 	{
 		string[] files = new string[MaxSize];
 
 		for (uint i = 0; i < MaxSize; i++)
 		{
-			files[i] = GetRecentlyUsedPath(i);
+			files[i] = GetRecentPath(i);
 		}
 
 		return files;
@@ -104,12 +95,12 @@ public class PathStorageService : IPathStorageService
 	/// <summary>
 	/// Sets (saves) all the recently used files.
 	/// </summary>
-	public void SetRecentlyUsedPaths(IEnumerable<string> paths)
+	public void SetRecentPaths(IEnumerable<string> paths)
 	{
 		uint i = 0;
 		foreach (string path in paths)
 		{
-			SetRecentlyUsedPath(i, path);
+			SetRecentPath(i, path);
 		}
 	}
 
