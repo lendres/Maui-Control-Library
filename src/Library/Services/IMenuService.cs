@@ -12,8 +12,8 @@ public interface IMenuService
 	// Items (MenuFlyoutItem) on menu bar items (top level menu items).
     bool MenuFlyoutItemExists(string flyoutItemName);
 
-    void AddMenuFlyoutItem(string menuBarItemName, string flyoutItemName, Action execute, int position = -1, KeyboardAcceleratorModifiers modifiers = KeyboardAcceleratorModifiers.None, string? shortCutKey = null);
-	void AddMenuFlyoutItem(MenuBarItem menuBarItem, string flyoutItemName, Action execute, int position = -1, KeyboardAcceleratorModifiers modifiers = KeyboardAcceleratorModifiers.None, string? shortCutKey = null);
+    MenuFlyoutItem AddMenuFlyoutItem(string menuBarItemName, string flyoutItemName, Action execute, int position = -1, KeyboardAcceleratorModifiers modifiers = KeyboardAcceleratorModifiers.None, string? shortCutKey = null);
+	MenuFlyoutItem AddMenuFlyoutItem(MenuBarItem menuBarItem, string flyoutItemName, Action execute, int position = -1, KeyboardAcceleratorModifiers modifiers = KeyboardAcceleratorModifiers.None, string? shortCutKey = null);
 
     IMenuFlyoutItem? GetMenuFlyoutItem(string flyoutItemName);
 
@@ -28,12 +28,13 @@ public interface IMenuService
     bool MenuFlyoutItemInSubMenuExists(string parentSubMenuName, string flyoutItemName);
 	bool MenuFlyoutItemInSubMenuExists(IMenuFlyoutSubItem parentSubMenu, string flyoutItemName);
 
-    void AddMenuFlyoutItemToSubMenu(string parentSubMenuName, string flyoutItemName, Action execute, int position = -1, KeyboardAcceleratorModifiers modifiers = KeyboardAcceleratorModifiers.None, string? shortCutKey = null);
-	void AddMenuFlyoutItemToSubMenu(IMenuFlyoutSubItem parentSubMenu, string flyoutItemName, Action execute, int position = -1, KeyboardAcceleratorModifiers modifiers = KeyboardAcceleratorModifiers.None, string? shortCutKey = null);
+    MenuFlyoutItem AddMenuFlyoutItemToSubMenu(string parentSubMenuName, string flyoutItemName, Action execute, int position = -1, KeyboardAcceleratorModifiers modifiers = KeyboardAcceleratorModifiers.None, string? shortCutKey = null);
+	MenuFlyoutItem AddMenuFlyoutItemToSubMenu(IMenuFlyoutSubItem parentSubMenu, string flyoutItemName, Action execute, int position = -1, KeyboardAcceleratorModifiers modifiers = KeyboardAcceleratorModifiers.None, string? shortCutKey = null);
 
     IMenuFlyoutItem? GetMenuFlyoutItemInSubMenu(string parentSubMenuName, string flyoutItemName);
 	IMenuFlyoutItem? GetMenuFlyoutItemInSubMenu(IMenuFlyoutSubItem parentSubMenu, string flyoutItemName);
 
     void RemoveMenuFlyoutItemFromSubMenu(string parentSubMenuName, string flyoutItemName);
 	void RemoveMenuFlyoutItemFromSubMenu(IMenuFlyoutSubItem parentSubMenu, string flyoutItemName);
+	void RemoveMenuFlyoutItemFromSubMenu(IMenuFlyoutSubItem parentSubMenu, IMenuFlyoutItem flyoutItem);
 }

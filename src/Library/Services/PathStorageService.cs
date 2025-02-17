@@ -104,12 +104,12 @@ public class PathStorageService : IPathStorageService
 	/// <summary>
 	/// Sets (saves) all the recently used files.
 	/// </summary>
-	public void SetRecentlyUsedPaths(string[] paths)
+	public void SetRecentlyUsedPaths(IEnumerable<string> paths)
 	{
-		int numberoffiles = paths.Length;
-		for (uint i = 0; i < numberoffiles; i++)
+		uint i = 0;
+		foreach (string path in paths)
 		{
-			SetRecentlyUsedPath(i, paths[i]);
+			SetRecentlyUsedPath(i, path);
 		}
 	}
 

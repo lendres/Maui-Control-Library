@@ -1,4 +1,8 @@
 ﻿using DigitalProduction.Maui.Services;
+using Microsoft.Maui.Controls;
+using System.Collections;
+using System.Collections.Specialized;
+using System.Collections.ObjectModel;
 
 namespace DigitalProduction.Maui.Controls;
 
@@ -31,16 +35,14 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 	#region Fields
 
 	// Services.
-	private IMenuService			_menuService;
-	private IPathStorageService		_pathStorageService;
+	private IMenuService						_menuService					= new MenuService();
+	private IPathStorageService					_pathStorageService;
 
 	// Files.
-	private string[]						_paths											= new string[20];
+	private List<string>?						_paths;
 
 	// Menu item the list is attached to.
-	private readonly IMenuFlyoutSubItem		_recentlyUsedSubMenu;
-
-	private bool							_removeNotFoundFiles							= true;
+	private readonly List<MenuFlyoutItem>       _recentlyUsedSubMenus            = new();
 
 	#endregion
 
@@ -49,15 +51,13 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 	/// <summary>
 	/// Basic constructor.
 	/// </summary>
-	/// <param name="menuItem">Menu item the list is attached to.</param>
 	public RecentlyUsedMenuFlyout()
 	{
 	}
 
 	#endregion
 
-	#region Properties
-
+	#region Old Properties
 
 	/// <summary>
 	/// The call back function for when a recent file menu items is clicked.
@@ -107,8 +107,70 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 	//	}
 	//}
 
-    public static readonly BindableProperty MaxNumberOfItemsShownProperty =
-        BindableProperty.Create(nameof(NumberOfItemsShown), typeof(uint), typeof(HyperlinkSpan), null);
+	#endregion
+
+	#region Nonbindable Properties
+
+	private List<string>? InternalPaths
+	{
+		get => _paths;
+		set
+		{
+			_paths = value;
+			UpdateFlyoutItems();
+		}
+	}
+
+	#endregion
+
+	#region Bindable Properties
+
+    public static readonly BindableProperty ItemsSourceProperty =
+        BindableProperty.Create(nameof(ItemsSource), typeof(ObservableCollection<string>), typeof(RecentlyUsedMenuFlyout), null,
+            propertyChanged: (bindable, oldItem, newItem) =>
+            {
+                if (newItem == oldItem || bindable is not RecentlyUsedMenuFlyout self)
+                {
+                    return;
+                }
+
+                // ObservableCollection tracking.
+                if (oldItem is INotifyCollectionChanged oldCollection)
+                {
+                    oldCollection.CollectionChanged -= self.HandleItemsSourceCollectionChanged;
+                }
+
+				if (newItem == null)
+				{
+					self.InternalPaths = null;
+				}
+				else
+				{
+					if (newItem is INotifyCollectionChanged newCollection)
+					{
+						newCollection.CollectionChanged += self.HandleItemsSourceCollectionChanged;
+					}
+					self.UpdateFlyoutItems();
+				}
+            }
+		);
+
+    private void HandleItemsSourceCollectionChanged(object? sender, NotifyCollectionChangedEventArgs eventArgs)
+    {
+        if (sender is IEnumerable items)
+        {
+            InternalPaths = items.Cast<string>().ToList();
+        }
+    }
+
+	public ObservableCollection<string> ItemsSource
+	{
+		get => (ObservableCollection<string>)GetValue(ItemsSourceProperty);
+		set => SetValue(ItemsSourceProperty, value);
+	}
+
+    public static readonly BindableProperty NumberOfItemsShownProperty =
+        BindableProperty.Create(nameof(NumberOfItemsShown), typeof(uint), typeof(RecentlyUsedMenuFlyout), null);
 
 	/// <summary>
 	/// Get the number of controls that are shown.  Attempts to retrieve the value from the registry, if it
@@ -116,12 +178,17 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 	/// </summary>
 	public uint NumberOfItemsShown
 	{
-		get => (uint)GetValue(MaxNumberOfItemsShownProperty);
+		get => (uint)GetValue(NumberOfItemsShownProperty);
 
 		set
 		{
+			if (value == NumberOfItemsShown)
+			{
+				return;
+			}
+
 			// Prevent exceeding the maximum allowed value.
-			uint size = Math.Min(value, (uint)_paths.Length);
+			uint size = Math.Min(value, (uint)(_paths?.Count ?? int.MaxValue));
 
 			// If we have a place to store the value we will attempt to retrieve it from there.
 			if (_pathStorageService != null)
@@ -130,24 +197,20 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 			}
 
 			SetFileNames();
-			SetValue(MaxNumberOfItemsShownProperty, size);
+			SetValue(NumberOfItemsShownProperty, size);
 		}
 	}
+
+    public static readonly BindableProperty RemoveNotFoundFilesProperty =
+        BindableProperty.Create(nameof(RemoveNotFoundFiles), typeof(uint), typeof(RecentlyUsedMenuFlyout), null);
 
 	/// <summary>
 	/// Gets or sets a value that states whether controls should be removed if they are clicked and the file does not exist.
 	/// </summary>
 	public bool RemoveNotFoundFiles
 	{
-		get
-		{
-			return _removeNotFoundFiles;
-		}
-
-		set
-		{
-			_removeNotFoundFiles = value;
-		}
+		get => (bool)GetValue(RemoveNotFoundFilesProperty);
+		set => SetValue(RemoveNotFoundFilesProperty, value);
 	}
 
 	#endregion
@@ -161,7 +224,7 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 	public void AddNewFilePath(string path)
 	{
 		// If the path provided is the same as the first entry on the list, we don't need to do anything.
-		if (path == _paths[0])
+		if (path == _paths?.First())
 		{
 			return;
 		}
@@ -185,6 +248,45 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 
 	#region Private Controls Manipulation Functions
 
+	private void UpdateFlyoutItems()
+	{
+		ClearFlyoutItems();
+
+		CreateFlyoutItems();
+	}
+
+	private void ClearFlyoutItems()
+	{
+		_recentlyUsedSubMenus.ForEach(item => _menuService.RemoveMenuFlyoutItemFromSubMenu(this, item));
+	}
+
+	private void CreateFlyoutItems()
+	{
+		//if (_paths == null)
+		//{ 
+		//	return;
+		//}
+
+		// Generate all the menu item instances.
+		for (int i = 0; i < (ItemsSource.Count); i++)
+		{
+			string fileNumber = (i+1).ToString();
+			string name = fileNumber + " " + System.IO.Path.GetFileName(ItemsSource[i])  + " (" + ItemsSource[i] + ")";
+
+			if (i < NumberOfItemsShown)
+			{
+				_recentlyUsedSubMenus.Add(
+					_menuService.AddMenuFlyoutItemToSubMenu(this, name, () => ShowDebugMessage(name))
+				);
+			}
+		}
+	}
+
+	private void ShowDebugMessage(string commandName)
+	{
+		System.Diagnostics.Debug.WriteLine($"Executing {commandName} showing this message.");
+	}
+
 	/// <summary>
 	/// Setup the control.
 	/// </summary>
@@ -194,19 +296,19 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 		if (_pathStorageService != null)
 		{
 			// Get values from the registry.
-			_paths = _pathStorageService.GetRecentlyUsedPaths();
+			_paths = new List<string>(_pathStorageService.GetRecentlyUsedPaths());
 		}
 		else
 		{
 			// Initialize new string.
-			for (int i = 0; i < _paths.Length; i++)
+			for (int i = 0; i < _paths.Count; i++)
 			{
 				_paths[i] = "";
 			}
 		}
 
 		// Generate all the menu item instances.
-		for (int i = 0; i < _paths.Length; i++)
+		for (int i = 0; i < _paths.Count; i++)
 		{
 			string filenumber = (i+1).ToString();
 
@@ -256,23 +358,23 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 	//}
 
 	/// <summary>
-	/// Creates a list of strings that the new list of paths, with the new path inserted at the top.  If the supplied
-	/// path is located in the list at some other position, it is removed from that position and the other paths moved
-	/// up to fill that slot.
+	/// Puts the specified path at the top of the entries.  If the supplied path is already located in the
+	///	list at some other position, it is removed from that position put on top, moving the other paths down.
 	/// </summary>
 	/// <param name="path">Path to insert at top of the list.</param>
 	private void PushTop(string path)
 	{
+		if (_paths == null)
+		{
+			return;
+		}
+
 		// Copy the existing names from the menu items while at the same time moving all
 		// the names down one slot so we can put the new name at the front.  If the name was already
 		// in the list, then we only move the paths up to the point where the path was previously
 		// located (in other words, move that entry to the top and push the others down).
-		uint endindex = FindIndexOf(path);
-
-		for (uint i = endindex; i > 0; i--)
-		{
-			_paths[i]	= _paths[i-1];
-		}
+		_paths.Remove(path);
+		_paths.Insert(0, path);
 
 		// New name at the front.
 		_paths[0] = path;
@@ -285,11 +387,13 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 	/// Finds the zeroth based index of the path in the list of existing paths.  If the path is not found, the last index is returned.
 	/// </summary>
 	/// <param name="path">Path to search for.</param>
-	private uint FindIndexOf(string path)
+	private int FindIndexOf(string path)
 	{
-		uint position = (uint)_paths.Length;
+		System.Diagnostics.Debug.Assert(_paths != null);
 
-		for (uint i = 0; i < _paths.Length; i++)
+		int position = _paths.Count;
+
+		for (int i = 0; i < _paths.Count; i++)
 		{
 			if (path == _paths[i])
 			{
@@ -305,11 +409,13 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 	/// Finds the zeroth based index of the ToolStripMenuItem in the list of menu items.  If the control is not found, the last index is returned.
 	/// </summary>
 	/// <param name="menuitem">ToolStripMenuItem to search for.</param>
-	private uint FindIndexOf(IMenuFlyoutSubItem menuitem)
+	private int FindIndexOf(IMenuFlyoutSubItem menuitem)
 	{
-		uint position = (uint)_paths.Length;
+		System.Diagnostics.Debug.Assert(_paths != null);
 
-		for (uint i = 0; i < _paths.Length; i++)
+		int position = _paths.Count;
+
+		for (int i = 0; i < _paths.Count; i++)
 		{
 			//if (this.mnuRecentFiles[i] == menuitem)
 			//{
@@ -325,10 +431,12 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 	/// <param name="menuitem">ToolStripMenuItem which contains the path to be removed.</param>
 	private void RemovePath(IMenuFlyoutSubItem menuitem)
 	{
-		uint position = FindIndexOf(menuitem);
+		System.Diagnostics.Debug.Assert(_paths != null);
+
+		int position = FindIndexOf(menuitem);
 
 		// Move the paths up one position.
-		for (uint i = position; i < _paths.Length-1; i++)
+		for (int i = position; i < _paths.Count-1; i++)
 		{
 			_paths[i] = _paths[i+1];
 		}
@@ -343,10 +451,11 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 	/// <param name="menuitem">ToolStripMenuItem to edit.</param>
 	/// <param name="displayednumber">Number to display in front of path.  It's the position on the parent form.</param>
 	/// <param name="path">Path to be displayed.</param>
-	private void AddPathToMenuItem(IMenuFlyoutSubItem menuitem, int displayednumber, string path)
+	private void AddPathToMenuItem(MenuFlyoutItem menuitem, int displayednumber, string path)
 	{
-		//menuitem.Text           = displayednumber.ToString() + " " + System.IO.Path.GetFileName(path);
-		//menuitem.ToolTipText    = path;
+		menuitem.Text           = displayednumber.ToString() + " " + System.IO.Path.GetFileName(path);
+		//
+		//menuitem.t    = path;
 	}
 
 	/// <summary>
@@ -356,19 +465,24 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 	/// </summary>
 	private void SetFileNames()
 	{
+		if (_paths == null)
+		{
+			return;
+		}
+
 		// Update the registry, if it exists.
-		_pathStorageService?.SetRecentlyUsedPaths(_paths);
+		//_pathStorageService?.SetRecentlyUsedPaths(_paths);
 
 		int pathsfound = 0;
 
 		// Update the names of the menu items in our array of menu items, then add a reference
 		// of that menu item to the new array.
-		for (int i = 0; i < _paths.Length; i++)
+		foreach (string path in _paths)
 		{
 			// Assume the control is not visiable.  It must pass all the tests before making it visable.
 			//this.mnuRecentFiles[i].Visible = false;
 
-			if (_paths[i] != "")
+			if (path != "")
 			{
 				pathsfound++;
 

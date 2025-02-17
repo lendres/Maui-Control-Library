@@ -56,7 +56,7 @@ public interface IPathStorageService
 	/// <summary>
 	/// Sets (saves) all the recently used files.
 	/// </summary>
-	public void SetRecentlyUsedPaths(string[] paths);
+	public void SetRecentlyUsedPaths(IEnumerable<string> paths);
 
 	#endregion	
 }

@@ -23,6 +23,9 @@
 			</MenuFlyoutSubItem>
 			<dpcontrols:RecentlyUsedMenuFlyout
 				Text="Recently Used"
+				NumberOfItemsShown="5"
+				RemoveNotFoundFiles="True"
+				ItemsSource="{Binding ItemsSource}"
 			/>
 		</MenuBarItem>
 	</ContentPage.MenuBarItems>

@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DigitalProduction.Maui.Services;
+using System.Collections.ObjectModel;
 
 namespace DigitalProduction.Demo.ViewModels;
 
@@ -15,11 +16,15 @@ public partial class RecentlyUsedMenuPageViewModel(IDialogService dialogService,
 
 	#region Properties
 
-	[ObservableProperty]
-	public partial bool					CanAddFlyoutItem { get; set; }		= true;
 
 	[ObservableProperty]
-	public partial bool					CanAddFlyoutSubItem { get; set; }	= true;
+	public partial ObservableCollection<string>		ItemsSource { get; set; }			= [@"C:\Temp\File.txt", @"C:\Users\Lance\Notes.txt"];
+
+	[ObservableProperty]
+	public partial bool								CanAddFlyoutItem { get; set; }		= true;
+
+	[ObservableProperty]
+	public partial bool								CanAddFlyoutSubItem { get; set; }	= true;
 
 	public Page? MenuHostingPage
 	{
@@ -43,21 +48,21 @@ public partial class RecentlyUsedMenuPageViewModel(IDialogService dialogService,
 	[RelayCommand]
 	void AddFlyOutItem()
 	{
-		_menuService.AddMenuFlyoutItem("Menu Flyout Item", "Added Item", () => ShowSelectedMessage("Added Item"));
+		_menuService.AddMenuFlyoutItem("Menu Bar Item", "Added Item", () => ShowSelectedMessage("Added Item"));
 		CanAddFlyoutItem = false;
 	}
 
 	[RelayCommand]
 	void RemoveFlyOutItem()
 	{
-		_menuService.RemoveMenuFlyoutItem("Menu Flyout Item", "Added Item");
+		_menuService.RemoveMenuFlyoutItem("Menu Bar Item", "Added Item");
 		CanAddFlyoutItem = true;
 	}
 
 	[RelayCommand]
 	void AddFlyOutSubItem()
 	{
-		_menuService.AddMenuFlyoutItemToSubMenu("Flyout", "Added Sub Item", () => ShowSelectedMessage("Added Sub Item"));
+		_menuService.AddMenuFlyoutItemToSubMenu("Menu Flyout Sub Item", "Added Sub Item", () => ShowSelectedMessage("Added Sub Item"));
 		CanAddFlyoutSubItem = false;
 
 		IMenuFlyoutSubItem menuFlyoutSubItem = _menuService.GetSubMenu("Flyout")!;
@@ -71,7 +76,7 @@ public partial class RecentlyUsedMenuPageViewModel(IDialogService dialogService,
 	[RelayCommand]
 	void RemoveFlyOutSubItem()
 	{
-		_menuService.RemoveMenuFlyoutItemFromSubMenu("Flyout", "Added Sub Item");
+		_menuService.RemoveMenuFlyoutItemFromSubMenu("Menu Flyout Sub Item", "Added Sub Item");
 		CanAddFlyoutSubItem = true;
 	}
 

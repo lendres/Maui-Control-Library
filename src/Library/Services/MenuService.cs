@@ -66,10 +66,10 @@ public class MenuService : IMenuService
 	/// <param name="modifiers">Keyboard accelerator modifiers.</param>
 	/// <param name="shortCutKey">Keyboard short cut key.</param>
 	/// <exception cref="InvalidOperationException">Thrown when a duplicate entry is found.</exception>
-	public void AddMenuFlyoutItem(string menuBarItemName, string flyoutItemName, Action execute, int position = -1, KeyboardAcceleratorModifiers modifiers = KeyboardAcceleratorModifiers.None, string? shortCutKey = null)
+	public MenuFlyoutItem AddMenuFlyoutItem(string menuBarItemName, string flyoutItemName, Action execute, int position = -1, KeyboardAcceleratorModifiers modifiers = KeyboardAcceleratorModifiers.None, string? shortCutKey = null)
 	{
 		MenuBarItem menuBarItem = GetMenuBarItem(menuBarItemName);
-		AddMenuFlyoutItem(menuBarItem, flyoutItemName, execute, position, modifiers, shortCutKey);
+		return AddMenuFlyoutItem(menuBarItem, flyoutItemName, execute, position, modifiers, shortCutKey);
 	}
 
 	/// <summary>
@@ -82,7 +82,7 @@ public class MenuService : IMenuService
 	/// <param name="modifiers">Keyboard accelerator modifiers.</param>
 	/// <param name="shortCutKey">Keyboard short cut key.</param>
 	/// <exception cref="InvalidOperationException">Thrown when a duplicate entry is found.</exception>
-	public void AddMenuFlyoutItem(MenuBarItem menuBarItem, string flyoutItemName, Action execute, int position = -1, KeyboardAcceleratorModifiers modifiers = KeyboardAcceleratorModifiers.None, string? shortCutKey = null)
+	public MenuFlyoutItem AddMenuFlyoutItem(MenuBarItem menuBarItem, string flyoutItemName, Action execute, int position = -1, KeyboardAcceleratorModifiers modifiers = KeyboardAcceleratorModifiers.None, string? shortCutKey = null)
 	{
 		if (menuBarItem.Any(element => element.Text == flyoutItemName))
 		{
@@ -101,6 +101,7 @@ public class MenuService : IMenuService
 		}
 
 		ForceMenuRebuild();
+		return itemToAdd;
 	}
 
 	/// <summary>
@@ -221,11 +222,11 @@ public class MenuService : IMenuService
 	/// <param name="modifiers">Keyboard accelerator modifiers.</param>
 	/// <param name="shortCutKey">Keyboard short cut key.</param>
 	/// <exception cref="InvalidOperationException"></exception>
-	public void AddMenuFlyoutItemToSubMenu(string parentSubMenuName, string flyoutItemName, Action execute, int position = -1, KeyboardAcceleratorModifiers modifiers = KeyboardAcceleratorModifiers.None, string? shortCutKey = null)
+	public MenuFlyoutItem AddMenuFlyoutItemToSubMenu(string parentSubMenuName, string flyoutItemName, Action execute, int position = -1, KeyboardAcceleratorModifiers modifiers = KeyboardAcceleratorModifiers.None, string? shortCutKey = null)
 	{
 		IMenuFlyoutSubItem? parentSubMenu = GetSubMenu(parentSubMenuName) ??
 			throw new InvalidOperationException($"No MenuFlyoutSubItem with text {parentSubMenuName} was found.");
-		AddMenuFlyoutItemToSubMenu(parentSubMenu, flyoutItemName, execute, position, modifiers, shortCutKey);
+		return AddMenuFlyoutItemToSubMenu(parentSubMenu, flyoutItemName, execute, position, modifiers, shortCutKey);
 	}
 
 	/// <summary>
@@ -238,7 +239,7 @@ public class MenuService : IMenuService
 	/// <param name="modifiers">Keyboard accelerator modifiers.</param>
 	/// <param name="shortCutKey">Keyboard short cut key.</param>
 	/// <exception cref="InvalidOperationException"></exception>
-	public void AddMenuFlyoutItemToSubMenu(IMenuFlyoutSubItem parentSubMenu, string flyoutItemName, Action execute, int position = -1, KeyboardAcceleratorModifiers modifiers = KeyboardAcceleratorModifiers.None, string? shortCutKey = null)
+	public MenuFlyoutItem AddMenuFlyoutItemToSubMenu(IMenuFlyoutSubItem parentSubMenu, string flyoutItemName, Action execute, int position = -1, KeyboardAcceleratorModifiers modifiers = KeyboardAcceleratorModifiers.None, string? shortCutKey = null)
 	{
 		if (MenuFlyoutItemInSubMenuExists(parentSubMenu, flyoutItemName))
 		{
@@ -257,6 +258,7 @@ public class MenuService : IMenuService
 		}
 
 		ForceMenuRebuild();
+		return itemToAdd;
 	}
 
 	/// <summary>
@@ -309,6 +311,18 @@ public class MenuService : IMenuService
 		IMenuFlyoutItem? itemToRemove = GetMenuFlyoutItemInSubMenu(parentSubMenu, flyoutItemName) ??
 			throw new InvalidOperationException($"No MenuFlyoutItem with text {flyoutItemName} in parent MenuFlyoutSubItem with text {parentSubMenu.Text} was found.");
 		parentSubMenu.Remove(itemToRemove);
+		ForceMenuRebuild();
+	}
+
+	/// <summary>
+	/// Removes a MenuFlyoutItem on the submenu, if it  exists.
+	/// </summary>
+	/// <param name="parentSubMenu">The parent submenu (MenuFlyoutSubItem).</param>
+	/// <param name="flyoutItem">MenuFlyoutItem to remove.</param>
+	/// <exception cref="InvalidOperationException">Thrown if the item does not exist.</exception>
+	public void RemoveMenuFlyoutItemFromSubMenu(IMenuFlyoutSubItem parentSubMenu, IMenuFlyoutItem flyoutItem)
+	{
+		parentSubMenu.Remove(flyoutItem);
 		ForceMenuRebuild();
 	}
 
