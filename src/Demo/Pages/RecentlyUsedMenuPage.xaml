@@ -18,14 +18,9 @@
 
 	<ContentPage.MenuBarItems>
 		<MenuBarItem Text="Menu Bar Item">
-			<MenuFlyoutItem Text="Menu Flyout Item" />
-			<MenuFlyoutSubItem Text="Menu Flyout Sub Item">
-				<MenuFlyoutItem Text="Original Sub Item" />
-			</MenuFlyoutSubItem>
 			<dpcontrols:RecentlyUsedMenuFlyout
 				Text="Recently Used"
-				RecentPathsManagerService="{Binding RecentPathsManagerService}"
-			/>
+				RecentPathsManagerService="{Binding RecentPathsManagerService}"/>
 		</MenuBarItem>
 	</ContentPage.MenuBarItems>
 		
@@ -37,16 +32,14 @@
                 Style="{StaticResource SubHeadline}" />
 
 			<Button
-				Text="Add Fly Out Item"
-				Command="{Binding AddFlyOutItemCommand}"
-				IsEnabled="{Binding CanAddFlyoutItem}"/>
+				Text="Add New Path"
+				Command="{Binding AddNewPathCommand}"/>
 
 			<Button
-				Text="Remove Fly Out Item"
-				Command="{Binding RemoveFlyOutItemCommand}"
-				IsEnabled="{Binding CanAddFlyoutItem, Converter={StaticResource InvertedBoolConverter}}"/>
+				Text="Remove New Path"
+				Command="{Binding RemoveNewPathCommand}"/>
 
-			<Button
+			<!--<Button
 				Text="Add Fly Out Sub Item"
 				Command="{Binding AddFlyOutSubItemCommand}"
 				IsEnabled="{Binding CanAddFlyoutSubItem}"/>
@@ -54,7 +47,7 @@
 			<Button
 				Text="Remove FlyOut Sub Item"
 				Command="{Binding RemoveFlyOutSubItemCommand}"
-				IsEnabled="{Binding CanAddFlyoutSubItem, Converter={StaticResource InvertedBoolConverter}}"/>
+				IsEnabled="{Binding CanAddFlyoutSubItem, Converter={StaticResource InvertedBoolConverter}}"/>-->
 
 		</VerticalStackLayout>
 	</ScrollView>
