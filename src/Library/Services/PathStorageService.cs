@@ -6,7 +6,16 @@
 
 public class PathStorageService : IPathStorageService
 {
-	#region Fields
+	#region Events
+
+	public event Action?     OnNumberOfItemsShownChanged;
+	public event Action?     OnRemoveNotFoundPathsChanged;
+	//public event Action?     OnChanged;
+	//public event Action?     OnChanged;
+	//public event Action?     OnChanged;
+	public event Action?     OnPathsChanged;
+
+
 	#endregion
 
 	#region Properties
@@ -28,10 +37,14 @@ public class PathStorageService : IPathStorageService
 	/// <summary>
 	/// Current number of items.
 	/// </summary>
-	public uint Size
+	public uint NumberOfItemsShown
 	{
 		get => Preferences.Default.Get(StorageName("Size"), 10u);
-		set => Preferences.Default.Set(StorageName("Size"), value);
+		set
+		{
+			Preferences.Default.Set(StorageName("Size"), value);
+			OnNumberOfItemsShownChanged?.Invoke();
+		}
 	}
 
 	/// <summary>
@@ -40,7 +53,11 @@ public class PathStorageService : IPathStorageService
 	public bool RemoveNotFoundPaths
 	{
 		get => Preferences.Default.Get(StorageName("Remove Not Found Paths"), true);
-		set => Preferences.Default.Set(StorageName("Remove Not Found Paths"), value);
+		set
+		{
+			Preferences.Default.Set(StorageName("Remove Not Found Paths"), value);
+			OnRemoveNotFoundPathsChanged?.Invoke();
+		}
 	}
 
 	#endregion

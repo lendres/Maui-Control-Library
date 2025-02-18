@@ -21,7 +21,7 @@ public interface IPathStorageService
 	/// <summary>
 	/// Current number of items.
 	/// </summary>
-	public uint Size { get; set; }
+	public uint NumberOfItemsShown { get; set; }
 
 	/// <summary>
 	/// Remove paths if they no longer exist.

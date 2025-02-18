@@ -195,7 +195,7 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 			// If we have a place to store the value we will attempt to retrieve it from there.
 			if (_pathStorageService != null)
 			{
-				_pathStorageService.Size = size;
+				_pathStorageService.NumberOfItemsShown = size;
 			}
 
 			SetFileNames();
@@ -540,7 +540,7 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 	{
 		if (_pathStorageService != null)
 		{
-			uint newNumberOfItems = _pathStorageService.Size;
+			uint newNumberOfItems = _pathStorageService.NumberOfItemsShown;
 			if (newNumberOfItems != NumberOfItemsShown)
 			{
 				NumberOfItemsShown = newNumberOfItems;
