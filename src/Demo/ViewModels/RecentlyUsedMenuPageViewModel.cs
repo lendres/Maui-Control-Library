@@ -5,12 +5,26 @@ using System.Collections.ObjectModel;
 
 namespace DigitalProduction.Demo.ViewModels;
 
-public partial class RecentlyUsedMenuPageViewModel(IDialogService dialogService, IMenuService menuService) : BaseViewModel
+public partial class RecentlyUsedMenuPageViewModel : BaseViewModel
 {
 	#region Fields
 
-	private readonly IDialogService     _dialogService      = dialogService;
-	private readonly IMenuService       _menuService        = menuService;
+	private readonly IDialogService     _dialogService;
+	private readonly IMenuService       _menuService;
+
+	#endregion
+
+	#region Construction
+
+	public RecentlyUsedMenuPageViewModel(IDialogService dialogService, IMenuService menuService)
+	{
+		_dialogService      = dialogService;
+		_menuService        = menuService;
+
+		RecentPathsManagerService = new RecentPathsManagerService();
+		RecentPathsManagerService.PushTop(@"C:\Temp\File.txt");
+		RecentPathsManagerService.PushTop(@"C:\Users\Lance\Notes.txt");
+	}
 
 	#endregion
 
@@ -18,13 +32,13 @@ public partial class RecentlyUsedMenuPageViewModel(IDialogService dialogService,
 
 
 	[ObservableProperty]
-	public partial ObservableCollection<string>		ItemsSource { get; set; }			= [@"C:\Temp\File.txt", @"C:\Users\Lance\Notes.txt"];
+	public partial IRecentPathsManagerService		RecentPathsManagerService { get; set; }
 
 	[ObservableProperty]
-	public partial bool								CanAddFlyoutItem { get; set; }		= true;
+	public partial bool								CanAddFlyoutItem { get; set; }					= true;
 
 	[ObservableProperty]
-	public partial bool								CanAddFlyoutSubItem { get; set; }	= true;
+	public partial bool								CanAddFlyoutSubItem { get; set; }				= true;
 
 	public Page? MenuHostingPage
 	{

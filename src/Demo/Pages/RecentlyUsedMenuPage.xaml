@@ -4,9 +4,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:pages="clr-namespace:DigitalProduction.Demo.Pages"
-    x:Class="DigitalProduction.Demo.Pages.RecentlyUsedMenuPage"
     xmlns:viewmodel="clr-namespace:DigitalProduction.Demo.ViewModels"
 	xmlns:dpcontrols="clr-namespace:DigitalProduction.Maui.Controls;assembly=DigitalProduction.Maui"
+	xmlns:dpservices="clr-namespace:DigitalProduction.Maui.Services;assembly=DigitalProduction.Maui"
+    x:Class="DigitalProduction.Demo.Pages.RecentlyUsedMenuPage"
     x:TypeArguments="viewmodel:RecentlyUsedMenuPageViewModel"
     x:DataType="viewmodel:RecentlyUsedMenuPageViewModel"
 	Title="Dynamic Menus">
@@ -23,9 +24,7 @@
 			</MenuFlyoutSubItem>
 			<dpcontrols:RecentlyUsedMenuFlyout
 				Text="Recently Used"
-				NumberOfItemsShown="5"
-				RemoveNotFoundFiles="True"
-				ItemsSource="{Binding ItemsSource}"
+				RecentPathsManagerService="{Binding RecentPathsManagerService}"
 			/>
 		</MenuBarItem>
 	</ContentPage.MenuBarItems>
