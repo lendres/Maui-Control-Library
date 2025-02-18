@@ -139,7 +139,7 @@ public class RecentPathsManagerService : IRecentPathsManagerService
 		uint i = 0;
 		foreach (string path in paths)
 		{
-			SaveRecentPath(i, path);
+			SaveRecentPath(i++, path);
 		}
 	}
 
