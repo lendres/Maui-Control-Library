@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DigitalProduction.Maui.Services;
-using System.Collections.ObjectModel;
 
 namespace DigitalProduction.Demo.ViewModels;
 
@@ -15,7 +14,7 @@ public partial class RecentlyUsedMenuPageViewModel : BaseViewModel
 
 	#region Construction
 
-	public RecentlyUsedMenuPageViewModel(IDialogService dialogService, IMenuService menuService)
+	public RecentlyUsedMenuPageViewModel(IDialogService dialogService)
 	{
 		_dialogService      = dialogService;
 
@@ -79,27 +78,6 @@ public partial class RecentlyUsedMenuPageViewModel : BaseViewModel
 		RecentPathsManagerService.PushTop(@"C:\Temp\File.txt");
 		RecentPathsManagerService.PushTop(@"C:\Users\Lance\Notes.txt");
 	}
-
-	//[RelayCommand]
-	//void AddFlyOutSubItem()
-	//{
-	//	_menuService.AddMenuFlyoutItemToSubMenu("Menu Flyout Sub Item", "Added Sub Item", () => ShowSelectedMessage("Added Sub Item"));
-	//	CanAddFlyoutSubItem = false;
-
-	//	IMenuFlyoutSubItem menuFlyoutSubItem = _menuService.GetSubMenu("Flyout")!;
-	//	System.Diagnostics.Debug.WriteLine("");
-	//	foreach (IMenuElement item in menuFlyoutSubItem)
-	//	{
-	//		System.Diagnostics.Debug.WriteLine(item.Text);
-	//	}
-	//}
-
-	//[RelayCommand]
-	//void RemoveFlyOutSubItem()
-	//{
-	//	_menuService.RemoveMenuFlyoutItemFromSubMenu("Menu Flyout Sub Item", "Added Sub Item");
-	//	CanAddFlyoutSubItem = true;
-	//}
 
 	#endregion
 }

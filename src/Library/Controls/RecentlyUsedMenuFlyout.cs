@@ -12,14 +12,6 @@ namespace DigitalProduction.Maui.Controls;
 public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 {
 	#region Fields
-
-	// Services.
-	private IMenuService						_menuService					= new MenuService();
-	//private IRecentPathsManagerService?			_pathStorageService;
-
-	// Menu item the list is attached to.
-	//private readonly List<MenuFlyoutItem>       _recentlyUsedSubMenus            = new();
-
 	#endregion
 
 	#region Construction
@@ -51,14 +43,18 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 				{
 					IRecentPathsManagerService oldService = oldObject as IRecentPathsManagerService ??
 						throw new InvalidOperationException($"Invalid object, expected {nameof(IRecentPathsManagerService)}.");
-					oldService.OnPathsChanged -= self.UpdateFlyoutItems;
+					oldService.OnMaxSizeChanged		-= self.OnMaxSizeChanged;
+					oldService.OnMaxSizeChanged		-= self.OnNumberOfItemsShownChanged;
+					oldService.OnPathsChanged		-= self.OnPathsChanged;
 				}
 
 				// Connect events.
 				IRecentPathsManagerService newService = newObject as IRecentPathsManagerService ??
 					throw new InvalidOperationException($"Invalid object, expected {nameof(IRecentPathsManagerService)}.");
-				self.UpdateFlyoutItems(newService.GetRecentPaths());
-				newService.OnPathsChanged += self.UpdateFlyoutItems;
+				self.OnPathsChanged(newService.GetRecentPaths());
+				newService.OnMaxSizeChanged		+= self.OnMaxSizeChanged;
+				newService.OnMaxSizeChanged		+= self.OnNumberOfItemsShownChanged;
+				newService.OnPathsChanged		+= self.OnPathsChanged;
             }
 		);
 
@@ -81,7 +77,7 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 
 				if (self.RecentPathsManagerService != null)
 				{
-					self.UpdateFlyoutItems(self.RecentPathsManagerService.GetRecentPaths());
+					self.OnPathsChanged(self.RecentPathsManagerService.GetRecentPaths());
 				}
             }
 		);
@@ -96,11 +92,21 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 
 	#region Methods
 
-	private void UpdateFlyoutItems(List<string> paths)
+	private void OnMaxSizeChanged(uint numberOfIems)
+	{
+		OnPathsChanged(RecentPathsManagerService.GetRecentPaths());
+	}
+
+	private void OnNumberOfItemsShownChanged(uint numberOfIems)
+	{
+		OnPathsChanged(RecentPathsManagerService.GetRecentPaths());
+	}
+
+	private void OnPathsChanged(List<string> paths)
 	{
 		Clear();
 		CreateFlyoutItems(paths);
-		ForceMenuRebuild();
+		RecentlyUsedMenuFlyout.ForceMenuRebuild();
 	}
 
 	private void CreateFlyoutItems(List<string> paths)
@@ -123,7 +129,7 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 
 	#region Platform
 
-	private void ForceMenuRebuild()
+	private static void ForceMenuRebuild()
 	{
 		#if MACCATALYST
             UIMenuSystem.MainSystem.SetNeedsRebuild();

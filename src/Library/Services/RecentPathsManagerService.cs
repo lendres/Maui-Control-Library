@@ -10,8 +10,6 @@ public class RecentPathsManagerService : IRecentPathsManagerService
 
 	public event Action<uint>?				OnMaxSizeChanged;
 	public event Action<uint>?				OnNumberOfItemsShownChanged;
-	public event Action<bool>?				OnRemoveNotFoundPathsChanged;
-	//public event Action?			OnChanged;
 	public event Action<List<string>>		OnPathsChanged;
 
 	#endregion
@@ -19,7 +17,7 @@ public class RecentPathsManagerService : IRecentPathsManagerService
 	#region Fields
 
 	// Files.
-	private List<string>					_paths			= [];
+	private readonly List<string>			_paths			= [];
 
 	#endregion
 
@@ -73,11 +71,7 @@ public class RecentPathsManagerService : IRecentPathsManagerService
 	public bool RemoveNotFoundPaths
 	{
 		get => Preferences.Default.Get(StorageName("Remove Not Found Paths"), true);
-		set
-		{
-			Preferences.Default.Set(StorageName("Remove Not Found Paths"), value);
-			OnRemoveNotFoundPathsChanged?.Invoke(value);
-		}
+		set => Preferences.Default.Set(StorageName("Remove Not Found Paths"), value);
 	}
 
 	#endregion

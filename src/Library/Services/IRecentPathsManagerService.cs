@@ -10,7 +10,6 @@ public interface IRecentPathsManagerService
 
 	public event Action<uint>?				OnMaxSizeChanged;
 	public event Action<uint>?				OnNumberOfItemsShownChanged;
-	public event Action<bool>?				OnRemoveNotFoundPathsChanged;
 	public event Action<List<string>>		OnPathsChanged;
 
 	#endregion
@@ -41,19 +40,6 @@ public interface IRecentPathsManagerService
 
 	#region Methods
 
-	///// <summary>
-	///// Gets the recently used path specified.
-	///// </summary>
-	///// <returns>
-	///// The path at the provided position.  Blank strings are returned for any entries that do not exist.
-	///// </returns>
-	//public string GetRecentPath(uint pathNumber);
-
-	///// <summary>
-	///// Sets (saves) the recently used path specified.
-	///// </summary>
-	//public void SetRecentPath(uint pathNumber, string path);
-
 	/// <summary>
 	/// Gets all the recently used files.
 	/// </summary>
@@ -62,10 +48,6 @@ public interface IRecentPathsManagerService
 	/// </returns>
 	public List<string> GetRecentPaths();
 
-	///// <summary>
-	///// Sets (saves) all the recently used files.
-	///// </summary>
-	//public void SetRecentPaths(IEnumerable<string> paths);
 
 	void PushTop(string path);
 	void RemovePath(string path);
