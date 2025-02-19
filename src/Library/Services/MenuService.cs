@@ -362,7 +362,7 @@ public class MenuService : IMenuService
 
 	#region Platform
 
-	private static void ForceMenuRebuild()
+	public static void ForceMenuRebuild()
 	{
 		#if MACCATALYST
             UIMenuSystem.MainSystem.SetNeedsRebuild();

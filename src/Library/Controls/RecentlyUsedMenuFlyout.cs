@@ -1,8 +1,5 @@
 ﻿using DigitalProduction.Maui.Services;
 using System.Windows.Input;
-#if MACCATALYST
-	using UIKit;
-#endif
 
 namespace DigitalProduction.Maui.Controls;
 
@@ -106,7 +103,6 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 	{
 		Clear();
 		CreateFlyoutItems(paths);
-		RecentlyUsedMenuFlyout.ForceMenuRebuild();
 	}
 
 	private void CreateFlyoutItems(List<string> paths)
@@ -123,17 +119,7 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 			};
 			Add(menuFlyoutPath);
 		}
-	}
-
-	#endregion
-
-	#region Platform
-
-	private static void ForceMenuRebuild()
-	{
-		#if MACCATALYST
-            UIMenuSystem.MainSystem.SetNeedsRebuild();
-		#endif
+		MenuService.ForceMenuRebuild();
 	}
 
 	#endregion
