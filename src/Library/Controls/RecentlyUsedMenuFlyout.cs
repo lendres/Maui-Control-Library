@@ -1,8 +1,8 @@
 ﻿using DigitalProduction.Maui.Services;
-using Microsoft.Maui.Controls;
-using System.Collections;
-using System.Collections.Specialized;
-using System.Collections.ObjectModel;
+using System.Windows.Input;
+#if MACCATALYST
+	using UIKit;
+#endif
 
 namespace DigitalProduction.Maui.Controls;
 
@@ -68,14 +68,39 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 		set => SetValue(RecentPathsManagerServiceProperty, value);
 	}
 
+    public static readonly BindableProperty PathCommandProperty =
+        BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(RecentlyUsedMenuFlyout), null,
+			propertyChanged: (bindable, oldObject, newObject) =>
+            {
+				System.Diagnostics.Debug.Assert(newObject != null);
+
+                if (newObject == oldObject || bindable is not RecentlyUsedMenuFlyout self)
+                {
+                    return;
+                }
+
+				if (self.RecentPathsManagerService != null)
+				{
+					self.UpdateFlyoutItems(self.RecentPathsManagerService.GetRecentPaths());
+				}
+            }
+		);
+
+	public ICommand PathCommand
+	{
+		get => (ICommand)GetValue(PathCommandProperty);
+		set => SetValue(PathCommandProperty, value);
+	}
+
 	#endregion
 
-	#region Private Controls Manipulation Functions
+	#region Methods
 
 	private void UpdateFlyoutItems(List<string> paths)
 	{
 		Clear();
 		CreateFlyoutItems(paths);
+		ForceMenuRebuild();
 	}
 
 	private void CreateFlyoutItems(List<string> paths)
@@ -83,15 +108,25 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 		// Generate all the menu item instances.
 		for (int i = 0; i < paths.Count; i++)
 		{
-			string fileNumber = (i+1).ToString();
-			string name = fileNumber + " " + System.IO.Path.GetFileName(paths[i])  + " (" + paths[i] + ")";
-			_menuService.AddMenuFlyoutItemToSubMenu(this, name, () => ShowDebugMessage(name));
+			MenuFlyoutPath menuFlyoutPath = new()
+			{
+				Number  = i,
+				Path    = paths[i],
+				Command = PathCommand
+			};
+			this.Add(menuFlyoutPath);
 		}
 	}
 
-	private void ShowDebugMessage(string commandName)
+	#endregion
+
+	#region Platform
+
+	private void ForceMenuRebuild()
 	{
-		System.Diagnostics.Debug.WriteLine($"Executing {commandName} showing this message.");
+		#if MACCATALYST
+            UIMenuSystem.MainSystem.SetNeedsRebuild();
+		#endif
 	}
 
 	#endregion

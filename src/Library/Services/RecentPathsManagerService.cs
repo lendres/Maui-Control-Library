@@ -84,11 +84,23 @@ public class RecentPathsManagerService : IRecentPathsManagerService
 
 	#region Private Methods
 
-	private string StorageName(string name) => Name + " " + name;
+	/// <summary>
+	/// Generates the stored name.
+	/// </summary>
+	/// <param name="name">Number of the path to generate the name for.</param>
+	/// <returns>
+	/// The name of the parameter to store.
+	/// </returns>
+	private string StorageName(uint name) => Name + " " + "Path " + pathNumber.ToString();
 
-	#endregion
-
-	#region Private Methods
+	/// <summary>
+	/// Generates the stored name for a path.
+	/// </summary>
+	/// <param name="pathNumber">Number of the path to generate the name for.</param>
+	/// <returns>
+	/// The storage name for the path.
+	/// </returns>
+	private string StorageName(uint pathNumber) => Name + " " + "Path " + pathNumber.ToString();
 
 	/// <summary>
 	/// Gets the recently used path specified.
@@ -99,7 +111,7 @@ public class RecentPathsManagerService : IRecentPathsManagerService
 	private string GetStoredPath(uint pathNumber)
 	{
 		System.Diagnostics.Debug.Assert(pathNumber < MaxSize);
-		return Preferences.Default.Get(StorageName("Path "+pathNumber.ToString()), "");
+		return Preferences.Default.Get(StorageName(pathNumber), "");
 	}
 
 	/// <summary>
@@ -108,7 +120,7 @@ public class RecentPathsManagerService : IRecentPathsManagerService
 	private void SaveRecentPath(uint pathNumber, string path)
 	{
 		System.Diagnostics.Debug.Assert(pathNumber < MaxSize);
-		Preferences.Default.Set(StorageName("Path "+pathNumber.ToString()), path);
+		Preferences.Default.Set(StorageName(pathNumber), path);
 	}
 
 	/// <summary>
@@ -117,7 +129,7 @@ public class RecentPathsManagerService : IRecentPathsManagerService
 	/// <returns>
 	/// An array of strings.  Blank strings are returned for any entries that do not exist.
 	/// </returns>
-	public void RestoreRecentPaths()
+	private void RestoreRecentPaths()
 	{
 		_paths.Clear();
 

@@ -55,9 +55,10 @@ public partial class RecentlyUsedMenuPageViewModel : BaseViewModel
 
 	#region Methods
 
-	private void ShowSelectedMessage(string message)
+	[RelayCommand]
+	void ShowSelectedMessage(string message)
 	{
-		_dialogService.ShowMessage("Menu clicked", $"Executing {message} showing this message.", "OK");
+		_dialogService.ShowMessage("Menu clicked", $"The path \"{message}\" was selected.", "OK");
 	}
 
 	[RelayCommand]
@@ -68,6 +69,12 @@ public partial class RecentlyUsedMenuPageViewModel : BaseViewModel
 
 	[RelayCommand]
 	void RemoveNewPath()
+	{
+		RecentPathsManagerService.RemovePath(@"C:\New\New File.txt");
+	}
+
+	[RelayCommand]
+	void ResetPaths()
 	{
 		RecentPathsManagerService.RemovePath(@"C:\New\New File.txt");
 	}
