@@ -40,6 +40,10 @@
 				Text="Remove New Path"
 				Command="{Binding RemoveNewPathCommand}"/>
 
+			<Button
+				Text="Reset Paths"
+				Command="{Binding ResetPathsCommand}"/>
+
 			<!--<Button
 				Text="Add Fly Out Sub Item"
 				Command="{Binding AddFlyOutSubItemCommand}"

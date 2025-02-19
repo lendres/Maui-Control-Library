@@ -110,9 +110,10 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 		{
 			MenuFlyoutPath menuFlyoutPath = new()
 			{
-				Number  = i,
-				Path    = paths[i],
-				Command = PathCommand
+				Number						= i,
+				Path						= paths[i],
+				Command						= PathCommand,
+				RecentPathsManagerService	= RecentPathsManagerService
 			};
 			this.Add(menuFlyoutPath);
 		}

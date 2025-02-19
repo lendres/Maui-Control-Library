@@ -26,8 +26,7 @@ public partial class RecentlyUsedMenuPageViewModel : BaseViewModel
 		// control).  Normally, you would not do this.
 		if (RecentPathsManagerService.GetRecentPaths().Count == 0)
 		{
-			RecentPathsManagerService.PushTop(@"C:\Temp\File.txt");
-			RecentPathsManagerService.PushTop(@"C:\Users\Lance\Notes.txt");
+			ResetPaths();
 		}
 	}
 
@@ -76,7 +75,9 @@ public partial class RecentlyUsedMenuPageViewModel : BaseViewModel
 	[RelayCommand]
 	void ResetPaths()
 	{
-		RecentPathsManagerService.RemovePath(@"C:\New\New File.txt");
+		RecentPathsManagerService.ClearAllPaths();
+		RecentPathsManagerService.PushTop(@"C:\Temp\File.txt");
+		RecentPathsManagerService.PushTop(@"C:\Users\Lance\Notes.txt");
 	}
 
 	//[RelayCommand]

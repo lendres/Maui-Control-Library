@@ -70,6 +70,7 @@ public interface IRecentPathsManagerService
 	void PushTop(string path);
 	void RemovePath(string path);
 	void RemovePath(int position);
+	void ClearAllPaths();
 
 	#endregion
 }

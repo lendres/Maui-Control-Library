@@ -87,11 +87,11 @@ public class RecentPathsManagerService : IRecentPathsManagerService
 	/// <summary>
 	/// Generates the stored name.
 	/// </summary>
-	/// <param name="name">Number of the path to generate the name for.</param>
+	/// <param name="name">Name of the element to generate the storage name for.</param>
 	/// <returns>
-	/// The name of the parameter to store.
+	/// The storage name for the path.
 	/// </returns>
-	private string StorageName(uint name) => Name + " " + "Path " + pathNumber.ToString();
+	private string StorageName(string name) => Name + " " + name;
 
 	/// <summary>
 	/// Generates the stored name for a path.
@@ -100,7 +100,7 @@ public class RecentPathsManagerService : IRecentPathsManagerService
 	/// <returns>
 	/// The storage name for the path.
 	/// </returns>
-	private string StorageName(uint pathNumber) => Name + " " + "Path " + pathNumber.ToString();
+	private string StoragePathName(uint pathNumber) => StorageName("Path " + pathNumber.ToString());
 
 	/// <summary>
 	/// Gets the recently used path specified.
@@ -111,7 +111,7 @@ public class RecentPathsManagerService : IRecentPathsManagerService
 	private string GetStoredPath(uint pathNumber)
 	{
 		System.Diagnostics.Debug.Assert(pathNumber < MaxSize);
-		return Preferences.Default.Get(StorageName(pathNumber), "");
+		return Preferences.Default.Get(StoragePathName(pathNumber), "");
 	}
 
 	/// <summary>
@@ -120,7 +120,7 @@ public class RecentPathsManagerService : IRecentPathsManagerService
 	private void SaveRecentPath(uint pathNumber, string path)
 	{
 		System.Diagnostics.Debug.Assert(pathNumber < MaxSize);
-		Preferences.Default.Set(StorageName(pathNumber), path);
+		Preferences.Default.Set(StoragePathName(pathNumber), path);
 	}
 
 	/// <summary>
@@ -208,7 +208,7 @@ public class RecentPathsManagerService : IRecentPathsManagerService
 			_paths.RemoveAt(_paths.Count-1);
 		}
 
-		// Now update the registry and controls.
+		// Now update the saved values and controls.
 		NotifyPathsChanged();
 	}
 
@@ -229,6 +229,15 @@ public class RecentPathsManagerService : IRecentPathsManagerService
 	public void RemovePath(int position)
 	{
 		_paths.RemoveAt(position);
+		NotifyPathsChanged();
+	}
+
+	/// <summary>
+	/// Resets all the paths to be blank (empty string).
+	/// </summary>
+	public void ClearAllPaths()
+	{
+		_paths.Clear();
 		NotifyPathsChanged();
 	}
 
