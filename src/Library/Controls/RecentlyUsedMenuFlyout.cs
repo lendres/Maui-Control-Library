@@ -121,7 +121,7 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 				Command						= PathCommand,
 				RecentPathsManagerService	= RecentPathsManagerService
 			};
-			this.Add(menuFlyoutPath);
+			Add(menuFlyoutPath);
 		}
 	}
 
