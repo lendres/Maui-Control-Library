@@ -32,15 +32,8 @@ public partial class RecentlyUsedMenuPageViewModel : BaseViewModel
 
 	#region Properties
 
-
 	[ObservableProperty]
 	public partial IRecentPathsManagerService		RecentPathsManagerService { get; set; }
-
-	//[ObservableProperty]
-	//public partial bool								CanAddNewPath { get; set; }					= true;
-
-	//[ObservableProperty]
-	//public partial bool								CanAddFlyoutSubItem { get; set; }				= true;
 
 	public Page? MenuHostingPage
 	{

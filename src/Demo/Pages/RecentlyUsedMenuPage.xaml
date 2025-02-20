@@ -18,6 +18,9 @@
 
 	<ContentPage.MenuBarItems>
 		<MenuBarItem Text="Menu Bar Item">
+			<MenuFlyoutItem
+				Text="Settings..."
+				Clicked="OnSettingsClicked"/>
 			<dpcontrols:RecentlyUsedMenuFlyout
 				Text="Recently Used"
 				RecentPathsManagerService="{Binding RecentPathsManagerService}"

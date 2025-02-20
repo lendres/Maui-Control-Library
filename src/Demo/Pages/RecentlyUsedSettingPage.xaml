@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup
+	xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+	xmlns:viewmodel="clr-namespace:DigitalProduction.Demo.ViewModels"
+	xmlns:dpcontrols="clr-namespace:DigitalProduction.Maui.Controls;assembly=DigitalProduction.Maui"
+	x:Class="DigitalProduction.Demo.Pages.RecentlyUsedSettingPage"
+	x:DataType="viewmodel:AboutViewModel"
+	CanBeDismissedByTappingOutsideOfPopup="False">
+
+	<Border StyleClass="PopupFrameStyle" MinimumWidthRequest="500" MinimumHeightRequest="330">
+
+		<VerticalStackLayout StyleClass="VerticalLayoutStyle" Padding="10">
+
+			<Label Text="Settings" x:Name="TitleLabel" StyleClass="Title" HorizontalOptions="Start"/>
+
+			<!--<HorizontalStackLayout Padding="0" Spacing="0" VerticalOptions="Center" HeightRequest="22">
+				<CheckBox
+					IsChecked="{Binding UseInputDirectoryForOutput}"
+					VerticalOptions="Center"/>
+				--><!-- Enlarge the label so the desenders don't get cut off. --><!--
+				<Label Text="" VerticalOptions="Center" Margin="0" HeightRequest="25" Padding="0"/>
+			</HorizontalStackLayout>-->
+
+
+
+			<HorizontalStackLayout StyleClass="BottomButtonRowStyle">
+				<Button 
+					Text="Save"
+					HorizontalOptions="End"
+					StyleClass="StandardSizeButtonStyle"
+					Clicked="OnSaveButtonClicked"/>
+				<Button 
+					Text="Close"
+					StyleClass="StandardSizeButtonStyle"
+					HorizontalOptions="End"
+					Clicked="OnCancelButtonClicked"/>
+			</HorizontalStackLayout>
+
+		</VerticalStackLayout>
+	</Border>
+
+</toolkit:Popup>
