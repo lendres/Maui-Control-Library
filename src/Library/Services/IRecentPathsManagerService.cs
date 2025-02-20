@@ -48,10 +48,28 @@ public interface IRecentPathsManagerService
 	/// </returns>
 	public List<string> GetRecentPaths();
 
-
+	/// <summary>
+	/// Puts the specified path at the top of the entries.  If the supplied path is already located in the
+	///	list at some other position, it is removed from that position put on top, moving the other paths down.
+	/// </summary>
+	/// <param name="path">Path to insert at top of the list.</param>
 	void PushTop(string path);
+
+	/// <summary>
+	/// Removes the specified path from the list of paths.
+	/// </summary>
+	/// <param name="path">The path to be removed.</param>
 	void RemovePath(string path);
+
+	/// <summary>
+	/// Removes the path found the specified position from the list of paths.
+	/// </summary>
+	/// <param name="position">The position of the path to be removed.</param>
 	void RemovePath(int position);
+
+	/// <summary>
+	/// Resets all the paths to be blank (empty string).
+	/// </summary>
 	void ClearAllPaths();
 
 	#endregion

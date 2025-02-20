@@ -149,6 +149,14 @@ public class RecentPathsManagerService : IRecentPathsManagerService
 		}
 	}
 
+	/// <summary>
+	/// Fire the event for paths changed.
+	/// </summary>
+	private void NotifyPathsChanged()
+	{
+		OnPathsChanged.Invoke(GetRecentPaths());
+	}
+
 	#endregion
 
 	#region Path Management
@@ -233,11 +241,6 @@ public class RecentPathsManagerService : IRecentPathsManagerService
 	{
 		_paths.Clear();
 		NotifyPathsChanged();
-	}
-
-	private void NotifyPathsChanged()
-	{
-		OnPathsChanged.Invoke(GetRecentPaths());
 	}
 
 	#endregion
