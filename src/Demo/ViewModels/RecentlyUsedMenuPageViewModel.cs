@@ -14,11 +14,10 @@ public partial class RecentlyUsedMenuPageViewModel : BaseViewModel
 
 	#region Construction
 
-	public RecentlyUsedMenuPageViewModel(IDialogService dialogService)
+	public RecentlyUsedMenuPageViewModel(IRecentPathsManagerService recentPathsManagerService, IDialogService dialogService)
 	{
-		_dialogService      = dialogService;
-
-		RecentPathsManagerService = new RecentPathsManagerService();
+		RecentPathsManagerService	= recentPathsManagerService;
+		_dialogService				= dialogService;
 
 		// During the construction of the RecentPathsManagerService, it will restore any saved values.  If
 		// No values were saved, then we will add some here for demonstration purposed (so we don't get a blank
