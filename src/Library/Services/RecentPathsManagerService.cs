@@ -56,12 +56,12 @@ public class RecentPathsManagerService : IRecentPathsManagerService
 	/// </summary>
 	public uint NumberOfItemsShown
 	{
-		get => Preferences.Default.Get(StorageName("Size"), 10u);
+		get => (uint)Preferences.Default.Get(StorageName("Size"), 10);
 		set
 		{
-			uint size = Math.Min(value, MaxSize);
+			int size = (int)Math.Min(value, MaxSize);
 			Preferences.Default.Set(StorageName("Size"), size);
-			OnNumberOfItemsShownChanged?.Invoke(size);
+			OnNumberOfItemsShownChanged?.Invoke((uint)size);
 		}
 	}
 

@@ -5,12 +5,12 @@ namespace DigitalProduction.Demo.ViewModels;
 
 public partial class RecentlyUsedSettingViewModel : ObservableObject
 {
-	private IRecentPathsManagerService      _recentPathsManagerService;
+	private readonly IRecentPathsManagerService      _recentPathsManagerService;
 //OnNumberOfItemsShownChanged
 
 	public RecentlyUsedSettingViewModel()
 	{
-		_recentPathsManagerService = new RecentPathsManagerService();
+		_recentPathsManagerService = Maui.Services.ServiceProvider.GetService<IRecentPathsManagerService>();
 		Initialize();
 	}
 

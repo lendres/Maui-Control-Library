@@ -9,7 +9,7 @@ public partial class RecentlyUsedMenuPageViewModel : BaseViewModel
 	#region Fields
 
 	private readonly IDialogService     _dialogService;
-	private string						_fileDirectory;
+	private readonly string				_fileDirectory;
 	private int                         _fileCounter        = 0;
 
 	#endregion
