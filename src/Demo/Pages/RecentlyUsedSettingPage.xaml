@@ -9,7 +9,7 @@
 	x:DataType="viewmodel:AboutViewModel"
 	CanBeDismissedByTappingOutsideOfPopup="False">
 
-	<Border StyleClass="PopupFrameStyle" MinimumWidthRequest="500" MinimumHeightRequest="330">
+	<Border StyleClass="PopupFrameStyle" MinimumWidthRequest="300" MinimumHeightRequest="70">
 
 		<VerticalStackLayout StyleClass="VerticalLayoutStyle" Padding="10">
 
@@ -24,6 +24,7 @@
 			</HorizontalStackLayout>
 
 			<Picker
+				x:Name="NumberOfItemsPicker"
 				Title="Number of recent items to show">
 				<Picker.ItemsSource>
 					<x:Array Type="{x:Type x:Int16}">

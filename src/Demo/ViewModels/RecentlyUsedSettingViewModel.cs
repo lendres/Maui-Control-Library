@@ -11,6 +11,7 @@ public partial class RecentlyUsedSettingViewModel : ObservableObject
 	public RecentlyUsedSettingViewModel()
 	{
 		_recentPathsManagerService = new RecentPathsManagerService();
+		Initialize();
 	}
 
 	[ObservableProperty]
@@ -18,6 +19,12 @@ public partial class RecentlyUsedSettingViewModel : ObservableObject
 
 	[ObservableProperty]
 	public partial bool		RemoveNotFoundPaths { get; set; }
+
+	public void Initialize()
+	{
+		NumberOfItemsShown	= (int)_recentPathsManagerService.NumberOfItemsShown;
+		RemoveNotFoundPaths	= _recentPathsManagerService.RemoveNotFoundPaths;
+	}
 
 	public void Save()
 	{
