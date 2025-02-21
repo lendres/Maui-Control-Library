@@ -4,11 +4,13 @@ using DigitalProduction.Maui.Services;
 
 namespace DigitalProduction.Demo.ViewModels;
 
-public partial class RecentlyUsedMenuPageViewModel : BaseViewModel
+public partial class RecentlyUsedMenuPageViewModel : BaseViewModel, IDisposable
 {
 	#region Fields
 
 	private readonly IDialogService     _dialogService;
+	private string						_fileDirectory;
+	private int                         _fileCounter        = 0;
 
 	#endregion
 
@@ -18,6 +20,8 @@ public partial class RecentlyUsedMenuPageViewModel : BaseViewModel
 	{
 		RecentPathsManagerService	= recentPathsManagerService;
 		_dialogService				= dialogService;
+
+		_fileDirectory				= DigitalProduction.Reflection.Assembly.Path()!;
 
 		// During the construction of the RecentPathsManagerService, it will restore any saved values.  If
 		// No values were saved, then we will add some here for demonstration purposed (so we don't get a blank
@@ -45,6 +49,21 @@ public partial class RecentlyUsedMenuPageViewModel : BaseViewModel
 
 	#region Methods
 
+	private string CreateTempFile()
+	{
+		string tempFile = System.IO.Path.Combine(_fileDirectory, "File That Exists" + (++_fileCounter).ToString() + ".txt");
+		System.IO.File.WriteAllText(tempFile, "This file is for testing only."+Environment.NewLine);
+		return tempFile;
+	}
+
+	private void RemoveTempFiles()
+	{
+		for (int i = 0; i < _fileCounter; i++)
+		{
+			System.IO.File.Delete( "File That Exists" + (i+1).ToString() + ".txt");
+		}
+	}
+
 	[RelayCommand]
 	void ShowSelectedMessage(string message)
 	{
@@ -52,23 +71,25 @@ public partial class RecentlyUsedMenuPageViewModel : BaseViewModel
 	}
 
 	[RelayCommand]
-	void AddNewPath()
+	void ShowRemovedMessage(string message)
 	{
-		RecentPathsManagerService.PushTop(@"C:\New\New File.txt");
+		_dialogService.ShowMessage("Menu clicked", $"The path \"{message}\" was was not found.", "OK");
 	}
 
 	[RelayCommand]
-	void RemoveNewPath()
+	void AddNewPath()
 	{
-		RecentPathsManagerService.RemovePath(@"C:\New\New File.txt");
+		RecentPathsManagerService.PushTop(CreateTempFile());
 	}
 
 	[RelayCommand]
 	void ResetPaths()
 	{
+		RemoveTempFiles();
 		RecentPathsManagerService.ClearAllPaths();
-		RecentPathsManagerService.PushTop(@"C:\Temp\File.txt");
-		RecentPathsManagerService.PushTop(@"C:\Users\Lance\Notes.txt");
+		RecentPathsManagerService.PushTop(CreateTempFile());
+		RecentPathsManagerService.PushTop(@"C:\Temp\Does Not Exist File 2.txt");
+		RecentPathsManagerService.PushTop(@"C:\Temp\Does Not Exist File 1.txt");
 	}
 
 	#endregion
