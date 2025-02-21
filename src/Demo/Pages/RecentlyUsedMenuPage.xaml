@@ -30,33 +30,23 @@
 	</ContentPage.MenuBarItems>
 		
 	<ScrollView>
-		<VerticalStackLayout Padding="30,0" Spacing="25">
+		<VerticalStackLayout Padding="30,0" Spacing="25" WidthRequest="350">
 
 			<Label
                 Text="Menu Test"
                 Style="{StaticResource SubHeadline}" />
 
 			<Button
-				Text="Add New Path"
-				Command="{Binding AddNewPathCommand}"/>
+				Text="Add New File"
+				Command="{Binding AddNewFileCommand}"/>
 
-			<!--<Button
-				Text="Remove New Path"
-				Command="{Binding RemoveNewPathCommand}"/>-->
+			<Button
+				Text="Remove Temporary Files"
+				Command="{Binding RemoveFilesCommand}"/>
 
 			<Button
 				Text="Reset Paths"
 				Command="{Binding ResetPathsCommand}"/>
-
-			<!--<Button
-				Text="Add Fly Out Sub Item"
-				Command="{Binding AddFlyOutSubItemCommand}"
-				IsEnabled="{Binding CanAddFlyoutSubItem}"/>
-
-			<Button
-				Text="Remove FlyOut Sub Item"
-				Command="{Binding RemoveFlyOutSubItemCommand}"
-				IsEnabled="{Binding CanAddFlyoutSubItem, Converter={StaticResource InvertedBoolConverter}}"/>-->
 
 		</VerticalStackLayout>
 	</ScrollView>
