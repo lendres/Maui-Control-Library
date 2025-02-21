@@ -4,7 +4,7 @@ using DigitalProduction.Maui.Services;
 
 namespace DigitalProduction.Demo.ViewModels;
 
-public partial class RecentlyUsedMenuPageViewModel : BaseViewModel, IDisposable
+public partial class RecentlyUsedMenuPageViewModel : BaseViewModel
 {
 	#region Fields
 
