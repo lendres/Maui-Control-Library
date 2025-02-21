@@ -15,15 +15,27 @@
 
 			<Label Text="Settings" x:Name="TitleLabel" StyleClass="Title" HorizontalOptions="Start"/>
 
-			<!--<HorizontalStackLayout Padding="0" Spacing="0" VerticalOptions="Center" HeightRequest="22">
+			<HorizontalStackLayout Padding="0" Spacing="0" VerticalOptions="Center" HeightRequest="22">
 				<CheckBox
-					IsChecked="{Binding UseInputDirectoryForOutput}"
+					IsChecked="{Binding RemoveNotFoundPaths}"
 					VerticalOptions="Center"/>
-				--><!-- Enlarge the label so the desenders don't get cut off. --><!--
-				<Label Text="" VerticalOptions="Center" Margin="0" HeightRequest="25" Padding="0"/>
-			</HorizontalStackLayout>-->
+				 <!--Enlarge the label so the desenders don't get cut off.--> 
+				<Label Text="Remove paths that do not exist." VerticalOptions="Center" Margin="0" HeightRequest="25" Padding="0"/>
+			</HorizontalStackLayout>
 
-
+			<Picker
+				Title="Number of recent items to show">
+				<Picker.ItemsSource>
+					<x:Array Type="{x:Type x:Int16}">
+						<x:Int16>3</x:Int16>
+						<x:Int16>4</x:Int16>
+						<x:Int16>5</x:Int16>
+						<x:Int16>6</x:Int16>
+						<x:Int16>7</x:Int16>
+						<x:Int16>8</x:Int16>
+					</x:Array>
+				</Picker.ItemsSource>
+			</Picker>
 
 			<HorizontalStackLayout StyleClass="BottomButtonRowStyle">
 				<Button 

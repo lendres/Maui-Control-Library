@@ -13,6 +13,10 @@ public partial class RecentlyUsedSettingPage : Popup
 
 	async protected virtual void OnSaveButtonClicked(object? sender, EventArgs eventArgs)
 	{
+		RecentlyUsedSettingViewModel? viewModel = BindingContext as RecentlyUsedSettingViewModel;
+		System.Diagnostics.Debug.Assert(viewModel != null);
+
+		viewModel.Save();
 		CancellationTokenSource cancelationTokenSource = new(TimeSpan.FromSeconds(5));
 		await CloseAsync(true, cancelationTokenSource.Token);
 	}
