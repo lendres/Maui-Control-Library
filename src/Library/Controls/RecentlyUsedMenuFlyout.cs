@@ -24,6 +24,48 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 
 	#region Bindable Properties
 
+    public static readonly BindableProperty PathCommandProperty =
+        BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(RecentlyUsedMenuFlyout), null,
+			propertyChanged: (bindable, oldObject, newObject) =>
+            {
+				System.Diagnostics.Debug.Assert(newObject != null);
+
+                if (newObject == oldObject || bindable is not RecentlyUsedMenuFlyout self)
+                {
+                    return;
+                }
+
+				self.CheckAndBuildMenus();
+            }
+		);
+
+	public ICommand PathCommand
+	{
+		get => (ICommand)GetValue(PathCommandProperty);
+		set => SetValue(PathCommandProperty, value);
+	}
+
+    public static readonly BindableProperty PathNotFoundCommandProperty =
+        BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(RecentlyUsedMenuFlyout), null,
+			propertyChanged: (bindable, oldObject, newObject) =>
+            {
+				System.Diagnostics.Debug.Assert(newObject != null);
+
+                if (newObject == oldObject || bindable is not RecentlyUsedMenuFlyout self)
+                {
+                    return;
+                }
+
+				self.CheckAndBuildMenus();
+            }
+		);
+
+	public ICommand PathNotFoundCommand
+	{
+		get => (ICommand)GetValue(PathNotFoundCommandProperty);
+		set => SetValue(PathNotFoundCommandProperty, value);
+	}
+
     public static readonly BindableProperty RecentPathsManagerServiceProperty =
         BindableProperty.Create(nameof(RecentPathsManagerService), typeof(IRecentPathsManagerService), typeof(RecentlyUsedMenuFlyout), null,
 			propertyChanged: (bindable, oldObject, newObject) =>
@@ -46,12 +88,16 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 				}
 
 				// Connect events.
-				IRecentPathsManagerService newService = newObject as IRecentPathsManagerService ??
+				if (newObject != null)
+				{
+					IRecentPathsManagerService newService = newObject as IRecentPathsManagerService ??
 					throw new InvalidOperationException($"Invalid object, expected {nameof(IRecentPathsManagerService)}.");
-				self.OnPathsChanged(newService.GetRecentPaths());
-				newService.OnMaxSizeChanged		+= self.OnMaxSizeChanged;
-				newService.OnMaxSizeChanged		+= self.OnNumberOfItemsShownChanged;
-				newService.OnPathsChanged		+= self.OnPathsChanged;
+					newService.OnMaxSizeChanged     += self.OnMaxSizeChanged;
+					newService.OnMaxSizeChanged     += self.OnNumberOfItemsShownChanged;
+					newService.OnPathsChanged       += self.OnPathsChanged;
+
+					self.CheckAndBuildMenus();
+				}
             }
 		);
 
@@ -59,30 +105,6 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 	{
 		get => (RecentPathsManagerService)GetValue(RecentPathsManagerServiceProperty);
 		set => SetValue(RecentPathsManagerServiceProperty, value);
-	}
-
-    public static readonly BindableProperty PathCommandProperty =
-        BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(RecentlyUsedMenuFlyout), null,
-			propertyChanged: (bindable, oldObject, newObject) =>
-            {
-				System.Diagnostics.Debug.Assert(newObject != null);
-
-                if (newObject == oldObject || bindable is not RecentlyUsedMenuFlyout self)
-                {
-                    return;
-                }
-
-				if (self.RecentPathsManagerService != null)
-				{
-					self.OnPathsChanged(self.RecentPathsManagerService.GetRecentPaths());
-				}
-            }
-		);
-
-	public ICommand PathCommand
-	{
-		get => (ICommand)GetValue(PathCommandProperty);
-		set => SetValue(PathCommandProperty, value);
 	}
 
 	#endregion
@@ -97,6 +119,20 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 	private void OnNumberOfItemsShownChanged(uint numberOfIems)
 	{
 		OnPathsChanged(RecentPathsManagerService.GetRecentPaths());
+	}
+
+	/// <summary>
+	/// This is used to prevent building the menus multiple times.  It checks if all the properties are in place and
+	/// then builds the menus once they are available.
+	/// 
+	/// By using this, we are requiring all the properties to be set.  If one is left off, there will be no functionality.
+	/// </summary>
+	private void CheckAndBuildMenus()
+	{
+		if (RecentPathsManagerService != null && PathCommand != null && PathNotFoundCommand != null)
+		{
+			OnPathsChanged(RecentPathsManagerService.GetRecentPaths());
+		}
 	}
 
 	private void OnPathsChanged(List<string> paths)
@@ -114,7 +150,8 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 			{
 				Number						= i,
 				Path						= paths[i],
-				Command						= PathCommand,
+				PathCommand					= PathCommand,
+				PathNotFoundCommand			= PathNotFoundCommand,
 				RecentPathsManagerService	= RecentPathsManagerService
 			};
 			Add(menuFlyoutPath);

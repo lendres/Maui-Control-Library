@@ -23,8 +23,9 @@
 				Clicked="OnSettingsClicked"/>
 			<dpcontrols:RecentlyUsedMenuFlyout
 				Text="Recently Used"
-				RecentPathsManagerService="{Binding RecentPathsManagerService}"
-				PathCommand="{Binding ShowSelectedMessageCommand}"/>
+				PathCommand="{Binding ShowSelectedMessageCommand}"
+				PathNotFoundCommand="{Binding ShowRemovedMessageCommand}"
+				RecentPathsManagerService="{Binding RecentPathsManagerService}"/>
 		</MenuBarItem>
 	</ContentPage.MenuBarItems>
 		
@@ -39,9 +40,9 @@
 				Text="Add New Path"
 				Command="{Binding AddNewPathCommand}"/>
 
-			<Button
+			<!--<Button
 				Text="Remove New Path"
-				Command="{Binding RemoveNewPathCommand}"/>
+				Command="{Binding RemoveNewPathCommand}"/>-->
 
 			<Button
 				Text="Reset Paths"
