@@ -53,6 +53,7 @@ public static class MauiProgram
 	{
 		services.AddSingleton<IDialogService, DialogService>();
 		services.AddSingleton<IMenuService, MenuService>();
+		services.AddSingleton<IRecentPathsManagerService, RecentPathsManagerService>();
 	}
 
 	private static void RegisterEssentials(in IServiceCollection services)

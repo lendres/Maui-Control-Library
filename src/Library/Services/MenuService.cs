@@ -100,7 +100,7 @@ public class MenuService : IMenuService
 			menuBarItem.Add(itemToAdd);
 		}
 
-		ForceMenuRebuild();
+		MenuService.ForceMenuRebuild();
 		return itemToAdd;
 	}
 
@@ -155,7 +155,7 @@ public class MenuService : IMenuService
 		IMenuFlyoutItem? itemToRemove = GetMenuFlyoutItem(menuFlyoutItemName) ??
 			throw new InvalidOperationException($"No MenuFlyoutItem with text {menuFlyoutItemName} found in MenuBarItem with text {menuBarItem.Text}.");
 		menuBarItem.Remove(itemToRemove);
-		ForceMenuRebuild();
+		MenuService.ForceMenuRebuild();
 	}
 
 	#endregion
@@ -257,7 +257,7 @@ public class MenuService : IMenuService
 			parentSubMenu.Add(itemToAdd);
 		}
 
-		ForceMenuRebuild();
+		MenuService.ForceMenuRebuild();
 		return itemToAdd;
 	}
 
@@ -311,7 +311,7 @@ public class MenuService : IMenuService
 		IMenuFlyoutItem? itemToRemove = GetMenuFlyoutItemInSubMenu(parentSubMenu, flyoutItemName) ??
 			throw new InvalidOperationException($"No MenuFlyoutItem with text {flyoutItemName} in parent MenuFlyoutSubItem with text {parentSubMenu.Text} was found.");
 		parentSubMenu.Remove(itemToRemove);
-		ForceMenuRebuild();
+		MenuService.ForceMenuRebuild();
 	}
 
 	/// <summary>
@@ -323,7 +323,7 @@ public class MenuService : IMenuService
 	public void RemoveMenuFlyoutItemFromSubMenu(IMenuFlyoutSubItem parentSubMenu, IMenuFlyoutItem flyoutItem)
 	{
 		parentSubMenu.Remove(flyoutItem);
-		ForceMenuRebuild();
+		MenuService.ForceMenuRebuild();
 	}
 
 	#endregion
@@ -362,7 +362,7 @@ public class MenuService : IMenuService
 
 	#region Platform
 
-	private void ForceMenuRebuild()
+	public static void ForceMenuRebuild()
 	{
 		#if MACCATALYST
             UIMenuSystem.MainSystem.SetNeedsRebuild();

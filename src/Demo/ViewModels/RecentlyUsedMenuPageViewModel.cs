@@ -1,83 +1,95 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DigitalProduction.Maui.Services;
-using System.Collections.ObjectModel;
 
 namespace DigitalProduction.Demo.ViewModels;
 
-public partial class RecentlyUsedMenuPageViewModel(IDialogService dialogService, IMenuService menuService) : BaseViewModel
+public partial class RecentlyUsedMenuPageViewModel : BaseViewModel
 {
 	#region Fields
 
-	private readonly IDialogService     _dialogService      = dialogService;
-	private readonly IMenuService       _menuService        = menuService;
+	private readonly IDialogService     _dialogService;
+	private string						_fileDirectory;
+	private int                         _fileCounter        = 0;
+
+	#endregion
+
+	#region Construction
+
+	public RecentlyUsedMenuPageViewModel(IRecentPathsManagerService recentPathsManagerService, IDialogService dialogService)
+	{
+		RecentPathsManagerService	= recentPathsManagerService;
+		_dialogService				= dialogService;
+
+		_fileDirectory				= DigitalProduction.Reflection.Assembly.Path()!;
+
+		// During the construction of the RecentPathsManagerService, it will restore any saved values.  If
+		// No values were saved, then we will add some here for demonstration purposed (so we don't get a blank
+		// control).  Normally, you would not do this.
+		if (RecentPathsManagerService.GetRecentPaths().Count == 0)
+		{
+			ResetPaths();
+		}
+	}
 
 	#endregion
 
 	#region Properties
 
-
 	[ObservableProperty]
-	public partial ObservableCollection<string>		ItemsSource { get; set; }			= [@"C:\Temp\File.txt", @"C:\Users\Lance\Notes.txt"];
-
-	[ObservableProperty]
-	public partial bool								CanAddFlyoutItem { get; set; }		= true;
-
-	[ObservableProperty]
-	public partial bool								CanAddFlyoutSubItem { get; set; }	= true;
+	public partial IRecentPathsManagerService		RecentPathsManagerService { get; set; }
 
 	public Page? MenuHostingPage
 	{
-		get => _menuService.HostingPage;
-		set
-		{
-			_menuService.HostingPage = value;
-			_dialogService.HostingPage = value;
-		}
+		get => _dialogService.HostingPage;
+		set => _dialogService.HostingPage = value;
 	}
 
 	#endregion
 
 	#region Methods
 
-	private void ShowSelectedMessage(string commandName)
+	private string CreateTempFile()
 	{
-		_dialogService.ShowMessage("MenuFlyoutItem clicked", $"Executing {commandName} showing this message.", "OK");
+		string tempFile = System.IO.Path.Combine(_fileDirectory, "File That Exists" + (++_fileCounter).ToString() + ".txt");
+		System.IO.File.WriteAllText(tempFile, "This file is for testing only."+Environment.NewLine);
+		return tempFile;
 	}
 
-	[RelayCommand]
-	void AddFlyOutItem()
+	private void RemoveTempFiles()
 	{
-		_menuService.AddMenuFlyoutItem("Menu Bar Item", "Added Item", () => ShowSelectedMessage("Added Item"));
-		CanAddFlyoutItem = false;
-	}
-
-	[RelayCommand]
-	void RemoveFlyOutItem()
-	{
-		_menuService.RemoveMenuFlyoutItem("Menu Bar Item", "Added Item");
-		CanAddFlyoutItem = true;
-	}
-
-	[RelayCommand]
-	void AddFlyOutSubItem()
-	{
-		_menuService.AddMenuFlyoutItemToSubMenu("Menu Flyout Sub Item", "Added Sub Item", () => ShowSelectedMessage("Added Sub Item"));
-		CanAddFlyoutSubItem = false;
-
-		IMenuFlyoutSubItem menuFlyoutSubItem = _menuService.GetSubMenu("Flyout")!;
-		System.Diagnostics.Debug.WriteLine("");
-		foreach (IMenuElement item in menuFlyoutSubItem)
+		for (int i = 0; i < _fileCounter; i++)
 		{
-			System.Diagnostics.Debug.WriteLine(item.Text);
+			System.IO.File.Delete( "File That Exists" + (i+1).ToString() + ".txt");
 		}
 	}
 
 	[RelayCommand]
-	void RemoveFlyOutSubItem()
+	void ShowSelectedMessage(string message)
 	{
-		_menuService.RemoveMenuFlyoutItemFromSubMenu("Menu Flyout Sub Item", "Added Sub Item");
-		CanAddFlyoutSubItem = true;
+		_dialogService.ShowMessage("Menu clicked", $"The path \"{message}\" was selected.", "OK");
+	}
+
+	[RelayCommand]
+	void ShowRemovedMessage(string message)
+	{
+		_dialogService.ShowMessage("Menu clicked", $"The path \"{message}\" was was not found.", "OK");
+	}
+
+	[RelayCommand]
+	void AddNewPath()
+	{
+		RecentPathsManagerService.PushTop(CreateTempFile());
+	}
+
+	[RelayCommand]
+	void ResetPaths()
+	{
+		RemoveTempFiles();
+		RecentPathsManagerService.ClearAllPaths();
+		RecentPathsManagerService.PushTop(CreateTempFile());
+		RecentPathsManagerService.PushTop(@"C:\Temp\Does Not Exist File 2.txt");
+		RecentPathsManagerService.PushTop(@"C:\Temp\Does Not Exist File 1.txt");
 	}
 
 	#endregion

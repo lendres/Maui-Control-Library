@@ -11,4 +11,10 @@ public partial class RecentlyUsedMenuPage : BasePage<RecentlyUsedMenuPageViewMod
 		InitializeComponent();
 		viewModel.MenuHostingPage	= this;
 	}
+
+	async void OnSettingsClicked(object? sender, EventArgs args)
+	{
+		RecentlyUsedSettingPage view = new(new RecentlyUsedSettingViewModel());
+		_ = await Shell.Current.ShowPopupAsync(view);
+	}
 }
