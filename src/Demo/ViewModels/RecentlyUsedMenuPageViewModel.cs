@@ -51,16 +51,18 @@ public partial class RecentlyUsedMenuPageViewModel : BaseViewModel
 
 	private string CreateTempFile()
 	{
-		string tempFile = System.IO.Path.Combine(_fileDirectory, "File That Exists" + (++_fileCounter).ToString() + ".txt");
+		string tempFile = System.IO.Path.Combine(_fileDirectory, "File That Exists " + (++_fileCounter).ToString() + ".txt");
 		System.IO.File.WriteAllText(tempFile, "This file is for testing only."+Environment.NewLine);
 		return tempFile;
 	}
 
 	private void RemoveTempFiles()
 	{
-		for (int i = 0; i < _fileCounter; i++)
+		 string[] files = Directory.GetFiles(_fileDirectory, "File That Exists*");
+		
+		foreach (string file in files)
 		{
-			System.IO.File.Delete( "File That Exists" + (i+1).ToString() + ".txt");
+			System.IO.File.Delete(file);
 		}
 	}
 
@@ -77,9 +79,15 @@ public partial class RecentlyUsedMenuPageViewModel : BaseViewModel
 	}
 
 	[RelayCommand]
-	void AddNewPath()
+	void AddNewFile()
 	{
 		RecentPathsManagerService.PushTop(CreateTempFile());
+	}
+
+	[RelayCommand]
+	void RemoveFiles()
+	{
+		RemoveTempFiles();
 	}
 
 	[RelayCommand]
