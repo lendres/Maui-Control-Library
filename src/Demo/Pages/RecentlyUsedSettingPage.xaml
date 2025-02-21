@@ -9,9 +9,9 @@
 	x:DataType="viewmodel:AboutViewModel"
 	CanBeDismissedByTappingOutsideOfPopup="False">
 
-	<Border StyleClass="PopupFrameStyle" MinimumWidthRequest="300" MinimumHeightRequest="70">
+	<Border StyleClass="PopupFrameStyle" MinimumWidthRequest="300" >
 
-		<VerticalStackLayout StyleClass="VerticalLayoutStyle" Padding="10">
+		<VerticalStackLayout StyleClass="MediumSpacingVerticalLayoutStyle">
 
 			<Label Text="Settings" x:Name="TitleLabel" StyleClass="Title" HorizontalOptions="Start"/>
 
@@ -42,11 +42,9 @@
 				<Button 
 					Text="Save"
 					HorizontalOptions="End"
-					StyleClass="StandardSizeButtonStyle"
 					Clicked="OnSaveButtonClicked"/>
 				<Button 
 					Text="Close"
-					StyleClass="StandardSizeButtonStyle"
 					HorizontalOptions="End"
 					Clicked="OnCancelButtonClicked"/>
 			</HorizontalStackLayout>
