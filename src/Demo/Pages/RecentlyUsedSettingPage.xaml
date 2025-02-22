@@ -6,10 +6,10 @@
 	xmlns:viewmodel="clr-namespace:DigitalProduction.Demo.ViewModels"
 	xmlns:dpcontrols="clr-namespace:DigitalProduction.Maui.Controls;assembly=DigitalProduction.Maui"
 	x:Class="DigitalProduction.Demo.Pages.RecentlyUsedSettingPage"
-	x:DataType="viewmodel:AboutViewModel"
+	x:DataType="viewmodel:RecentlyUsedSettingViewModel"
 	CanBeDismissedByTappingOutsideOfPopup="False">
 
-	<Border StyleClass="PopupFrameStyle" MinimumWidthRequest="300" >
+	<Border StyleClass="PopupFrameStyle" HeightRequest="340">
 
 		<VerticalStackLayout StyleClass="MediumSpacingVerticalLayoutStyle">
 
@@ -25,17 +25,16 @@
 
 			<Picker
 				x:Name="NumberOfItemsPicker"
-				Title="Number of recent items to show">
-				<Picker.ItemsSource>
-					<x:Array Type="{x:Type x:Int16}">
-						<x:Int16>3</x:Int16>
-						<x:Int16>4</x:Int16>
-						<x:Int16>5</x:Int16>
-						<x:Int16>6</x:Int16>
-						<x:Int16>7</x:Int16>
-						<x:Int16>8</x:Int16>
-					</x:Array>
-				</Picker.ItemsSource>
+				Title="Number of items to show"
+				ItemsSource="{Binding DisplayedItemsNumbers}"
+				SelectedItem="{Binding NumberOfItemsShown}">
+			</Picker>
+
+			<Picker
+				x:Name="MaximumItemsPicker"
+				Title="Number of items to remember"
+				ItemsSource="{Binding MaximumItemsNumbers}"
+				SelectedItem="{Binding MaximumNumberOfItems}">
 			</Picker>
 
 			<HorizontalStackLayout StyleClass="BottomButtonRowStyle">

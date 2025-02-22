@@ -19,7 +19,7 @@ public interface IRecentPathsManagerService
 	/// <summary>
 	/// Unique name used for identifcation and storage.
 	/// </summary>
-	public uint Name { get; set; }
+	public string Name { get; set; }
 
 	/// <summary>
 	/// Maximum size stored.

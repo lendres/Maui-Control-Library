@@ -1,9 +1,11 @@
 ﻿namespace DigitalProduction.Maui.Services;
 
 /// <summary>
-/// Registry access and setting storage.
+/// Service for controlling recently used paths.
+/// 
+/// This does the main work (contains the logic) of maintaining organization, storing, and retrieving
+/// the paths and path settings.
 /// </summary>
-
 public class RecentPathsManagerService : IRecentPathsManagerService
 {
 	#region Events
@@ -26,7 +28,7 @@ public class RecentPathsManagerService : IRecentPathsManagerService
 	public RecentPathsManagerService()
 	{
 		RestoreRecentPaths();
-		OnPathsChanged	+= SaveRecentPaths;
+		OnPathsChanged += SaveRecentPaths;
 	}
 
 	#endregion
@@ -36,18 +38,21 @@ public class RecentPathsManagerService : IRecentPathsManagerService
 	/// <summary>
 	/// Unique name used for identifcation and storage.
 	/// </summary>
-	public uint Name { get; set; }
+	public string Name { get; set; } = "Recent Paths";
 
 	/// <summary>
 	/// Maximum size stored.
 	/// </summary>
 	public uint MaxSize
 	{
-		get => Preferences.Default.Get(StorageName("Max Size"), 10u);
+		get => (uint)Preferences.Default.Get(StorageName("Max Size"), 20);
 		set
 		{
-			Preferences.Default.Set(StorageName("Max Size"), value);
-			OnMaxSizeChanged?.Invoke(value);
+			if (value != MaxSize)
+			{
+				Preferences.Default.Set(StorageName("Max Size"), value);
+				OnMaxSizeChanged?.Invoke(value);
+			}
 		}
 	}
 
@@ -59,9 +64,12 @@ public class RecentPathsManagerService : IRecentPathsManagerService
 		get => (uint)Preferences.Default.Get(StorageName("Size"), 10);
 		set
 		{
-			int size = (int)Math.Min(value, MaxSize);
-			Preferences.Default.Set(StorageName("Size"), size);
-			OnNumberOfItemsShownChanged?.Invoke((uint)size);
+			int size		= (int)Math.Min(value, MaxSize);
+			if (size != NumberOfItemsShown)
+			{
+				Preferences.Default.Set(StorageName("Size"), size);
+				OnNumberOfItemsShownChanged?.Invoke((uint)size);
+			}
 		}
 	}
 
@@ -142,10 +150,17 @@ public class RecentPathsManagerService : IRecentPathsManagerService
 	/// </summary>
 	private void SaveRecentPaths(List<string> paths)
 	{
+		// Save all the existing paths.
 		uint i = 0;
 		foreach (string path in paths)
 		{
 			SaveRecentPath(i++, path);
+		}
+
+		// We need to clear any remaining paths so they do not get restored next time the application is run.
+		for (; i < MaxSize; i++)
+		{
+			SaveRecentPath(i, "");
 		}
 	}
 
@@ -220,8 +235,10 @@ public class RecentPathsManagerService : IRecentPathsManagerService
 	/// <param name="path">The path to be removed.</param>
 	public void RemovePath(string path)
 	{
-		_paths.Remove(path);
-		NotifyPathsChanged();
+		if (_paths.Remove(path))
+		{
+			NotifyPathsChanged();
+		}
 	}
 
 	/// <summary>
@@ -230,8 +247,11 @@ public class RecentPathsManagerService : IRecentPathsManagerService
 	/// <param name="position">The position of the path to be removed.</param>
 	public void RemovePath(int position)
 	{
-		_paths.RemoveAt(position);
-		NotifyPathsChanged();
+		if (position < _paths.Count)
+		{
+			_paths.RemoveAt(position);
+			NotifyPathsChanged();
+		}
 	}
 
 	/// <summary>
@@ -239,8 +259,11 @@ public class RecentPathsManagerService : IRecentPathsManagerService
 	/// </summary>
 	public void ClearAllPaths()
 	{
-		_paths.Clear();
-		NotifyPathsChanged();
+		if (_paths.Count > 0)
+		{
+			_paths.Clear();
+			NotifyPathsChanged();
+		}
 	}
 
 	#endregion

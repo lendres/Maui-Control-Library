@@ -28,14 +28,15 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
         BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(RecentlyUsedMenuFlyout), null,
 			propertyChanged: (bindable, oldObject, newObject) =>
             {
-				System.Diagnostics.Debug.Assert(newObject != null);
-
                 if (newObject == oldObject || bindable is not RecentlyUsedMenuFlyout self)
                 {
                     return;
                 }
 
-				self.CheckAndBuildMenus();
+				if (newObject != null)
+				{
+					self.CheckAndBuildMenus();
+				}
             }
 		);
 
@@ -49,14 +50,15 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
         BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(RecentlyUsedMenuFlyout), null,
 			propertyChanged: (bindable, oldObject, newObject) =>
             {
-				System.Diagnostics.Debug.Assert(newObject != null);
-
                 if (newObject == oldObject || bindable is not RecentlyUsedMenuFlyout self)
                 {
                     return;
                 }
 
-				self.CheckAndBuildMenus();
+				if (newObject != null)
+				{
+					self.CheckAndBuildMenus();
+				}
             }
 		);
 
@@ -70,8 +72,6 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
         BindableProperty.Create(nameof(RecentPathsManagerService), typeof(IRecentPathsManagerService), typeof(RecentlyUsedMenuFlyout), null,
 			propertyChanged: (bindable, oldObject, newObject) =>
             {
-				System.Diagnostics.Debug.Assert(newObject != null);
-
                 if (newObject == oldObject || bindable is not RecentlyUsedMenuFlyout self)
                 {
                     return;
@@ -82,19 +82,19 @@ public partial class RecentlyUsedMenuFlyout : MenuFlyoutSubItem
 				{
 					IRecentPathsManagerService oldService = oldObject as IRecentPathsManagerService ??
 						throw new InvalidOperationException($"Invalid object, expected {nameof(IRecentPathsManagerService)}.");
-					oldService.OnMaxSizeChanged		-= self.OnMaxSizeChanged;
-					oldService.OnMaxSizeChanged		-= self.OnNumberOfItemsShownChanged;
-					oldService.OnPathsChanged		-= self.OnPathsChanged;
+					oldService.OnMaxSizeChanged				-= self.OnMaxSizeChanged;
+					oldService.OnNumberOfItemsShownChanged	-= self.OnNumberOfItemsShownChanged;
+					oldService.OnPathsChanged				-= self.OnPathsChanged;
 				}
 
 				// Connect events.
 				if (newObject != null)
 				{
 					IRecentPathsManagerService newService = newObject as IRecentPathsManagerService ??
-					throw new InvalidOperationException($"Invalid object, expected {nameof(IRecentPathsManagerService)}.");
-					newService.OnMaxSizeChanged     += self.OnMaxSizeChanged;
-					newService.OnMaxSizeChanged     += self.OnNumberOfItemsShownChanged;
-					newService.OnPathsChanged       += self.OnPathsChanged;
+						throw new InvalidOperationException($"Invalid object, expected {nameof(IRecentPathsManagerService)}.");
+					newService.OnMaxSizeChanged				+= self.OnMaxSizeChanged;
+					newService.OnNumberOfItemsShownChanged	+= self.OnNumberOfItemsShownChanged;
+					newService.OnPathsChanged				+= self.OnPathsChanged;
 
 					self.CheckAndBuildMenus();
 				}
