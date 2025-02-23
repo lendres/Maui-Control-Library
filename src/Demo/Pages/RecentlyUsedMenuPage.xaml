@@ -9,7 +9,7 @@
     x:Class="DigitalProduction.Demo.Pages.RecentlyUsedMenuPage"
     x:TypeArguments="viewmodel:RecentlyUsedMenuPageViewModel"
     x:DataType="viewmodel:RecentlyUsedMenuPageViewModel"
-	Title="Dynamic Menus">
+	Title="Recently Used Menu">
 
 	<ContentPage.Resources>
 		<toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter"/>
