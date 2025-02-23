@@ -93,9 +93,29 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Pages\RecentlyUsedSettingPage.xaml.cs">
+	    <DependentUpon>RecentlyUsedSettingPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\RecentlyUsedMenuPage.xaml.cs">
+	    <SubType>Code</SubType>
+	    <DependentUpon>RecentlyUsedMenuPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Pages\DynamicMenusPage.xaml.cs">
 	    <DependentUpon>DynamicMenusPage.xaml</DependentUpon>
 	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Pages\RecentlyUsedSettingPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\RecentlyUsedMenuPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Enumerations\" />
 	</ItemGroup>
 
 </Project>

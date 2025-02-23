@@ -8,6 +8,7 @@ public partial class AppShell : Shell
 	private static readonly IReadOnlyDictionary<Type, (Type GalleryPageType, Type ContentPageType)> viewModelMappings = new Dictionary<Type, (Type, Type)>(
 	[
 		CreateViewModelMapping<DynamicMenusPage, DynamicMenusPageViewModel, ControlsGalleryPage, ControlsGalleryViewModel>(),
+		CreateViewModelMapping<RecentlyUsedMenuPage, RecentlyUsedMenuPageViewModel, ControlsGalleryPage, ControlsGalleryViewModel>(),
 	]);
 
 	public AppShell()
@@ -38,10 +39,11 @@ public partial class AppShell : Shell
 
 	static string GetPageRoute(Type galleryPageType, Type contentPageType) => $"//{galleryPageType.Name}/{contentPageType.Name}";
 
-	static KeyValuePair<Type, (Type GalleryPageType, Type ContentPageType)> CreateViewModelMapping<TPage, TViewModel, TGalleryPage, TGalleryViewModel>() where TPage : BasePage<TViewModel>
-																																							where TViewModel : BaseViewModel
-																																							where TGalleryPage : BaseGalleryPage<TGalleryViewModel>
-																																							where TGalleryViewModel : BaseGalleryViewModel
+	static KeyValuePair<Type, (Type GalleryPageType, Type ContentPageType)> CreateViewModelMapping<TPage, TViewModel, TGalleryPage, TGalleryViewModel>()
+		where TPage : BasePage<TViewModel>
+		where TViewModel : BaseViewModel
+		where TGalleryPage : BaseGalleryPage<TGalleryViewModel> 
+		where TGalleryViewModel : BaseGalleryViewModel
 	{
 		return new KeyValuePair<Type, (Type GalleryPageType, Type ContentPageType)>(typeof(TViewModel), (typeof(TGalleryPage), typeof(TPage)));
 	}
