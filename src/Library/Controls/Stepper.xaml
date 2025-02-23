@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+	xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	x:Class="DigitalProduction.Maui.Controls.Stepper">
+	<?xml version="1.0" encoding="utf-8" ?>
+	<Grid ColumnDefinitions="50,120,50">
+		<Button
+			Grid.Column="0"
+			x:Name="MinusButton"
+			Text="-"
+			FontAttributes="Bold"
+			Clicked="MinusButton_Clicked"
+			VerticalOptions="Center"
+			HorizontalOptions="Center"
+			MinimumWidthRequest="50"/>
+		<Entry
+			Grid.Column="1"
+			x:Name="ValueEntry"
+			FontSize="42"
+			HorizontalTextAlignment="Center"
+			TextChanged="ValueEntry_TextChanged"
+			VerticalOptions="Center"
+			HorizontalOptions="Center"/>
+		<Button
+			Grid.Column="2"
+			x:Name="PlusButton"
+			Text="+"
+			FontAttributes="Bold"
+			Clicked="PlusButton_Clicked"
+			VerticalOptions="Center"
+			HorizontalOptions="Center"
+			MinimumWidthRequest="50"/>
+	</Grid>
+</ContentView>
