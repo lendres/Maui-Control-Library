@@ -50,7 +50,7 @@ public class RecentPathsManagerService : IRecentPathsManagerService
 		{
 			if (value != MaxSize)
 			{
-				Preferences.Default.Set(StorageName("Max Size"), value);
+				Preferences.Default.Set(StorageName("Max Size"), (int)value);
 				OnMaxSizeChanged?.Invoke(value);
 			}
 		}
@@ -64,7 +64,7 @@ public class RecentPathsManagerService : IRecentPathsManagerService
 		get => (uint)Preferences.Default.Get(StorageName("Size"), 10);
 		set
 		{
-			int size		= (int)Math.Min(value, MaxSize);
+			int size = (int)Math.Min(value, MaxSize);
 			if (size != NumberOfItemsShown)
 			{
 				Preferences.Default.Set(StorageName("Size"), size);

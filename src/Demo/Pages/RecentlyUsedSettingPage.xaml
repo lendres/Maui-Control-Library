@@ -9,7 +9,7 @@
 	x:DataType="viewmodel:RecentlyUsedSettingViewModel"
 	CanBeDismissedByTappingOutsideOfPopup="False">
 
-	<Border StyleClass="PopupFrameStyle" HeightRequest="340">
+	<Border StyleClass="PopupFrameStyle" HeightRequest="345">
 
 		<VerticalStackLayout StyleClass="MediumSpacingVerticalLayoutStyle">
 
