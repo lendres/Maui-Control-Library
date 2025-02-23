@@ -49,9 +49,9 @@ public partial class RecentlyUsedSettingViewModel : ObservableObject
 			DisplayedItemsNumbers.Add(i);
 		}
 
-		if (storedValue >  MaximumNumberOfItems)
+		if (storedValue >  value)
 		{
-			NumberOfItemsShown = MaximumNumberOfItems;
+			NumberOfItemsShown = value;
 		}
 		else
 		{

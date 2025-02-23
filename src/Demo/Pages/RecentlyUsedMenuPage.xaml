@@ -6,7 +6,6 @@
     xmlns:pages="clr-namespace:DigitalProduction.Demo.Pages"
     xmlns:viewmodel="clr-namespace:DigitalProduction.Demo.ViewModels"
 	xmlns:dpcontrols="clr-namespace:DigitalProduction.Maui.Controls;assembly=DigitalProduction.Maui"
-	xmlns:dpservices="clr-namespace:DigitalProduction.Maui.Services;assembly=DigitalProduction.Maui"
     x:Class="DigitalProduction.Demo.Pages.RecentlyUsedMenuPage"
     x:TypeArguments="viewmodel:RecentlyUsedMenuPageViewModel"
     x:DataType="viewmodel:RecentlyUsedMenuPageViewModel"
