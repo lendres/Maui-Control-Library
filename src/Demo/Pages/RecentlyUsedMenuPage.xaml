@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:pages="clr-namespace:DigitalProduction.Demo.Pages"
+    xmlns:viewmodel="clr-namespace:DigitalProduction.Demo.ViewModels"
+	xmlns:dpcontrols="clr-namespace:DigitalProduction.Maui.Controls;assembly=DigitalProduction.Maui"
+	xmlns:dpservices="clr-namespace:DigitalProduction.Maui.Services;assembly=DigitalProduction.Maui"
+    x:Class="DigitalProduction.Demo.Pages.RecentlyUsedMenuPage"
+    x:TypeArguments="viewmodel:RecentlyUsedMenuPageViewModel"
+    x:DataType="viewmodel:RecentlyUsedMenuPageViewModel"
+	Title="Dynamic Menus">
+
+	<ContentPage.Resources>
+		<toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter"/>
+	</ContentPage.Resources>
+
+	<ContentPage.MenuBarItems>
+		<MenuBarItem Text="Menu Bar Item">
+			<MenuFlyoutItem
+				Text="Settings..."
+				Clicked="OnSettingsClicked"/>
+			<dpcontrols:RecentlyUsedMenuFlyout
+				Text="Recently Used"
+				PathCommand="{Binding ShowSelectedMessageCommand}"
+				PathNotFoundCommand="{Binding ShowRemovedMessageCommand}"
+				RecentPathsManagerService="{Binding RecentPathsManagerService}"/>
+		</MenuBarItem>
+	</ContentPage.MenuBarItems>
+		
+	<ScrollView>
+		<VerticalStackLayout Padding="30,0" Spacing="25">
+
+			<Label
+                Text="Menu Test"
+                Style="{StaticResource SubHeadline}" />
+
+			<Button
+				Text="Add New File"
+				Command="{Binding AddNewFileCommand}"/>
+
+			<Button
+				Text="Remove Temporary Files"
+				Command="{Binding RemoveFilesCommand}"/>
+
+			<Button
+				Text="Reset Paths"
+				Command="{Binding ResetPathsCommand}"/>
+
+		</VerticalStackLayout>
+	</ScrollView>
+
+</pages:BasePage>

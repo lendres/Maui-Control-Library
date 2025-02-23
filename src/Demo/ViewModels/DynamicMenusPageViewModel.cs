@@ -8,8 +8,8 @@ public partial class DynamicMenusPageViewModel(IDialogService dialogService, IMe
 {
 	#region Fields
 
-	private readonly IDialogService     _dialogService      = dialogService;
-	private readonly IMenuService       _menuService        = menuService;
+	private readonly IDialogService		_dialogService		= dialogService;
+	private readonly IMenuService		_menuService		= menuService;
 
 	#endregion
 
@@ -43,7 +43,7 @@ public partial class DynamicMenusPageViewModel(IDialogService dialogService, IMe
 	[RelayCommand]
 	void AddFlyOutItem()
 	{
-		_menuService.AddMenuFlyoutItem("Menu Flyout Item", "Added Item", ()=> ShowSelectedMessage("Added Item"));
+		_menuService.AddMenuFlyoutItem("Menu Flyout Item", "Added Item", () => ShowSelectedMessage("Added Item"));
 		CanAddFlyoutItem = false;
 	}
 
@@ -57,7 +57,7 @@ public partial class DynamicMenusPageViewModel(IDialogService dialogService, IMe
 	[RelayCommand]
 	void AddFlyOutSubItem()
 	{
-		_menuService.AddMenuFlyoutItemToSubMenu("Flyout", "Added Sub Item", ()=> ShowSelectedMessage("Added Sub Item"));
+		_menuService.AddMenuFlyoutItemToSubMenu("Flyout", "Added Sub Item", () => ShowSelectedMessage("Added Sub Item"));
 		CanAddFlyoutSubItem = false;
 
 		IMenuFlyoutSubItem menuFlyoutSubItem = _menuService.GetSubMenu("Flyout")!;
