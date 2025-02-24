@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:pages="clr-namespace:DigitalProduction.Demo.Pages"
+	xmlns:dpcontrols="clr-namespace:DigitalProduction.Maui.Controls;assembly=DigitalProduction.Maui"
+    x:Class="DigitalProduction.Demo.Pages.StepperPage"
+    xmlns:viewmodel="clr-namespace:DigitalProduction.Demo.ViewModels"
+    x:TypeArguments="viewmodel:StepperPageViewModel"
+    x:DataType="viewmodel:StepperPageViewModel"
+	Title="Dynamic Menus">
+
+	<ContentPage.Resources>
+		<Style x:Key="InvalidEntryStyle" TargetType="Entry">
+			<Setter Property="TextColor" Value="Red"/>
+		</Style>
+		<Style x:Key="ValidEntryStyle" TargetType="Entry">
+			<Setter Property="TextColor" Value="Green"/>
+		</Style>
+
+	</ContentPage.Resources>
+
+	<ScrollView>
+		<VerticalStackLayout Padding="30,0" Spacing="20">
+
+			<Label
+                Text="Stepper Demonstration"
+                Style="{StaticResource SubHeadline}"/>
+
+			<Grid RowDefinitions="auto,auto,auto" ColumnDefinitions="*,80" RowSpacing="20" WidthRequest="230">
+				<Label Grid.Row="0" Grid.Column="0" Text="Minimum Value" StyleClass="InlineLargeLabel"/>
+				<Picker Grid.Row="0" Grid.Column="1" SelectedItem="{Binding Minimum}">
+					<Picker.ItemsSource>
+						<x:Array Type="{x:Type x:Double}">
+							<x:Double>0</x:Double>
+							<x:Double>1</x:Double>
+							<x:Double>2</x:Double>
+							<x:Double>3</x:Double>
+							<x:Double>4</x:Double>
+							<x:Double>5</x:Double>
+							<x:Double>6</x:Double>
+							<x:Double>7</x:Double>
+							<x:Double>8</x:Double>
+							<x:Double>9</x:Double>
+						</x:Array>
+					</Picker.ItemsSource>
+				</Picker>
+				<Label Grid.Row="1" Grid.Column="0" Text="Maximum Value" StyleClass="InlineLargeLabel"/>
+				<Picker Grid.Row="1" Grid.Column="1" SelectedItem="{Binding Maximum}">
+					<Picker.ItemsSource>
+						<x:Array Type="{x:Type x:Double}">
+							<x:Double>10</x:Double>
+							<x:Double>11</x:Double>
+							<x:Double>12</x:Double>
+							<x:Double>13</x:Double>
+							<x:Double>14</x:Double>
+							<x:Double>15</x:Double>
+							<x:Double>16</x:Double>
+							<x:Double>17</x:Double>
+							<x:Double>18</x:Double>
+							<x:Double>19</x:Double>
+							<x:Double>20</x:Double>
+							<x:Double>21</x:Double>
+							<x:Double>22</x:Double>
+							<x:Double>23</x:Double>
+							<x:Double>24</x:Double>
+							<x:Double>25</x:Double>
+						</x:Array>
+					</Picker.ItemsSource>
+				</Picker>
+				<Label Grid.Row="2" Grid.Column="0" Text="Increment" StyleClass="InlineLargeLabel"/>
+				<Picker Grid.Row="2" Grid.Column="1" SelectedItem="{Binding Increment}">
+					<Picker.ItemsSource>
+						<x:Array Type="{x:Type x:Double}">
+							<x:Double>0.1</x:Double>
+							<x:Double>0.5</x:Double>
+							<x:Double>1</x:Double>
+							<x:Double>2</x:Double>
+							<x:Double>5</x:Double>
+							<x:Double>10</x:Double>
+						</x:Array>
+					</Picker.ItemsSource>
+				</Picker>
+			</Grid>
+
+			<dpcontrols:Stepper
+				HorizontalOptions="Center"
+				Increment="{Binding Increment}"
+				Maximum="{Binding Maximum}"
+				Minimum="{Binding Minimum}"
+				Value="{Binding Value}"/>
+
+		</VerticalStackLayout>
+	</ScrollView>
+
+</pages:BasePage>

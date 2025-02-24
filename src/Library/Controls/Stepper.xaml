@@ -3,7 +3,7 @@
 	xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	x:Class="DigitalProduction.Maui.Controls.Stepper">
-	<Grid ColumnDefinitions="50,120,50">
+	<Grid ColumnDefinitions="auto,auto,auto">
 		<Button
 			Grid.Column="0"
 			x:Name="MinusButton"
@@ -12,14 +12,14 @@
 			Clicked="MinusButton_Clicked"
 			VerticalOptions="Center"
 			HorizontalOptions="Center"
-			MinimumWidthRequest="50"/>
+			HeightRequest="20"
+			MinimumWidthRequest="40"/>
 		<Label
 			Grid.Column="1"
 			x:Name="ValueLabel"
-			FontSize="42"
 			HorizontalTextAlignment="Center"
 			VerticalOptions="Center"
-			HorizontalOptions="Center"/>
+			HorizontalOptions="CenterAndExpand"/>
 		<Button
 			Grid.Column="2"
 			x:Name="PlusButton"
@@ -28,6 +28,6 @@
 			Clicked="PlusButton_Clicked"
 			VerticalOptions="Center"
 			HorizontalOptions="Center"
-			MinimumWidthRequest="50"/>
+			MinimumWidthRequest="40"/>
 	</Grid>
 </ContentView>

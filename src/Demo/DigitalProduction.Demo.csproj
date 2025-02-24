@@ -93,6 +93,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Pages\StepperPage.xaml.cs">
+	    <DependentUpon>StepperPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Pages\RecentlyUsedSettingPage.xaml.cs">
 	    <DependentUpon>RecentlyUsedSettingPage.xaml</DependentUpon>
 	  </Compile>
@@ -106,6 +109,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Pages\StepperPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\RecentlyUsedSettingPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
