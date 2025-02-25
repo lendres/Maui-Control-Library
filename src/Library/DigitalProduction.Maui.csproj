@@ -20,7 +20,7 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageProjectUrl>https://github.com/lendres/DigitalProduction.Maui</PackageProjectUrl>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<RepositoryUrl>https://github.com/lendres/Maui-Dynamic-Menu-Handling</RepositoryUrl>
+		<RepositoryUrl>https://github.com/lendres/DigitalProduction.Maui</RepositoryUrl>
 		<PackageTags>.Net, Maui, menu, dynamic, programmatically</PackageTags>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<Authors>Lance A. Endres</Authors>

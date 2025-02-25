@@ -42,12 +42,6 @@ public partial class Stepper : ContentView
         }
 	);
 
-	private void RoundValue()
-	{
-		Value = Math.Round(Value / Increment) * Increment;
-		UpdateText();
-	}
-
 	public double Increment
 	{
 		get => (double)GetValue(IncrementProperty);
@@ -107,20 +101,66 @@ public partial class Stepper : ContentView
 	}
 
 	public static readonly BindableProperty ValueProperty =
-		BindableProperty.Create(nameof(Value), typeof(double), typeof(Stepper), null);
+		BindableProperty.Create(nameof(Value), typeof(double), typeof(Stepper), null,
+		propertyChanged: (bindable, oldObject, newObject) =>
+        {
+            if (newObject == oldObject || bindable is not Stepper self)
+            {
+                return;
+            }
+			self.UpdateText();
+			self.UpdateButtonEnabled();
+		}
+	);
 
-	public double Value { get; set; }
+	public double Value
+	{
+		get => (double)GetValue(ValueProperty);
+		set => SetValue(ValueProperty, value);
+	}
 
 	public static readonly BindableProperty ButtonStyleProperty =
-		BindableProperty.Create(nameof(ButtonStyle), typeof(Style), typeof(Stepper), null);
+		BindableProperty.Create(nameof(ButtonStyle), typeof(Style), typeof(Stepper), null,
+		propertyChanged: (bindable, oldObject, newObject) =>
+        {
+            if (newObject == oldObject || newObject is not Style newStyle || bindable is not Stepper self)
+            {
+                return;
+            }
+			self.MinusButton.Style = newStyle;
+			self.PlusButton.Style = newStyle;
+		}
+	);
 
-	public Style ButtonStyle { get; set; }
+	public Style ButtonStyle
+	{
+		get => (Style)GetValue(ButtonStyleProperty);
+		set => SetValue(ButtonStyleProperty, value);
+	}
+
+	public static readonly BindableProperty LabelStyleProperty =
+		BindableProperty.Create(nameof(LabelStyle), typeof(Style), typeof(Stepper), null,
+		propertyChanged: (bindable, oldObject, newObject) =>
+        {
+            if (newObject == oldObject || newObject is not Style newStyle || bindable is not Stepper self)
+            {
+                return;
+            }
+			self.ValueLabel.Style = newStyle;
+		}
+	);
+
+	public Style LabelStyle
+	{
+		get => (Style)GetValue(LabelStyleProperty);
+		set => SetValue(LabelStyleProperty, value);
+	}
 
 	#endregion
 
 	#region Events
  
-    private void MinusButton_Clicked(object sender, EventArgs eventArgs)
+    private void OnMinusButtonClicked(object sender, EventArgs eventArgs)
     {
         Value -= Increment;
 		BoundValue();
@@ -128,13 +168,23 @@ public partial class Stepper : ContentView
 		UpdateButtonEnabled();
     }
  
-    private void PlusButton_Clicked(object sender, EventArgs eventArgs)
+    private void OnPlusButtonClicked(object sender, EventArgs eventArgs)
     {
         Value += Increment;
 		BoundValue();
 		UpdateText();
 		UpdateButtonEnabled();
     }
+
+	#endregion
+
+	#region Methods
+
+	private void RoundValue()
+	{
+		Value = Math.Round(Value / Increment) * Increment;
+		UpdateText();
+	}
 
 	private bool BoundValue()
 	{
@@ -163,7 +213,7 @@ public partial class Stepper : ContentView
 
 	private void UpdateButtonEnabled()
 	{
-		if (Value <= Minimum + Increment )
+		if (Value < Minimum + Increment )
 		{
 			MinusButton.IsEnabled = false;
 		}
@@ -175,7 +225,7 @@ public partial class Stepper : ContentView
 			}
 		}
 
-		if (Value >= Maximum - Increment)
+		if (Value > Maximum - Increment)
 		{
 			PlusButton.IsEnabled = false;
 		}

@@ -12,13 +12,12 @@
 	Title="Dynamic Menus">
 
 	<ContentPage.Resources>
-		<Style x:Key="InvalidEntryStyle" TargetType="Entry">
-			<Setter Property="TextColor" Value="Red"/>
+		<Style TargetType="dpcontrols:StepperButton" BasedOn="{StaticResource StepperButtonBaseStyle}" x:Key="RoundStepperButtonStyle">
+			<Setter Property="CornerRadius" Value="15"/>
 		</Style>
-		<Style x:Key="ValidEntryStyle" TargetType="Entry">
+		<Style TargetType="dpcontrols:StepperLabel" BasedOn="{StaticResource StepperLabelBaseStyle}" x:Key="GreenStepperLabelStyle">
 			<Setter Property="TextColor" Value="Green"/>
 		</Style>
-
 	</ContentPage.Resources>
 
 	<ScrollView>
@@ -84,12 +83,25 @@
 				</Picker>
 			</Grid>
 
-			<dpcontrols:Stepper
+			<Button
 				HorizontalOptions="Center"
+				WidthRequest="230"
+				Text="Increment Value"
+				Command="{Binding IncrementValueCommand}"/>
+
+			<dpcontrols:Stepper
 				Increment="{Binding Increment}"
 				Maximum="{Binding Maximum}"
 				Minimum="{Binding Minimum}"
-				Value="{Binding Value}"/>
+				Value="{Binding Value, Mode=TwoWay}"/>
+
+			<dpcontrols:Stepper
+				Increment="{Binding Increment}"
+				Maximum="{Binding Maximum}"
+				Minimum="{Binding Minimum}"
+				Value="{Binding Value, Mode=TwoWay}"
+				ButtonStyle="{StaticResource RoundStepperButtonStyle}"
+				LabelStyle="{StaticResource GreenStepperLabelStyle}"/>
 
 		</VerticalStackLayout>
 	</ScrollView>

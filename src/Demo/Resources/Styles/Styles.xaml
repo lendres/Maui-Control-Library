@@ -26,7 +26,7 @@
 		<Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}"/>
 	</Style>
 
-	<Style TargetType="Button">
+	<Style TargetType="Button" ApplyToDerivedTypes="True" x:Key="ButtonBaseStyle">
 		<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource White}}"/>
 		<Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"/>
 		<Setter Property="FontFamily" Value="OpenSansRegular"/>
@@ -61,6 +61,12 @@
 			</VisualStateGroupList>
 		</Setter>
 	</Style>
+
+	<!--
+		Specify a blank style referencing the base to make the style the default for the TargetType.
+		When you provide a "Key" the style no longer applies universally to a TargetType, only controls that specifically call for the style by the key.
+	-->
+	<Style TargetType="Button" ApplyToDerivedTypes="True" BasedOn="{StaticResource ButtonBaseStyle}"/>
 
 	<Style TargetType="CheckBox">
 		<Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}"/>
@@ -174,7 +180,7 @@
 		</Setter>
 	</Style>
 
-	<Style TargetType="Label">
+	<Style TargetType="Label" ApplyToDerivedTypes="True" x:Key="LabelBaseStyle">
 		<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"/>
 		<Setter Property="BackgroundColor" Value="Transparent"/>
 		<Setter Property="FontFamily" Value="OpenSansRegular"/>
@@ -192,6 +198,8 @@
 			</VisualStateGroupList>
 		</Setter>
 	</Style>
+
+	<Style TargetType="Label" ApplyToDerivedTypes="True" BasedOn="{StaticResource LabelBaseStyle}"/>
 
 	<Style TargetType="Span">
 		<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"/>
@@ -521,6 +529,27 @@
 	<Style TargetType="{x:Type dpcontrols:HyperlinkLabel}">
 		<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource HyperLinkLight}, Dark={StaticResource HyperLinkDark}}"/>
 	</Style>
+
+	<!-- Stepper -->
+	<Style TargetType="dpcontrols:Stepper">
+		<Setter Property="HorizontalOptions" Value="Center"/>
+		<!--<Setter Property="WidthRequest" Value="380"/>
+		<Setter Property="MinimumWidthRequest" Value="320"/>-->
+	</Style>
+
+	<Style TargetType="dpcontrols:StepperButton" ApplyToDerivedTypes="True" BasedOn="{StaticResource ButtonBaseStyle}" x:Key="StepperButtonBaseStyle">
+		<Setter Property="FontAttributes" Value="Bold"/>
+		<Setter Property="WidthRequest" Value="30"/>
+		<Setter Property="MinimumWidthRequest" Value="10"/>
+		<Setter Property="HeightRequest" Value="30"/>
+		<Setter Property="MinimumHeightRequest" Value="10"/>
+		<Setter Property="CornerRadius" Value="5"/>
+		<Setter Property="Padding" Value="10,11"/>
+	</Style>
+	<Style TargetType="dpcontrols:StepperButton" ApplyToDerivedTypes="True" BasedOn="{StaticResource StepperButtonBaseStyle}"/>
+
+	<Style TargetType="dpcontrols:StepperLabel" ApplyToDerivedTypes="True" BasedOn="{StaticResource LabelBaseStyle}" x:Key="StepperLabelBaseStyle"/>
+	<Style TargetType="dpcontrols:StepperLabel" ApplyToDerivedTypes="True" BasedOn="{StaticResource StepperLabelBaseStyle}"/>
 
 	<!-- Miscellaneous -->
 	<Style TargetType="TabBar">

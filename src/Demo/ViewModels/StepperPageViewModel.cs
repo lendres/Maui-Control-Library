@@ -1,7 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using DigitalProduction.Maui.Services;
-using System.Collections.ObjectModel;
 
 namespace DigitalProduction.Demo.ViewModels;
 
@@ -43,6 +41,11 @@ public partial class StepperPageViewModel() : BaseViewModel
 		System.Diagnostics.Debug.WriteLine("Minimum value: "+value.ToString());
 	}
 
-
 	#endregion
+
+	[RelayCommand]
+	void IncrementValue()
+	{
+		Value += Increment;
+	}
 }
