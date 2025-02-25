@@ -4,12 +4,14 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	xmlns:dpcontrols="clr-namespace:DigitalProduction.Maui.Controls"
 	x:Class="DigitalProduction.Maui.Controls.Stepper">
-	<Grid ColumnDefinitions="30,40,30">
+	<Grid ColumnDefinitions="auto,auto,auto">
 		<dpcontrols:StepperButton
 			Grid.Column="0"
 			x:Name="MinusButton"
 			Text="-"
 			Clicked="OnMinusButtonClicked"
+			VerticalTextAlignment="Center"
+			HorizontalTextAlignment="Center"
 			VerticalOptions="Center"
 			HorizontalOptions="End"/>
 		<dpcontrols:StepperLabel
@@ -23,6 +25,8 @@
 			x:Name="PlusButton"
 			Text="+"
 			Clicked="OnPlusButtonClicked"
+			VerticalTextAlignment="Center"
+			HorizontalTextAlignment="Center"
 			VerticalOptions="Center"
 			HorizontalOptions="Start"/>
 	</Grid>
