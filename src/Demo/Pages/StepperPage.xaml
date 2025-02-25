@@ -83,6 +83,18 @@
 				</Picker>
 			</Grid>
 
+			<ImageButton
+				HorizontalOptions="Center"
+				WidthRequest="16"
+				MinimumWidthRequest="8"
+				CornerRadius="8"
+				Source="plus.png"
+				Padding="4"
+				Margin="0"
+				HeightRequest="16"
+				MinimumHeightRequest="15"
+				Command="{Binding IncrementValueCommand}"/>
+
 			<Button
 				HorizontalOptions="Center"
 				WidthRequest="230"

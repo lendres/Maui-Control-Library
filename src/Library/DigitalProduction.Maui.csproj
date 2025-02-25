@@ -27,6 +27,11 @@
 		<Title>$(AssemblyName)</Title>
 	</PropertyGroup>
 
+	<ItemGroup>
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />
+	</ItemGroup>
+
 	<!-- Import information from the folder containing the project if the files exists -->
 	<Import Project="$(MSBuildProjectDirectory)/Publishing/Assembly.props" Condition="Exists('$(MSBuildProjectDirectory)/Publishing/Assembly.props')" />
 	<Import Project="$(MSBuildProjectDirectory)/Publishing/Version.props" Condition="Exists('$(MSBuildProjectDirectory)/Publishing/Version.props')" />

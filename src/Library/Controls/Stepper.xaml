@@ -3,6 +3,7 @@
 	xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	xmlns:dpcontrols="clr-namespace:DigitalProduction.Maui.Controls"
+	xmlns:local="clr-namespace:DigitalProduction.Maui"
 	x:Class="DigitalProduction.Maui.Controls.Stepper">
 	<Grid ColumnDefinitions="auto,auto,auto">
 		<dpcontrols:StepperButton
@@ -10,8 +11,6 @@
 			x:Name="MinusButton"
 			Text="-"
 			Clicked="OnMinusButtonClicked"
-			VerticalTextAlignment="Center"
-			HorizontalTextAlignment="Center"
 			VerticalOptions="Center"
 			HorizontalOptions="End"/>
 		<dpcontrols:StepperLabel
@@ -20,14 +19,20 @@
 			HorizontalTextAlignment="Center"
 			VerticalOptions="Center"
 			HorizontalOptions="Center"/>
-		<dpcontrols:StepperButton
+
+		<ImageButton
 			Grid.Column="2"
 			x:Name="PlusButton"
-			Text="+"
 			Clicked="OnPlusButtonClicked"
-			VerticalTextAlignment="Center"
-			HorizontalTextAlignment="Center"
 			VerticalOptions="Center"
-			HorizontalOptions="Start"/>
+			HorizontalOptions="Start">
+			<ImageButton.Source>
+				<FontImageSource  
+					Glyph="{x:Static local:IconFont.Plus}" 
+					FontFamily="FontAwesome" 
+					Color="White" 
+					Size="30"/>
+			</ImageButton.Source>
+		</ImageButton>
 	</Grid>
 </ContentView>

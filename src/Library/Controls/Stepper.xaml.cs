@@ -128,7 +128,7 @@ public partial class Stepper : ContentView
                 return;
             }
 			self.MinusButton.Style = newStyle;
-			self.PlusButton.Style = newStyle;
+			//self.PlusButton.Style = newStyle;
 		}
 	);
 
