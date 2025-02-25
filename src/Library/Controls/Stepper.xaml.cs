@@ -1,3 +1,4 @@
+using CommunityToolkit.Maui.Behaviors;
 using Microsoft.Maui.Controls.PlatformConfiguration.TizenSpecific;
 using System.Globalization;
 using System.Windows.Input;
@@ -128,7 +129,8 @@ public partial class Stepper : ContentView
                 return;
             }
 			self.MinusButton.Style = newStyle;
-			//self.PlusButton.Style = newStyle;
+			//self.MinusButton.Behaviors.First()
+			self.PlusButton.Style = newStyle;
 		}
 	);
 
@@ -136,6 +138,27 @@ public partial class Stepper : ContentView
 	{
 		get => (Style)GetValue(ButtonStyleProperty);
 		set => SetValue(ButtonStyleProperty, value);
+	}
+
+	public static readonly BindableProperty IconColorProperty =
+		BindableProperty.Create(nameof(IconColor), typeof(Color), typeof(Stepper), null,
+		propertyChanged: (bindable, oldObject, newObject) =>
+        {
+            if (newObject == oldObject || newObject is not Color newColor || bindable is not Stepper self)
+            {
+                return;
+            }
+			IconTintColorBehavior iconTintColorBehavior = (IconTintColorBehavior)self.MinusButton.Behaviors.First();
+			iconTintColorBehavior.TintColor = newColor;
+			iconTintColorBehavior = (IconTintColorBehavior)self.PlusButton.Behaviors.First();
+			iconTintColorBehavior.TintColor = newColor;
+		}
+	);
+
+	public Color IconColor
+	{
+		get => (Color)GetValue(IconColorProperty);
+		set => SetValue(IconColorProperty, value);
 	}
 
 	public static readonly BindableProperty LabelStyleProperty =

@@ -64,6 +64,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Enumerations\**" />
+	  <EmbeddedResource Remove="Enumerations\**" />
+	  <MauiCss Remove="Enumerations\**" />
+	  <MauiXaml Remove="Enumerations\**" />
+	  <None Remove="Enumerations\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiImage Remove="Resources\Images\dotnet_bot.png" />
 	</ItemGroup>
 
@@ -121,7 +129,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Enumerations\" />
+	  <PRIResource Remove="Enumerations\**" />
 	</ItemGroup>
 
 </Project>

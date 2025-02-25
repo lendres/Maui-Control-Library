@@ -13,7 +13,10 @@
 
 	<ContentPage.Resources>
 		<Style TargetType="dpcontrols:StepperButton" BasedOn="{StaticResource StepperButtonBaseStyle}" x:Key="RoundStepperButtonStyle">
-			<Setter Property="CornerRadius" Value="15"/>
+			<Setter Property="WidthRequest" Value="24"/>
+			<Setter Property="HeightRequest" Value="24"/>
+			<Setter Property="CornerRadius" Value="12"/>
+			<Setter Property="IconColor" Value="Red"/>
 		</Style>
 		<Style TargetType="dpcontrols:StepperLabel" BasedOn="{StaticResource StepperLabelBaseStyle}" x:Key="GreenStepperLabelStyle">
 			<Setter Property="TextColor" Value="Green"/>
@@ -83,20 +86,9 @@
 				</Picker>
 			</Grid>
 
-			<ImageButton
-				HorizontalOptions="Center"
-				WidthRequest="16"
-				MinimumWidthRequest="8"
-				CornerRadius="8"
-				Source="plus.png"
-				Padding="4"
-				Margin="0"
-				HeightRequest="16"
-				MinimumHeightRequest="15"
-				Command="{Binding IncrementValueCommand}"/>
-
 			<Button
 				HorizontalOptions="Center"
+				HeightRequest="34"
 				WidthRequest="230"
 				Text="Increment Value"
 				Command="{Binding IncrementValueCommand}"/>

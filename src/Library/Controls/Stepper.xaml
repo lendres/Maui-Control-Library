@@ -2,37 +2,50 @@
 <ContentView
 	xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
 	xmlns:dpcontrols="clr-namespace:DigitalProduction.Maui.Controls"
-	xmlns:local="clr-namespace:DigitalProduction.Maui"
+	xmlns:resources="clr-namespace:DigitalProduction.Maui.Resources"
 	x:Class="DigitalProduction.Maui.Controls.Stepper">
 	<Grid ColumnDefinitions="auto,auto,auto">
 		<dpcontrols:StepperButton
 			Grid.Column="0"
 			x:Name="MinusButton"
-			Text="-"
 			Clicked="OnMinusButtonClicked"
 			VerticalOptions="Center"
-			HorizontalOptions="End"/>
+			HorizontalOptions="End"
+			Source="minus.png">
+			<!--<ImageButton.Behaviors>
+				<mct:IconTintColorBehavior TintColor="#FFFFFF"/>
+			</ImageButton.Behaviors>-->
+			<!--<ImageButton.Source>
+				<FontImageSource  
+					Glyph="{x:Static resources:FontAwesomeSolid.Minus}" 
+					FontFamily="FontAwesomeSolid" 
+					Color="White"/>
+			</ImageButton.Source>-->
+		</dpcontrols:StepperButton>
 		<dpcontrols:StepperLabel
 			Grid.Column="1"
 			x:Name="ValueLabel"
 			HorizontalTextAlignment="Center"
 			VerticalOptions="Center"
 			HorizontalOptions="Center"/>
-
-		<ImageButton
+		<dpcontrols:StepperButton
 			Grid.Column="2"
 			x:Name="PlusButton"
 			Clicked="OnPlusButtonClicked"
 			VerticalOptions="Center"
-			HorizontalOptions="Start">
-			<ImageButton.Source>
-				<FontImageSource  
-					Glyph="{x:Static local:IconFont.Plus}" 
-					FontFamily="FontAwesome" 
-					Color="White" 
-					Size="30"/>
-			</ImageButton.Source>
-		</ImageButton>
+			HorizontalOptions="Start"
+			Source="plus.png">
+			<!--<ImageButton.Behaviors>
+				<mct:IconTintColorBehavior TintColor="#FFFFFF"/>
+			</ImageButton.Behaviors>-->
+			<!--<ImageButton.Source>
+				<FontImageSource
+					Glyph="{x:Static resources:FontAwesomeSolid.Plus}" 
+					FontFamily="FontAwesomeSolid" 
+					Color="White"/>
+			</ImageButton.Source>-->
+		</dpcontrols:StepperButton>
 	</Grid>
 </ContentView>
