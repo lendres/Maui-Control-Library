@@ -86,7 +86,38 @@
 			<Button
 				HorizontalOptions="Center"
 				WidthRequest="230"
-				Text="Increment Value"
+				Text="--Increment Value"
+				Padding="0"
+				Margin="0"
+				HeightRequest="25"
+				MinimumHeightRequest="15"
+				Command="{Binding IncrementValueCommand}"/>
+			<Button
+				HorizontalOptions="Center"
+				WidthRequest="230"
+				Text="--Increment Value"
+				Padding="0"
+				Margin="0"
+				HeightRequest="50"
+				MinimumHeightRequest="15"
+				Command="{Binding IncrementValueCommand}"/>
+			<dpcontrols:RxButton
+				HorizontalOptions="Center"
+				WidthRequest="230"
+				Text="--Increment Value"
+				Padding="0"
+				Margin="0"
+				HeightRequest="25"
+				MinimumHeightRequest="15"
+				Command="{Binding IncrementValueCommand}"/>
+			<dpcontrols:RxButton
+				HorizontalOptions="Center"
+				WidthRequest="230"
+				Text="--Increment Value"
+				Padding="0"
+				Margin="0"
+				HeightRequest="50"
+				MinimumHeightRequest="15"
 				Command="{Binding IncrementValueCommand}"/>
 
 			<dpcontrols:Stepper
