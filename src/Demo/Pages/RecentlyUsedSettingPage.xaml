@@ -9,42 +9,45 @@
 	x:DataType="viewmodel:RecentlyUsedSettingViewModel"
 	CanBeDismissedByTappingOutsideOfPopup="False">
 
-	<Border StyleClass="PopupFrameStyle" HeightRequest="345">
+	<Border StyleClass="PopupFrameStyle" HeightRequest="262">
 
-		<VerticalStackLayout StyleClass="MediumSpacingVerticalLayoutStyle">
+		<VerticalStackLayout StyleClass="VerticalLayoutStyle">
 
-			<Label Text="Settings" x:Name="TitleLabel" StyleClass="Title" HorizontalOptions="Start"/>
+			<Label Text="Settings" x:Name="TitleLabel" StyleClass="Title" />
 
-			<HorizontalStackLayout Padding="0" Spacing="0" VerticalOptions="Center" HeightRequest="22">
-				<CheckBox
-					IsChecked="{Binding RemoveNotFoundPaths}"
-					VerticalOptions="Center"/>
-				 <!--Enlarge the label so the desenders don't get cut off.--> 
-				<Label Text="Remove paths that do not exist." VerticalOptions="Center" Margin="0" HeightRequest="25" Padding="0"/>
-			</HorizontalStackLayout>
+			<Grid ColumnDefinitions="76,*" RowDefinitions="40,40,40" RowSpacing="0" ColumnSpacing="10" Margin="0" Padding="0"
+				HorizontalOptions="Fill" VerticalOptions="Start">
 
-			<Picker
-				x:Name="NumberOfItemsPicker"
-				Title="Number of items to show"
-				ItemsSource="{Binding DisplayedItemsNumbers}"
-				SelectedItem="{Binding NumberOfItemsShown}">
-			</Picker>
+				<Switch Grid.Column="0"  Grid.Row="0" VerticalOptions="Center" HorizontalOptions="End"
+					IsToggled="{Binding RemoveNotFoundPaths}"/>
+				<Label Grid.Column="1" Grid.Row="0" VerticalOptions="Center" VerticalTextAlignment="Center"
+					Text="Remove paths that do not exist."/>
 
-			<Picker
-				x:Name="MaximumItemsPicker"
-				Title="Number of items to remember"
-				ItemsSource="{Binding MaximumItemsNumbers}"
-				SelectedItem="{Binding MaximumNumberOfItems}">
-			</Picker>
+				<dpcontrols:Stepper Grid.Column="0" Grid.Row="1" HorizontalOptions="End" VerticalOptions="Center"
+					Minimum="5"	
+					Maximum="{Binding NumberOfItemsToStore}"
+					Value="{Binding NumberOfItemsShown}"/>
+				<Label Grid.Column="1" Grid.Row="1"
+					Text="Number of items to show." VerticalOptions="Center" Margin="0" VerticalTextAlignment="Center" Padding="0"/>
+
+				<dpcontrols:Stepper Grid.Column="0" Grid.Row="2" HorizontalOptions="End" VerticalOptions="Center"
+					Minimum="10"
+					Maximum="20"
+					Value="{Binding NumberOfItemsToStore}"/>
+				<Label Grid.Column="1" Grid.Row="2"
+					Text="Number of items to show." VerticalOptions="Center" Margin="0" VerticalTextAlignment="Center" Padding="0"/>
+			</Grid>
 
 			<HorizontalStackLayout StyleClass="BottomButtonRowStyle">
 				<Button 
 					Text="Save"
 					HorizontalOptions="End"
+					StyleClass="StandardSizeButtonStyle"
 					Clicked="OnSaveButtonClicked"/>
 				<Button 
 					Text="Close"
 					HorizontalOptions="End"
+					StyleClass="StandardSizeButtonStyle"
 					Clicked="OnCancelButtonClicked"/>
 			</HorizontalStackLayout>
 
