@@ -1,7 +1,5 @@
 using CommunityToolkit.Maui.Behaviors;
-using Microsoft.Maui.Controls.PlatformConfiguration.TizenSpecific;
 using System.Globalization;
-using System.Windows.Input;
 
 namespace DigitalProduction.Maui.Controls;
 
@@ -14,7 +12,8 @@ public partial class Stepper : ContentView
  
     public Stepper()
     {
-       InitializeComponent();
+		InitializeComponent();
+		Increment = 1;
         ValueLabel.Text = "0";
     }
 
@@ -24,6 +23,18 @@ public partial class Stepper : ContentView
 
 	public static readonly BindableProperty IncrementProperty =
 		BindableProperty.Create(nameof(Increment), typeof(double), typeof(Stepper), null,
+		validateValue: (bindable, newObject) =>
+		{
+            if (newObject is null || bindable is not Stepper self)
+            {
+                return true;
+            }
+			if ((double)newObject != 0)
+			{
+				return true;
+			}
+			return false;
+		},
 		propertyChanged: (bindable, oldObject, newObject) =>
         {
             if (newObject == oldObject || bindable is not Stepper self)
@@ -102,7 +113,7 @@ public partial class Stepper : ContentView
 	}
 
 	public static readonly BindableProperty ValueProperty =
-		BindableProperty.Create(nameof(Value), typeof(double), typeof(Stepper), null,
+		BindableProperty.Create(nameof(Value), typeof(double), typeof(Stepper), null, BindingMode.TwoWay,
 		propertyChanged: (bindable, oldObject, newObject) =>
         {
             if (newObject == oldObject || bindable is not Stepper self)

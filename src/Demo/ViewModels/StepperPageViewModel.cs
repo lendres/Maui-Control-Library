@@ -11,7 +11,7 @@ public partial class StepperPageViewModel() : BaseViewModel
 	#region Properties
 
 	[ObservableProperty]
-	public partial double				Increment { get; set; }				= 1;
+	public partial double				Increment { get; set; }				= 2;
 
 	[ObservableProperty]
 	public partial double				Maximum { get; set; }				= 20;

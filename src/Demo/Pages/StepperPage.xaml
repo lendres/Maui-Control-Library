@@ -17,6 +17,7 @@
 			<Setter Property="HeightRequest" Value="24"/>
 			<Setter Property="CornerRadius" Value="12"/>
 			<Setter Property="IconColor" Value="Red"/>
+			<!--<Setter Property="Background" Value="Bisque"/>-->
 		</Style>
 		<Style TargetType="dpcontrols:StepperLabel" BasedOn="{StaticResource StepperLabelBaseStyle}" x:Key="GreenStepperLabelStyle">
 			<Setter Property="TextColor" Value="Green"/>
@@ -88,22 +89,28 @@
 
 			<Button
 				HorizontalOptions="Center"
-				HeightRequest="34"
+				HeightRequest="32"
 				WidthRequest="230"
 				Text="Increment Value"
 				Command="{Binding IncrementValueCommand}"/>
 
 			<dpcontrols:Stepper
-				Increment="{Binding Increment}"
-				Maximum="{Binding Maximum}"
-				Minimum="{Binding Minimum}"
-				Value="{Binding Value, Mode=TwoWay}"/>
+				Increment="2"
+				Minimum="5"
+				Maximum="10"
+				Value="6"/>
 
 			<dpcontrols:Stepper
 				Increment="{Binding Increment}"
-				Maximum="{Binding Maximum}"
 				Minimum="{Binding Minimum}"
-				Value="{Binding Value, Mode=TwoWay}"
+				Maximum="{Binding Maximum}"
+				Value="{Binding Value}"/>
+
+			<dpcontrols:Stepper
+				Increment="{Binding Increment}"
+				Minimum="{Binding Minimum}"
+				Maximum="{Binding Maximum}"
+				Value="{Binding Value}"
 				ButtonStyle="{StaticResource RoundStepperButtonStyle}"
 				LabelStyle="{StaticResource GreenStepperLabelStyle}"/>
 
