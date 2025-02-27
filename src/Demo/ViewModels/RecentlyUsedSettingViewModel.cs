@@ -18,51 +18,27 @@ public partial class RecentlyUsedSettingViewModel : ObservableObject
 	public partial bool							RemoveNotFoundPaths { get; set; }
 
 	[ObservableProperty]
-	public partial int							NumberOfItemsShown { get; set; }
+	public partial double						NumberOfItemsShown { get; set; }
 
 	[ObservableProperty]
-	public partial ObservableCollection<int>	DisplayedItemsNumbers { get; set; }		= [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
-
-	[ObservableProperty]
-	public partial int							MaximumNumberOfItems { get; set; }
-
-	[ObservableProperty]
-	public partial ObservableCollection<int>	MaximumItemsNumbers { get; set; }		= [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+	public partial double						NumberOfItemsToStore { get; set; }
 
 	public void Initialize()
 	{
 		RemoveNotFoundPaths		= _recentPathsManagerService.RemoveNotFoundPaths;
-		NumberOfItemsShown		= (int)_recentPathsManagerService.NumberOfItemsShown;
-		MaximumNumberOfItems	= (int)_recentPathsManagerService.MaxSize;
+		NumberOfItemsShown		= (double)_recentPathsManagerService.NumberOfItemsShown;
+		NumberOfItemsToStore	= (double)_recentPathsManagerService.MaxSize;
 	}
 
-	partial void OnMaximumNumberOfItemsChanged(int value)
+	partial void OnNumberOfItemsToStoreChanged(double value)
 	{
-		// Store the current value and then assign a value that doesn't exist.  We need to assign a new value (different
-		// from the current) to get the form to update.
-		int storedValue = NumberOfItemsShown;
-		NumberOfItemsShown = -1;
-
-		DisplayedItemsNumbers.Clear();
-		for (int i = 5; i <= MaximumNumberOfItems; i++)
-		{
-			DisplayedItemsNumbers.Add(i);
-		}
-
-		if (storedValue >  MaximumNumberOfItems)
-		{
-			NumberOfItemsShown = MaximumNumberOfItems;
-		}
-		else
-		{
-			NumberOfItemsShown = storedValue;
-		}
+		System.Diagnostics.Debug.WriteLine("Number of items to store changed: " + value.ToString());
 	}
 
 	public void Save()
 	{
 		_recentPathsManagerService.RemoveNotFoundPaths	= RemoveNotFoundPaths;
 		_recentPathsManagerService.NumberOfItemsShown	= (uint)NumberOfItemsShown;
-		_recentPathsManagerService.MaxSize				= (uint)MaximumNumberOfItems;
+		_recentPathsManagerService.MaxSize				= (uint)NumberOfItemsToStore;
 	}
 }

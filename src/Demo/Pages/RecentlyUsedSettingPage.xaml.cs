@@ -9,15 +9,6 @@ public partial class RecentlyUsedSettingPage : Popup
 	{
 		InitializeComponent();
 		BindingContext = viewModel;
-
-		if (NumberOfItemsPicker.SelectedIndex < 0)
-		{
-			NumberOfItemsPicker.SelectedIndex = 0;
-		}
-		if (MaximumItemsPicker.SelectedIndex < 0)
-		{
-			MaximumItemsPicker.SelectedIndex = 0;
-		}
 	}
 
 	async protected virtual void OnSaveButtonClicked(object? sender, EventArgs eventArgs)

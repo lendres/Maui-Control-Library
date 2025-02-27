@@ -64,6 +64,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Enumerations\**" />
+	  <EmbeddedResource Remove="Enumerations\**" />
+	  <MauiCss Remove="Enumerations\**" />
+	  <MauiXaml Remove="Enumerations\**" />
+	  <None Remove="Enumerations\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiImage Remove="Resources\Images\dotnet_bot.png" />
 	</ItemGroup>
 
@@ -83,8 +91,8 @@
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="11.0.0" />
 		<PackageReference Include="CommunityToolkit.Maui.Markup" Version="5.1.0" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.30" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="9.0.30" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.40" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="9.0.40" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.1" />
 	</ItemGroup>
 
@@ -93,6 +101,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Pages\StepperPage.xaml.cs">
+	    <DependentUpon>StepperPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Pages\RecentlyUsedSettingPage.xaml.cs">
 	    <DependentUpon>RecentlyUsedSettingPage.xaml</DependentUpon>
 	  </Compile>
@@ -106,6 +117,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Pages\StepperPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\RecentlyUsedSettingPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -115,7 +129,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Enumerations\" />
+	  <PRIResource Remove="Enumerations\**" />
 	</ItemGroup>
 
 </Project>

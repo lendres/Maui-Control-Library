@@ -21,9 +21,14 @@
 				<Label Text="{Binding Authors}" StyleClass="LargeLabel"/>
 			</VerticalStackLayout>
 
-			<VerticalStackLayout StyleClass="TitleTightVerticalStackStyle">
+			<!--<VerticalStackLayout StyleClass="TitleTightVerticalStackStyle">
 				<Label Text="Version:" StyleClass="LargeControlLabel"/>
 				<Label Text="{Binding Version}" StyleClass="LargeLabel"/>
+			</VerticalStackLayout>-->
+
+			<VerticalStackLayout StyleClass="TitleTightVerticalStackStyle">
+				<Label Text="Maui Library Version:" StyleClass="LargeControlLabel"/>
+				<Label Text="{Binding LibraryVersion}" StyleClass="LargeLabel"/>
 			</VerticalStackLayout>
 
 			<VerticalStackLayout StyleClass="TitleTightVerticalStackStyle">
