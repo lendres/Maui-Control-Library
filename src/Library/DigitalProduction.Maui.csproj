@@ -37,8 +37,7 @@
 	<Import Project="$(MSBuildProjectDirectory)/Publishing/Assembly.props" Condition="Exists('$(MSBuildProjectDirectory)/Publishing/Assembly.props')" />
 	<Import Project="$(MSBuildProjectDirectory)/Publishing/Version.props" Condition="Exists('$(MSBuildProjectDirectory)/Publishing/Version.props')" />
 	<ItemGroup>
-	  <None Remove="LICENSE" />
-	  <None Remove="README.md" />
+	  <None Remove="Resources\Images\minusplus.psd" />
 	</ItemGroup>
 	<ItemGroup>
 	  <None Include="..\..\LICENSE">
@@ -66,7 +65,6 @@
 
 	<ItemGroup>
 	  <MauiImage Include="Resources\Images\minus.png" />
-	  <MauiImage Include="Resources\Images\minusplus.psd" />
 	  <MauiImage Include="Resources\Images\plus.png" />
 	</ItemGroup>
 

@@ -63,25 +63,6 @@
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Compile Remove="Enumerations\**" />
-	  <EmbeddedResource Remove="Enumerations\**" />
-	  <MauiCss Remove="Enumerations\**" />
-	  <MauiXaml Remove="Enumerations\**" />
-	  <None Remove="Enumerations\**" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <MauiImage Remove="Resources\Images\dotnet_bot.png" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <MauiXaml Remove="Resources\Styles\Styles - Copy.xaml" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Remove="Resources\Images\dotnet_bot.png" />
-	</ItemGroup>
 
 	<ItemGroup>
 	  <MauiAsset Include="Resources\AppIcon\appicon.svg" />
@@ -126,10 +107,6 @@
 	  <MauiXaml Update="Pages\RecentlyUsedMenuPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <PRIResource Remove="Enumerations\**" />
 	</ItemGroup>
 
 </Project>
