@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Project>
 	<PropertyGroup>
-		<Title>DigitralProduction.Maui</Title>
-		<Product>DigitralProduction.Maui</Product>
+		<Title>DigitralProduction.Maui.Images</Title>
+		<Product>DigitralProduction.Maui.Images</Product>
 		<Copyright>Lance A. Endres</Copyright>
 		<Company>Digital Production</Company>
-		<Description>A library of controls and sevices for .Net Maui.</Description>
+		<Description>A library of images used in .Net Maui.</Description>
 	</PropertyGroup>
 
 	<ItemGroup>
