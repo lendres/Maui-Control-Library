@@ -8,21 +8,4 @@
 		<Description>A library of images used in .Net Maui.</Description>
 	</PropertyGroup>
 
-	<ItemGroup>
-		<AssemblyAttribute Include="DigitalProduction.Reflection.AuthorsAttribute">
-			<_Parameter1>Lance A. Endres</_Parameter1>
-		</AssemblyAttribute>
-
-		<AssemblyAttribute Include="DigitalProduction.Reflection.WebsiteAttribute">
-			<_Parameter1>https://github.com/lendres/DigitalProduction.Maui</_Parameter1>
-		</AssemblyAttribute>
-
-		<AssemblyAttribute Include="DigitalProduction.Reflection.IssuesAddressAttribute">
-			<_Parameter1>https://github.com/lendres/DigitalProduction.Maui/issues</_Parameter1>
-		</AssemblyAttribute>
-
-		<AssemblyAttribute Include="DigitalProduction.Reflection.DocumentationAddressAttribute">
-			<_Parameter1>https://github.com/lendres/DigitalProduction.Maui/wiki</_Parameter1>
-		</AssemblyAttribute>
-	</ItemGroup>
 </Project>
