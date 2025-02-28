@@ -19,14 +19,16 @@
                 Source="dotnet_bot.png"
                 HeightRequest="80"
                 Aspect="AspectFit"/>
-			<HorizontalStackLayout>
+			<HorizontalStackLayout Spacing="20">
 				<Image
-					Source="plug.png"
+					Source="plus.png"
 					HeightRequest="80"
+					WidthRequest="80"
 					Aspect="AspectFit"/>
 				<Image
 					Source="minus.png"
 					HeightRequest="80"
+					WidthRequest="80"
 					Aspect="AspectFit"/>
 			</HorizontalStackLayout>
 
