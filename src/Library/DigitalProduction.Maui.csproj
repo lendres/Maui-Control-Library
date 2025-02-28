@@ -36,9 +36,7 @@
 	<!-- Import information from the folder containing the project if the files exists -->
 	<Import Project="$(MSBuildProjectDirectory)/Publishing/Assembly.props" Condition="Exists('$(MSBuildProjectDirectory)/Publishing/Assembly.props')" />
 	<Import Project="$(MSBuildProjectDirectory)/Publishing/Version.props" Condition="Exists('$(MSBuildProjectDirectory)/Publishing/Version.props')" />
-	<ItemGroup>
-	  <None Remove="Resources\Images\minusplus.psd" />
-	</ItemGroup>
+
 	<ItemGroup>
 	  <None Include="..\..\LICENSE">
 	    <Pack>True</Pack>
