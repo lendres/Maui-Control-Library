@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net9.0-android</TargetFrameworks>
@@ -51,22 +51,10 @@
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="DigitalProduction.Maui.targets" Pack="True" PackagePath="buildTransitive\"/>
-		<!--<None Include="DigitalProduction.Maui.targets">
-			<Pack>True</Pack>
-			<PackagePath>buildTransitive\</PackagePath>
-		</None>-->
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="Resources\Images\minus.png" Pack="True" PackagePath="buildTransitive\Images\"/>
 		<None Include="Resources\Images\plus.png" Pack="True" PackagePath="buildTransitive\Images\"/>
-		<!--<None Include="Resources\Images\minus.png">
-			<Pack>True</Pack>
-			<PackagePath>\buildTransitive\Images\</PackagePath>
-		</None>
-		<None Include="Resources\Images\plus.png">
-			<Pack>True</Pack>
-			<PackagePath>buildTransitive\Images\</PackagePath>
-		</None>-->
 	</ItemGroup>
 
 	<ItemGroup>
@@ -81,10 +69,4 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
-
-	<!--<ItemGroup>
-	  <MauiImage Include="Resources\Images\minus.png" />
-	  <MauiImage Include="Resources\Images\plus.png" />
-	</ItemGroup>-->
-
 </Project>
