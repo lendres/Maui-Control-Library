@@ -1,6 +1,0 @@
-﻿﻿<Project>
-	<ItemGroup>
-		<MauiImage Include="$(MSBuildThisFileDirectory)\Images\minus.png" />
-		<MauiImage Include="$(MSBuildThisFileDirectory)\Images\plus.png" />
-	</ItemGroup>
-</Project>
