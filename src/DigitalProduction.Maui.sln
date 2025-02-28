@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalProduction.Demo", "D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalProduction.Maui", "Library\DigitalProduction.Maui.csproj", "{129D30B3-904B-4259-8CD4-5C9A70621B33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalProduction.Maui.Images", "DigitalProduction.Maui.Images\DigitalProduction.Maui.Images.csproj", "{25FB275F-B23C-4355-A866-88D1C3C9884D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalProduction.Maui.Images", "Images\DigitalProduction.Maui.Images.csproj", "{25FB275F-B23C-4355-A866-88D1C3C9884D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
