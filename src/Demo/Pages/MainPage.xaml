@@ -15,23 +15,7 @@
         <VerticalStackLayout Padding="30,0" Spacing="25" HorizontalOptions="Center">
 
 			<Label Text="{Binding Product}" Style="{StaticResource SubHeadline}"/>
-			<Image
-                Source="dotnet_bot.png"
-                HeightRequest="80"
-                Aspect="AspectFit"/>
-			<HorizontalStackLayout Spacing="20">
-				<Image
-					Source="plus.png"
-					HeightRequest="80"
-					WidthRequest="80"
-					Aspect="AspectFit"/>
-				<Image
-					Source="minus.png"
-					HeightRequest="80"
-					WidthRequest="80"
-					Aspect="AspectFit"/>
-			</HorizontalStackLayout>
-
+	
 			<VerticalStackLayout StyleClass="TitleTightVerticalStackStyle">
 				<Label Text="Author(s):" StyleClass="LargeControlLabel"/>
 				<Label Text="{Binding Authors}" StyleClass="LargeLabel"/>
