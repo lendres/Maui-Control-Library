@@ -49,6 +49,25 @@
 	    <PackagePath>\</PackagePath>
 	  </None>
 	</ItemGroup>
+	<ItemGroup>
+		<None Include="DigitalProduction.Maui.targets" Pack="True" PackagePath="buildTransitive\"/>
+		<!--<None Include="DigitalProduction.Maui.targets">
+			<Pack>True</Pack>
+			<PackagePath>buildTransitive\</PackagePath>
+		</None>-->
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="Resources\Images\minus.png" Pack="True" PackagePath="buildTransitive\Images\"/>
+		<None Include="Resources\Images\plus.png" Pack="True" PackagePath="buildTransitive\Images\"/>
+		<!--<None Include="Resources\Images\minus.png">
+			<Pack>True</Pack>
+			<PackagePath>\buildTransitive\Images\</PackagePath>
+		</None>
+		<None Include="Resources\Images\plus.png">
+			<Pack>True</Pack>
+			<PackagePath>buildTransitive\Images\</PackagePath>
+		</None>-->
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="11.0.0" />
@@ -63,9 +82,9 @@
 	  </MauiXaml>
 	</ItemGroup>
 
-	<ItemGroup>
+	<!--<ItemGroup>
 	  <MauiImage Include="Resources\Images\minus.png" />
 	  <MauiImage Include="Resources\Images\plus.png" />
-	</ItemGroup>
+	</ItemGroup>-->
 
 </Project>
