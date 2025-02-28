@@ -27,7 +27,7 @@
 			</VerticalStackLayout>-->
 
 			<VerticalStackLayout StyleClass="TitleTightVerticalStackStyle">
-				<Label Text="Maui Library Version:" StyleClass="LargeControlLabel"/>
+				<Label Text="DigitalProduction.Maui Library Version:" StyleClass="LargeControlLabel"/>
 				<Label Text="{Binding LibraryVersion}" StyleClass="LargeLabel"/>
 			</VerticalStackLayout>
 
