@@ -1,8 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net9.0-android</TargetFrameworks>
-		<!--<TargetFrameworks>net9.0-ios;net9.0-maccatalyst</TargetFrameworks>-->
+		<TargetFrameworks>net9.0-android;net9.0-ios;net9.0-maccatalyst</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net9.0-tizen</TargetFrameworks> -->
@@ -17,56 +16,45 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
-
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Title>DigitalProduction.Maui.Images</Title>
+		<Description>A collection of common images used in .Net Maui projects.</Description>
+		<Copyright>Lance A. Endres</Copyright>
 		<PackageProjectUrl>https://github.com/lendres/DigitalProduction.Maui</PackageProjectUrl>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/lendres/DigitalProduction.Maui</RepositoryUrl>
-		<PackageTags>.Net, Maui, menu, dynamic, programmatically</PackageTags>
+		<PackageTags>maui; png; svg</PackageTags>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<Version></Version>
 		<Authors>Lance A. Endres</Authors>
-		<Title>$(AssemblyName)</Title>
 	</PropertyGroup>
-
-	<ItemGroup>
-		<!-- Custom Fonts -->
-		<MauiFont Include="Resources\Fonts\*" />
-	</ItemGroup>
 
 	<!-- Import information from the folder containing the project if the files exists -->
 	<Import Project="$(MSBuildProjectDirectory)/Publishing/Assembly.props" Condition="Exists('$(MSBuildProjectDirectory)/Publishing/Assembly.props')" />
 	<Import Project="$(MSBuildProjectDirectory)/Publishing/Version.props" Condition="Exists('$(MSBuildProjectDirectory)/Publishing/Version.props')" />
+
 	<ItemGroup>
-	  <None Remove="Resources\Images\minusplus.psd" />
-	</ItemGroup>
-	<ItemGroup>
-	  <None Include="..\..\LICENSE">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
-	  <None Include="..\..\README.md">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
-	</ItemGroup>
-	<ItemGroup>
-		<None Include="DigitalProduction.Maui.targets" Pack="True" PackagePath="buildTransitive\"/>
-	</ItemGroup>
-	<ItemGroup>
-		<None Include="Resources\Images\minus.png" Pack="True" PackagePath="buildTransitive\Images\"/>
-		<None Include="Resources\Images\plus.png" Pack="True" PackagePath="buildTransitive\Images\"/>
+		<None Include="..\..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Maui" Version="11.0.0" />
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
-		<PackageReference Include="DigitalProduction.Net" Version="0.7.0" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.30" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Controls\Stepper.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
+		<None Include="DigitalProduction.Maui.Images.targets" Pack="True" PackagePath="buildTransitive\" />
 	</ItemGroup>
+	<ItemGroup>
+		<None Include="Resources\Images\minus.png" Pack="True" PackagePath="buildTransitive\Images\" />
+		<None Include="Resources\Images\plus.png" Pack="True" PackagePath="buildTransitive\Images\" />
+	</ItemGroup>
+
 </Project>
