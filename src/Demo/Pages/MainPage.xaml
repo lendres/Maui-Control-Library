@@ -16,6 +16,22 @@
 
 			<Label Text="{Binding Product}" Style="{StaticResource SubHeadline}"/>
 
+			<!--<HorizontalStackLayout Spacing="20">
+				<Image
+					x:Name="MinusImage"
+					Source="minus.png"
+					HeightRequest="40"
+					Aspect="AspectFit"/>
+				<Image
+					Source="dotnet_bot.png"
+					HeightRequest="50"
+					Aspect="AspectFit"/>
+				<Image
+					Source="plus.png"
+					HeightRequest="40"
+					Aspect="AspectFit"/>
+			</HorizontalStackLayout>-->
+
 			<VerticalStackLayout StyleClass="TitleTightVerticalStackStyle">
 				<Label Text="Author(s):" StyleClass="LargeControlLabel"/>
 				<Label Text="{Binding Authors}" StyleClass="LargeLabel"/>
@@ -27,7 +43,7 @@
 			</VerticalStackLayout>-->
 
 			<VerticalStackLayout StyleClass="TitleTightVerticalStackStyle">
-				<Label Text="Maui Library Version:" StyleClass="LargeControlLabel"/>
+				<Label Text="DigitalProduction.Maui Library Version:" StyleClass="LargeControlLabel"/>
 				<Label Text="{Binding LibraryVersion}" StyleClass="LargeLabel"/>
 			</VerticalStackLayout>
 
