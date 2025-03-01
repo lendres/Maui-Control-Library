@@ -26,6 +26,8 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<Version></Version>
+		<Authors>Lance A. Endres</Authors>
 	</PropertyGroup>
 
 	<!-- Import information from the folder containing the project if the files exists -->
@@ -46,8 +48,12 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 	</ItemGroup>
+
 	<ItemGroup>
-		<None Include="Resources\Images\minus.png" />
+		<None Include="DigitalProduction.Maui.Images.targets" Pack="True" PackagePath="buildTransitive\" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="Resources\Images\minus.png" Pack="True" PackagePath="buildTransitive\Images\" />
 		<None Include="Resources\Images\plus.png" Pack="True" PackagePath="buildTransitive\Images\" />
 	</ItemGroup>
 
