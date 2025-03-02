@@ -11,19 +11,9 @@
 			Grid.Column="0"
 			x:Name="MinusButton"
 			Clicked="OnMinusButtonClicked"
+			Source="minus_white.png"
 			VerticalOptions="Center"
-			HorizontalOptions="End"
-			Source="minus.png">
-			<!--<ImageButton.Behaviors>
-				<mct:IconTintColorBehavior TintColor="#FFFFFF"/>
-			</ImageButton.Behaviors>-->
-			<!--<ImageButton.Source>
-				<FontImageSource  
-					Glyph="{x:Static resources:FontAwesomeSolid.Minus}" 
-					FontFamily="FontAwesomeSolid" 
-					Color="White"/>
-			</ImageButton.Source>-->
-		</dpcontrols:StepperButton>
+			HorizontalOptions="End"/>
 		<dpcontrols:StepperLabel
 			Grid.Column="1"
 			x:Name="ValueLabel"
@@ -34,18 +24,8 @@
 			Grid.Column="2"
 			x:Name="PlusButton"
 			Clicked="OnPlusButtonClicked"
+			Source="plus_white.png"
 			VerticalOptions="Center"
-			HorizontalOptions="Start"
-			Source="plus.png">
-			<!--<ImageButton.Behaviors>
-				<mct:IconTintColorBehavior TintColor="#FFFFFF"/>
-			</ImageButton.Behaviors>-->
-			<!--<ImageButton.Source>
-				<FontImageSource
-					Glyph="{x:Static resources:FontAwesomeSolid.Plus}" 
-					FontFamily="FontAwesomeSolid" 
-					Color="White"/>
-			</ImageButton.Source>-->
-		</dpcontrols:StepperButton>
+			HorizontalOptions="Start"/>
 	</Grid>
 </ContentView>

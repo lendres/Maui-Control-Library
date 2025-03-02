@@ -16,7 +16,7 @@
 			<Setter Property="WidthRequest" Value="24"/>
 			<Setter Property="HeightRequest" Value="24"/>
 			<Setter Property="CornerRadius" Value="12"/>
-			<Setter Property="IconColor" Value="Red"/>
+			<!--<Setter Property="IconColor" Value="Red"/>-->
 			<!--<Setter Property="Background" Value="Bisque"/>-->
 		</Style>
 		<Style TargetType="dpcontrols:StepperLabel" BasedOn="{StaticResource StepperLabelBaseStyle}" x:Key="GreenStepperLabelStyle">

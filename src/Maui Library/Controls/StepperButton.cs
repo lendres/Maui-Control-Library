@@ -22,8 +22,11 @@ public partial class StepperButton : ImageButton
             {
                 return;
             }
-			IconTintColorBehavior iconTintColorBehavior = (IconTintColorBehavior)self.Behaviors.First();
-			iconTintColorBehavior.TintColor = newColor;
+			if (self.Behaviors.Count > 0)
+			{
+				IconTintColorBehavior iconTintColorBehavior = (IconTintColorBehavior)self.Behaviors.First();
+				iconTintColorBehavior.TintColor = newColor;
+			}
 		}
 	);
 
