@@ -82,6 +82,8 @@ public class RecentPathsManagerService : IRecentPathsManagerService
 		set => Preferences.Default.Set(StorageName("Remove Not Found Paths"), value);
 	}
 
+	public string TopPath => _paths[0];
+
 	#endregion
 
 	#region Private Methods

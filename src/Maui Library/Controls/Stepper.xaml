@@ -7,45 +7,23 @@
 	xmlns:resources="clr-namespace:DigitalProduction.Maui.Resources"
 	x:Class="DigitalProduction.Maui.Controls.Stepper">
 	<Grid ColumnDefinitions="auto,auto,auto">
-		<dpcontrols:StepperButton
+		<dpcontrols:MinusButton
 			Grid.Column="0"
 			x:Name="MinusButton"
 			Clicked="OnMinusButtonClicked"
 			VerticalOptions="Center"
-			HorizontalOptions="End"
-			Source="minus.png">
-			<!--<ImageButton.Behaviors>
-				<mct:IconTintColorBehavior TintColor="#FFFFFF"/>
-			</ImageButton.Behaviors>-->
-			<!--<ImageButton.Source>
-				<FontImageSource  
-					Glyph="{x:Static resources:FontAwesomeSolid.Minus}" 
-					FontFamily="FontAwesomeSolid" 
-					Color="White"/>
-			</ImageButton.Source>-->
-		</dpcontrols:StepperButton>
+			HorizontalOptions="End"/>
 		<dpcontrols:StepperLabel
 			Grid.Column="1"
 			x:Name="ValueLabel"
 			HorizontalTextAlignment="Center"
 			VerticalOptions="Center"
 			HorizontalOptions="Center"/>
-		<dpcontrols:StepperButton
+		<dpcontrols:PlusButton
 			Grid.Column="2"
 			x:Name="PlusButton"
 			Clicked="OnPlusButtonClicked"
 			VerticalOptions="Center"
-			HorizontalOptions="Start"
-			Source="plus.png">
-			<!--<ImageButton.Behaviors>
-				<mct:IconTintColorBehavior TintColor="#FFFFFF"/>
-			</ImageButton.Behaviors>-->
-			<!--<ImageButton.Source>
-				<FontImageSource
-					Glyph="{x:Static resources:FontAwesomeSolid.Plus}" 
-					FontFamily="FontAwesomeSolid" 
-					Color="White"/>
-			</ImageButton.Source>-->
-		</dpcontrols:StepperButton>
+			HorizontalOptions="Start"/>
 	</Grid>
 </ContentView>
