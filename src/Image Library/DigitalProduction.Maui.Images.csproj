@@ -53,8 +53,17 @@
 		<None Include="DigitalProduction.Maui.Images.targets" Pack="True" PackagePath="buildTransitive\" />
 	</ItemGroup>
 	<ItemGroup>
-		<None Include="Resources\Images\minus.png" Pack="True" PackagePath="buildTransitive\Images\" />
-		<None Include="Resources\Images\plus.png" Pack="True" PackagePath="buildTransitive\Images\" />
+		<None Include="Resources\Images\minus_black.png" Pack="True" PackagePath="buildTransitive\Images\" />
+		<None Include="Resources\Images\plus_black.png" Pack="True" PackagePath="buildTransitive\Images\" />
+		<None Include="Resources\Images\minus_gray600.png" Pack="True" PackagePath="buildTransitive\Images\" />
+		<None Include="Resources\Images\plus_gray600.png" Pack="True" PackagePath="buildTransitive\Images\" />
+		<None Include="Resources\Images\minus_gray500.png" Pack="True" PackagePath="buildTransitive\Images\" />
+		<None Include="Resources\Images\plus_gray500.png" Pack="True" PackagePath="buildTransitive\Images\" />
+		<None Include="Resources\Images\minus_gray400.png" Pack="True" PackagePath="buildTransitive\Images\" />
+		<None Include="Resources\Images\plus_gray400.png" Pack="True" PackagePath="buildTransitive\Images\" />
+		<None Include="Resources\Images\minus_gray300.png" Pack="True" PackagePath="buildTransitive\Images\" />
+		<None Include="Resources\Images\plus_gray300.png" Pack="True" PackagePath="buildTransitive\Images\" />
+		<None Include="Resources\Images\minus_white.png" Pack="True" PackagePath="buildTransitive\Images\" />
+		<None Include="Resources\Images\plus_white.png" Pack="True" PackagePath="buildTransitive\Images\" />
 	</ItemGroup>
-
 </Project>

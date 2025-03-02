@@ -1,6 +1,16 @@
 ﻿<Project>
 	<ItemGroup>
-		<MauiImage Include="$(MSBuildThisFileDirectory)\Images\minus.png"/>
-		<MauiImage Include="$(MSBuildThisFileDirectory)\Images\plus.png"/>
+		<MauiImage Include="$(MSBuildThisFileDirectory)\Images\minus_black.png"/>
+		<MauiImage Include="$(MSBuildThisFileDirectory)\Images\plus_black.png"/>
+		<MauiImage Include="$(MSBuildThisFileDirectory)\Images\minus_gray600.png"/>
+		<MauiImage Include="$(MSBuildThisFileDirectory)\Images\plus_gray600.png"/>
+		<MauiImage Include="$(MSBuildThisFileDirectory)\Images\minus_gray500.png"/>
+		<MauiImage Include="$(MSBuildThisFileDirectory)\Images\plus_gray500.png"/>
+		<MauiImage Include="$(MSBuildThisFileDirectory)\Images\minus_gray400.png"/>
+		<MauiImage Include="$(MSBuildThisFileDirectory)\Images\plus_gray400.png"/>
+		<MauiImage Include="$(MSBuildThisFileDirectory)\Images\minus_gray300.png"/>
+		<MauiImage Include="$(MSBuildThisFileDirectory)\Images\plus_gray300.png"/>
+		<MauiImage Include="$(MSBuildThisFileDirectory)\Images\minus_white.png"/>
+		<MauiImage Include="$(MSBuildThisFileDirectory)\Images\plus_white.png"/>
 	</ItemGroup>
 </Project>
