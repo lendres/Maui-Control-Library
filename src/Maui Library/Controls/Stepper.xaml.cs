@@ -131,8 +131,8 @@ public partial class Stepper : ContentView
 		set => SetValue(ValueProperty, value);
 	}
 
-	public static readonly BindableProperty ButtonStyleProperty =
-		BindableProperty.Create(nameof(ButtonStyle), typeof(Style), typeof(Stepper), null,
+	public static readonly BindableProperty MinusButtonStyleProperty =
+		BindableProperty.Create(nameof(MinusButtonStyle), typeof(Style), typeof(Stepper), null,
 		propertyChanged: (bindable, oldObject, newObject) =>
         {
             if (newObject == oldObject || newObject is not Style newStyle || bindable is not Stepper self)
@@ -140,36 +140,31 @@ public partial class Stepper : ContentView
                 return;
             }
 			self.MinusButton.Style = newStyle;
-			//self.MinusButton.Behaviors.First()
+		}
+	);
+
+	public Style MinusButtonStyle
+	{
+		get => (Style)GetValue(MinusButtonStyleProperty);
+		set => SetValue(MinusButtonStyleProperty, value);
+	}
+
+	public static readonly BindableProperty PlusButtonStyleProperty =
+		BindableProperty.Create(nameof(PlusButtonStyle), typeof(Style), typeof(Stepper), null,
+		propertyChanged: (bindable, oldObject, newObject) =>
+        {
+            if (newObject == oldObject || newObject is not Style newStyle || bindable is not Stepper self)
+            {
+                return;
+            }
 			self.PlusButton.Style = newStyle;
 		}
 	);
 
-	public Style ButtonStyle
+	public Style PlusButtonStyle
 	{
-		get => (Style)GetValue(ButtonStyleProperty);
-		set => SetValue(ButtonStyleProperty, value);
-	}
-
-	public static readonly BindableProperty IconColorProperty =
-		BindableProperty.Create(nameof(IconColor), typeof(Color), typeof(Stepper), null,
-		propertyChanged: (bindable, oldObject, newObject) =>
-        {
-            if (newObject == oldObject || newObject is not Color newColor || bindable is not Stepper self)
-            {
-                return;
-            }
-			IconTintColorBehavior iconTintColorBehavior = (IconTintColorBehavior)self.MinusButton.Behaviors.First();
-			iconTintColorBehavior.TintColor = newColor;
-			iconTintColorBehavior = (IconTintColorBehavior)self.PlusButton.Behaviors.First();
-			iconTintColorBehavior.TintColor = newColor;
-		}
-	);
-
-	public Color IconColor
-	{
-		get => (Color)GetValue(IconColorProperty);
-		set => SetValue(IconColorProperty, value);
+		get => (Style)GetValue(PlusButtonStyleProperty);
+		set => SetValue(PlusButtonStyleProperty, value);
 	}
 
 	public static readonly BindableProperty LabelStyleProperty =
