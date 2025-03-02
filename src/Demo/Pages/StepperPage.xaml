@@ -12,12 +12,15 @@
 	Title="Dynamic Menus">
 
 	<ContentPage.Resources>
-		<Style TargetType="dpcontrols:StepperButton" BasedOn="{StaticResource StepperButtonBaseStyle}" x:Key="RoundStepperButtonStyle">
+		<Style TargetType="dpcontrols:MinusButton" BasedOn="{StaticResource MinusButtonBaseStyle}" x:Key="RoundMinusButtonStyle">
 			<Setter Property="WidthRequest" Value="24"/>
 			<Setter Property="HeightRequest" Value="24"/>
 			<Setter Property="CornerRadius" Value="12"/>
-			<Setter Property="IconColor" Value="Red"/>
-			<!--<Setter Property="Background" Value="Bisque"/>-->
+		</Style>
+		<Style TargetType="dpcontrols:PlusButton" BasedOn="{StaticResource PlusButtonBaseStyle}" x:Key="RoundPlusButtonStyle">
+			<Setter Property="WidthRequest" Value="24"/>
+			<Setter Property="HeightRequest" Value="24"/>
+			<Setter Property="CornerRadius" Value="12"/>
 		</Style>
 		<Style TargetType="dpcontrols:StepperLabel" BasedOn="{StaticResource StepperLabelBaseStyle}" x:Key="GreenStepperLabelStyle">
 			<Setter Property="TextColor" Value="Green"/>
@@ -111,7 +114,8 @@
 				Minimum="{Binding Minimum}"
 				Maximum="{Binding Maximum}"
 				Value="{Binding Value}"
-				ButtonStyle="{StaticResource RoundStepperButtonStyle}"
+				MinusButtonStyle="{StaticResource RoundMinusButtonStyle}"
+				PlusButtonStyle="{StaticResource RoundPlusButtonStyle}"
 				LabelStyle="{StaticResource GreenStepperLabelStyle}"/>
 
 		</VerticalStackLayout>
