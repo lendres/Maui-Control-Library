@@ -5,6 +5,7 @@
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:pages="clr-namespace:DigitalProduction.Demo.Pages"
 	xmlns:dpcontrols="clr-namespace:DigitalProduction.Maui.Controls;assembly=DigitalProduction.Maui"
+	xmlns:resources="clr-namespace:DigitalProduction.Maui.Resources;assembly=DigitalProduction.Maui"
     x:Class="DigitalProduction.Demo.Pages.StepperPage"
     xmlns:viewmodel="clr-namespace:DigitalProduction.Demo.ViewModels"
     x:TypeArguments="viewmodel:StepperPageViewModel"
@@ -86,6 +87,19 @@
 					</Picker.ItemsSource>
 				</Picker>
 			</Grid>
+
+			<ImageButton
+				HorizontalOptions="Center"
+				HeightRequest="32"
+				WidthRequest="230">
+				<ImageButton.Source>
+					<FontImageSource  
+					Glyph="{x:Static resources:FontAwesomeSolid.Minus}" 
+					FontFamily="FontAwesomeSolid" 
+					Color="White"
+					Size="30"/>
+				</ImageButton.Source>
+			</ImageButton>
 
 			<Button
 				HorizontalOptions="Center"

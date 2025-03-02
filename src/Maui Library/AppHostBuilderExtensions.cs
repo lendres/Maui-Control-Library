@@ -17,7 +17,8 @@ public static class AppHostBuilderExtensions
 		builder.UseMauiCommunityToolkit();
         builder.ConfigureFonts(fonts =>
         {
-            fonts.AddFont("fa_solid.ttf", "FontAwesomeSolid");
+            //fonts.AddFont("fa_solid.ttf", "FontAwesomeSolid");
+			fonts.AddFont("FontAwesomeSolid900.oft", "FontAwesomeSolid");
         });
 
         return builder;

@@ -6,12 +6,12 @@ public partial class StepperButton : ImageButton
 {
 	public StepperButton()
 	{
-		Behaviors.Add(
-			new IconTintColorBehavior()
-			{
-				TintColor = new Color(255, 255, 255)
-			}
-		);
+		//Behaviors.Add(
+		//	new IconTintColorBehavior()
+		//	{
+		//		TintColor = new Color(255, 255, 255)
+		//	}
+		//);
 	}
 
 	public static readonly BindableProperty IconColorProperty =
@@ -22,8 +22,8 @@ public partial class StepperButton : ImageButton
             {
                 return;
             }
-			IconTintColorBehavior iconTintColorBehavior = (IconTintColorBehavior)self.Behaviors.First();
-			iconTintColorBehavior.TintColor = newColor;
+			//IconTintColorBehavior iconTintColorBehavior = (IconTintColorBehavior)self.Behaviors.First();
+			//iconTintColorBehavior.TintColor = newColor;
 		}
 	);
 

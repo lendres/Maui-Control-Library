@@ -12,17 +12,18 @@
 			x:Name="MinusButton"
 			Clicked="OnMinusButtonClicked"
 			VerticalOptions="Center"
-			HorizontalOptions="End"
-			Source="minus.png">
+			HorizontalOptions="End"	>
+			<!--Source="minus.png"-->
 			<!--<ImageButton.Behaviors>
 				<mct:IconTintColorBehavior TintColor="#FFFFFF"/>
 			</ImageButton.Behaviors>-->
-			<!--<ImageButton.Source>
+			<ImageButton.Source>
 				<FontImageSource  
 					Glyph="{x:Static resources:FontAwesomeSolid.Minus}" 
 					FontFamily="FontAwesomeSolid" 
-					Color="White"/>
-			</ImageButton.Source>-->
+					Color="White"
+					Size="30"/>
+			</ImageButton.Source>
 		</dpcontrols:StepperButton>
 		<dpcontrols:StepperLabel
 			Grid.Column="1"
@@ -37,9 +38,9 @@
 			VerticalOptions="Center"
 			HorizontalOptions="Start"
 			Source="plus.png">
-			<!--<ImageButton.Behaviors>
+			<ImageButton.Behaviors>
 				<mct:IconTintColorBehavior TintColor="#FFFFFF"/>
-			</ImageButton.Behaviors>-->
+			</ImageButton.Behaviors>
 			<!--<ImageButton.Source>
 				<FontImageSource
 					Glyph="{x:Static resources:FontAwesomeSolid.Plus}" 
